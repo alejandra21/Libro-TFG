@@ -1,0 +1,201 @@
+\chapter{Arquitectura del IDS}
+\label{capitulo3}
+\lhead{Capítulo 3. \emph{Diseño del sistema}}
+
+En esta sección se explicará la arquitectura y el diseño del IDS implementado. 
+La arquitectura del detector de instrusiones que se muestra en el presente trabajo se basa en una arquitectura modular.
+
+Este consta de tres modulos. Un modulo para realizar la segmentación de los URIs, otro modulo para realizar la evaluación y un último modulo para realizar el entrenamiento y de esta forma crear un modelo de normalidad.
+
+A grandes rasgos, el modulo de segmentación se encargará de tomar el URI que proviene de la solicitud de tipo GET que se le hace al servidor HTTP, lo normalizará, lo segmentará siguiendo las especificaciones del RFC (insertar nombre del RFC) y lo almacenará en una estructura de datos para que de esta forma pueda ser utilizado en los otros dos modulos.
+
+Por otra parte, el modulo de evaluación se encargará de evaluar la probabilidad de generación de cada uno de los segmentos del URI generados por el modulo de segmentación para al final decidir si el URI de la solicitud enviada al servidor de tipo HTTP es anómalo o no.
+
+Por último, el modulo de entrenamiento será el encargado de crear el modelo de normalidad del sistema. Para esto, el sistema recibirá solicitudes libres de ataques e irá calculando la probabilidad de aparición de cada una de las palabras que aparecen en las mismas.
+
+\section{Modulo de segmentación}
+
+Como se mencionó con anterioridad, el modulo de segmentación es el que se encarga de segmentar los URIs recibidos en las solicitudes de tipo GET o HEAD por el servidor de tipo HTTP. Pero antes de segmentar el URI, es necesario normalizarlo. Es por ello, que a continuación se describirá como es el proceso tanto de normalización como de segmentación de un URI.
+
+\subsection{Normalización de los URIs}
+
+La normalización de los URIs es un paso importante dentro del modulo de segmentación ya que mediante este paso es posible estandarizar todas las posibles formas en las que se puede escribir un URI en una para de este modo facilitar tanto la evaluación como el entrenamiento en el sistema.
+
+La normalización en pocas palabras, consiste en tomar el URL en el formato en el que viene y codificarlo al formato de tipo UTF-8. Este paso evitará inconvenientes al momento de guardar palabras o frases que sean iguales de manera doble en el diccionario solo porque las mismas estan codificadas siguiendo diferentes formatos.
+
+Un ejemplo sencillo de lo que se haría en la normalización del sistema se mostrará a continuación:
+
+Supongamos que al servidor de tipo HTTM le llega una petición de tipo GET con el siguiente URL:
+https://192.168.0.23?q=security+network
+
+Pero luego de un tiempo este mismo servidor recibe otra solicitud tipo GET con el siguiente URL:
+
+https://192.168.0.23?q=security\%20network
+
+Es claro que ambos URL poseen la misma información, y que a grandes rasgos se podría decir que son iguales. No obstante, el espacio en blanco esta codificado de manera diferente en cada uno de los dos. Esto significa que si no se normalizan los URIs la palabra "security+network" y "security\%20network" serían dos palabras totalmente disferentes dentro del vocabulario del sistema cuando no debería ser así. Entonces, en este caso, se normalizaría el primer URI para que el mismo este codificado en formato UTF-8 para que de esta forma se parezca al segundo URI (https://192.168.0.23?q=security\%20network). Así, la frase "security+network" pasaría a ser  "security\%20network".
+
+
+\subsection{Segmentación de los URIs}
+
+Para la implementación del detector de instrusiones que se explica en el presente trabajo es de suma importancia realizar la segmentación y almacenamiento de los URIs que vienen adjuntos en las solicitudes que se le realizan al servidor HTTP. 
+
+La idea del segmentador de URI es considerar una serie de delimitadores, que delimitan areas especificas dentro del URI y almacenar cada uno de los tokens que son divididos por estos de forma organizada en una estructura de datos.
+
+Los delimitadores que se tomarán en cuenta para segmentar serán los asociados al estándar del protocolo HTTP. Estos son los siguientes:
+
+\begin{itemize}
+\item D1 = ://, delimitador de protocolo.
+\item D2 = /, delimitador de recursos.
+\item D3 = ?, delimitador de parámetros.
+\item D4 = =, delimitador de asignación de atributos.
+\item D5 = \&, delimitador entre parametros.
+\item D6 = ASCII 32, delimitador de fin de recurso
+\end{itemize}
+
+A modo ilustrativo, se utilizará un ejemplo concreto con un URI para mostrar como funciona la segmentación en el sistema.
+
+Supongamos que tenemos el siguiente URI:
+
+http://159.90.9.166/consulta/?manifestacion=Pinturas+Rupestres
+
+Entonces, la función que se encarga de segmentar tomará dicho URI y lo segmentará en las siguientes partes:
+
+\begin{itemize}
+\item http : Esta primera parte corresponderá al segmento de protocolo. 
+\item 159.90.9.166 : Esta segunda parte será el segmento del host. 
+\item consulta : Esta tercera parte vendría siendo parte del segmento de recursos.
+\item manifestacion :Esta parte correspondería al atributo
+\item Pinturas\%20Rupestres : Esta parte corresponde al valor.  
+\end{itemize}
+
+Cada uno de los segmentos serán almacenados en una estructura de datos para ser utilizados posteriormente en el sistema.
+
+\section{Modulo de evaluación}
+
+Este modulo, como se mencionó con anterioridad es el encargado de evaluar la probabilidad de generación de cada uno de los segmentos del URI dado un modelo de normalidad. Una vez calculadas estas probabilidades, el modulo se encargará de calcular un indice de anormalidad del URI mediante el uso de las formulas descritas en la sección (inserte número de la sección) para luego comparar dicho valor obtenido con un parámetro $\theta$. Si el indice de anormalidad es mayor o igual que el parametro $\theta$, entonces se dirá que el URI es anomalo. Por el contrario, si el indice de anormalidad es menor que dicho parámetro, entonces, se podría decir que el URI no posee anomalías.
+
+\subsection{Expresiones para calcular indice de anormalidad}
+
+
+Dado un conjuntos de observaciones $0 = o1,o2,...,oT$. Cada una pertenecientes a los estados $Q = q1,q2,..,qT$. En principio, se puede realizar la evaluación de un URI, dado un modelo $\lambda$,  calculando la probabilidad del conjunto completo de observaciones O del modelo $\lambda$ siguiendo el patrón de la secuencia de estados Q. Es decir:
+
+\begin{equation}
+P(O|\lambda,Q) = \pi_{q1}b_{q1o1}\prod_{t=1}^{T-1}a_{q_{t}q_{t+1}}b_{q_{t+1}o_{t+1}}
+\end{equation}
+
+Para evitar problemas de desbordamiento de calcula el logaritmo de la probabilidad en lugar de la probabilidad.
+
+\begin{equation}
+log(P(O|\lambda,Q)) = log(\pi_{q1}b_{q1o1}\prod_{t=1}^{T-1}a_{q_{t}q_{t+1}}b_{q_{t+1}o_{t+1}})
+\end{equation}
+
+Si se considera que las probabilidades iniciales son cero excepto para S1 y que las probabilidades de transición son equivalentes a 1. Entonces, se tendría que la fórmula presentada en (inserte número de la fórmula anterior)  se podría resumir en la siguiente:
+
+\begin{equation}
+P(O|\lambda,Q) = \sum_{t=1}^{T}b_{q_{t}o_{t}}
+\end{equation}
+
+Entonces, en primera instancia se podría decir que el índice de anormalidad de un URI U, dado un modelo $\lambda$, se puede obtener de la siguiente forma:
+
+\begin{equation}
+N_{s} = -log(P(U|\lambda))
+\end{equation}
+
+La fórmula nombrada con anterioridad será aplicada sólo si el URI U llega al estado final Sf, de otra manera al índice de anormalidad Ns se le será asignado $\infty$, es decir
+
+\begin{equation}
+N_{s} = 
+	\begin{cases} 
+      -log(P(U|\lambda)) & $si $  q_{t} = S_{f} \\
+      \infty & $si $  q_{t} \neq S_{f} \\ 
+   \end{cases}
+\end{equation}
+
+
+Como se puede observar en la fórmula presentada con anterioridad, mientras menor sea la probabilidad de aparición de las observaciones, mayor será el índice de anormalidad, por esta razón, una vez calculado el índice, se podría decir que un URI U es anómalo, si el índice de anormalidad es mayor o igual a un umbral de detección $\theta$ de lo contrario se dirá que el URI no posee anomalías, esto es:
+
+\begin{equation}
+Clase(U) = 
+	\begin{cases} 
+      Normal & $si $  N_{s}(U) \leq \theta \\
+      Anomalo & $si $  N_{s}(U) > \theta \\ 
+   \end{cases}
+\end{equation}
+
+
+El umbral de detección es un parámetro que se calcula de forma experimental. Durante la pruebas se busca conseguir un valor $\theta$ con el cual se pueda obtener la proporción óptima entre las detecciones de anomalías correctas y los falsos positivos. 
+
+
+No obstante, la fórmula presentada en el apartado (insertar número de la fórmula) posee algunos inconvenientes ya que no se estipula el caso en el que existan problemas de entrenamiento insuficiente que será presentado en la sección (inserte número de la sección) o que los diferentes vectores B, tengan diferente número de observaciones. El segundo caso provoca un inconveniente a la hora de realizar la evaluación ya que el acumulado de las probabilidades de los vectores B estarán ligados a la longitud de los mismos. Para solucionar dicho problema se utilizara la propuesta de Estévez [Estévez-Tapiador 2004a], en el que se establece como factor de compensación la probabilidad de observación para de esta manera obtener una probabilidad normalizada. Esta sería la siguiente expresión:
+
+\begin{equation}
+\varepsilon_{0} = E[B] = \frac{1}{M}\sum_{i=1}^{M}b_{i}
+\end{equation}
+
+El entrenamiento insuficiente es un problema que se presenta cuando se toma una palabra durante la evaluación que no pertenezca al conjunto de palabras observadas durante el entrenamiento en el modelo. Esto puede ser debido a que la palabra es una palabra anómala o que no se entrenó lo suficiente al sistema. En este caso, la solución que se le aplicará a dicho problema será la de asignar un valor fijo de probabilidad muy baja a estos casos ( poov(Si): probabilidad de out of vocabulary) . Cada uno de los estados del modelo poseerá valores independientes de probabilidades que serán utilizados una vez se detecte este problema.
+
+El otro caso en el que se utilizarán los valores de poov(Si), es cuando la probabilidad de una palabra que está en el vocabulario es inferior al poov(Si), es decir:
+
+
+\begin{equation}
+p_{qtot} = 
+	\begin{cases} 
+      b_{qtot} & $si $  o_{t} \in O $ y $ b_{qtot} > p_{oov}(q_{t})\\
+      p_{oov} & $en otro caso$ \\ 
+   \end{cases}
+\end{equation}
+
+
+Entonces, la nueva expresión del índice de anormalidad que toma en cuenta todas las consideraciones nombradas con anterioridad, es la siguiente
+
+\begin{equation}
+N_{s} = 
+	\begin{cases} 
+      -Tlog(\varepsilon_{0})\sum_{t=1}^{T}log(p_{qtot}) & $si $  q_{t} = S_{f} \\
+      \infty & $si $  q_{t} \neq S_{f} \\ 
+   \end{cases}
+\end{equation}
+
+\subsection{Elementos adicionales del modelo}
+\subsection*{Entrenamiento insuficiente}
+\section{Modulo de entrenamiento}
+
+El módulo de entrenamiento será el encargado de crear el modelo de normalidad del sistema, es decir, este módulo dará el conjunto de vocabulario junto con la probabilidad de observación de cada una de las observaciones. Para esto, el sistema recibirá solicitudes libres de ataques e irá calculando la probabilidad de aparición de cada una de las palabras que aparecen en las mismas.
+
+\subsection{Expresiones usadas en el modulo de entrenamiento}
+
+Como se dijo con anterioridad, este módulo será el encargado de armar el vocabulario del módulo de normalidad del sistema. A grandes, el módulo de entrenamiento tomará un conjunto de solicitudes libres de ataques, las segmentará, para luego calcular la probabilidad de aparición de las palabras en el conjunto de observaciones totales de cada uno de los estados. En términos más formales, la  tarea que realiza este módulo se puede modelar de la siguiente forma:
+
+Dada una secuencia de observaciones 0 = o1,o2,...,oT ,y  su correspondiente secuencia de estados, Q = q1,q2,...,qT.
+
+El entrenamiento requiere de un conjunto considerable de observaciones  junto con los estados asociados a cada una de ellas.
+
+Por lo tanto, se considerara un conjunto de entrenamiento (omega) de L pares de secuencias de estados
+
+\begin{equation}
+\omega = {(O^{1},Q^{1}),(O^{2},Q^{2}),...,(O^{L},Q^{L})}
+\end{equation}
+
+Tal que
+
+\begin{equation}
+\begin{aligned}
+O^{i} = {o_{1}^{i},o_{1}^{i},...,o_{Ti}^{i}} \\
+Q^{i} = {q_{1}^{i},q_{2}^{i},...,q_{Ti}^{i}}
+\end{aligned}
+\end{equation}
+
+Entonces, para crear el vocabulario del modelo de normalidad solo se tendrá que un recuento de las frecuencias de aparición relativas de los símbolos y los estados. Es decir:
+
+La expresión para el vocabulario sería la siguiente:
+
+\begin{equation}
+\theta_{Sk} = \bigcup\limits_{i=1}^{L} {o_{j}^{i}|q_{j}^{i} = S_{k}}
+\end{equation}
+
+Para calcular la probabilidades de observación se utilizaría la siguiente expresión:
+
+\begin{equation}
+b_{ij} = \frac{\sum_{s=1}^{L}\sum_{t=1}^{Ts}\delta(o_{t}^{s} = v_{i,j} ,q_{t}^{s} = s_{i} )}{\sum_{s=1}^{L}\sum_{t=1}^{Ts}\delta(q_{t}^{s} = s_{i}) }
+\end{equation}
+

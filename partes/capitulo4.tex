@@ -1,0 +1,88 @@
+\chapter{Detalles de implementación}
+
+En el capítulo anterior se pudo apreciar la arquitectura del IDS que se desea implementar haciendo uso del lenguaje de scripting de Bro. Allí se pudo observar que el mismo está constituido básicamente por tres módulos fundamentale: un módulo de segmentación que se encarga de normalizar y segmentar el URI. Un módulo de evaluación que se encargará de evaluar la probabilidad de generación de un URI dado un modelo de normalidad para así clasificar el mismo como normal o anormal y un módulo de entrenamiento cuyo trabajo será crear modelos de normalidad dados un conjunto significante de URI sin alguna anormalidad.
+
+A continuación se explicará las estructuras de datos utilizadas y como se realizó la implementación de cada uno de los módulos mencionados anteriormente haciendo uso de las herramientas presentadas por el lenguaje de scripting de Bro.
+
+\label{capitulo4}
+\lhead{Capítulo 4. \emph{Detalles de implementación}}
+\section{Implementación del modulo de segmentación}
+
+A continuación se explicará de manera detallada la implementación del módulo de segmentación y las estructuras de datos utilizadas en el mismo. Este módulo forma parte de los tres que conforman el sistema de detección de intrusiones basado en SSM. En el capítulo anterior se pudo apreciar la arquitectura del módulo de segmentación. Además, se pudo observar que el mismo consta de dos funcionalidades fundamentales: la normalización de los URIs y la segmentación. A grandes rasgos, la normalización se encargará de tomar el URI de las peticiones HTTP entrantes y codificarlo a formato UTF-8, el output arrojado por esta función será tomado por la de segmentación, quien a su vez se encargará de segmentar el URI de la forma en la que se explica en la sección (inserte número de la sección), es decir, el URI se dividirá en las diferentes partes estipuladas en el RFC (insertar número del RFC): el host, el path, los argumentos, los valores y el fragment. Estos segmentos obtenidos luego ser almacenados en una estructura de datos global para que de esta forma, la información obtenida pueda ser utilizada por el resto de los módulos.
+
+La implementación de la función de normalización que se explicará a continuación está basada en el uso de una hashtable con todos los elementos de una encoding table de tipo UTF-8. Por otra parte, la función de segmentación que teóricamente esta basada en un autómata que reconoce el lenguaje de los URI se implementará tomando la inspiración de una gramática que genere el mismo lenguaje que reconoce el autómata (el lenguaje de los URIs). Esto se puede realizar ya que las gramáticas poseen el mismo nivel de expresividad que un autómata, como se mostrará en la secciones próximas. Además, las herramientas presentadas por el lenguaje de scripting Bro facilitan la implementación de un segmentador inspirado en una gramática.
+
+\subsection{Estructura de datos}
+En el módulo de segmentación existen dos estructuras de datos fundamentales. Una es utilizada en la función de normalización y la otra en la de segmentación.
+
+\textbf{Función de normalización}
+
+La estructura de datos utilizada en la función de normalización es un hashtable que contiene los elementos de un encoding table de tipo UTF-8, en donde las claves de la tabla serían los elementos de tipo UTF-8 y los atributos de las mismas corresponderían a los caracteres sin alguna codificación, ya que lo que se quiere es un diccionario que mapee los elementos de tipo UTF-8 con sus respectivos caracteres lo mas rapido posible.
+
+Se utilizó un hash table para implementar este diccionario debido a que es ampliamente conocido que este tipo de tablas propocionan mucha eficiencia en el tiempo de búsqueda de sus elementos, como lo explica Cormen en su libro: "Introduction to Algoriths":
+
+“Una hash table es una estructura de datos efectiva para implementar diccionarios. A pesar de que la búsqueda de un elemento en una hash table puede tomar el mismo tiempo de búsqueda que una lista enlazada - O(n)/tiempo en el peor de los casos - en la práctica, el mapeo funciona extremadamente bien.  Bajos suposiciones razonable, el tiempo de búsqueda promedio de una hash table es de O(1)”.
+
+Para implementar este tipo de estructura se utilizó el tipo de dato “table” otorgado por el lenguaje de scripting de Bro. Un ejemplo concreto de como luce la estructura de dato implementada en Bro se mostrará a continuación:
+
+\begin{verbatim}
+global encoding : table[string] of string = {    ["%21"] =    "!"     ,
+                                                ["%22"] =    "”"    ,                                        
+                                                ["%23"] =    "#"    ,
+                                                ["%24"] =    "$"    }
+\end{verbatim}
+
+La funcionalidad de esta tabla de codificación será explicada en la sección (insertar sección de implementación de normalización)
+
+
+\textbf{Función de segmentación}
+
+Por otra parte, la estructura de datos utilizada en la función de segmentación de este módulo es un registro en el cual se almacenan todos los segmentos que se originan a partir de la segmentación de un URI, el URI sin segmentar, un booleano que informa si el URI segmentado sigue con la sintaxis establecida en el RFC (insertar número del RFC), y el número de estados que fueron visitados en el autómata presentado en el modelo teórico (insertar número de imagen) para reconocer al mismo .
+
+
+En Bro existen las palabras claves “record” y “type” y se utilizan de forma similar en las que se emplean las palabras claves “typedef” y “struct” en C. Con estas palabras, Bro permite combinar nuevos tipos de datos y crear tipos de datos compuestos para adaptarse a las necesidades de la situación. A continuación, se mostrará un ejemplo de un tipo de dato compuesto escrito en Bro.
+
+Extraído de la documentación de Bro.
+
+\begin{verbatim}
+type Service: record {
+    name: string;
+    ports: set[port];
+    rfc: count;
+};
+\end{verbatim}
+
+Cuando se combina la palabra clave “type”, el registro puede generar un tipo de dato compuesto.
+
+Se escogió un registro para almacenar la información ya que el lenguaje de scripting de Bro solo presenta como alternativa el tipo de dato “record” para crear un tipo de dato compuesto. Es necesario crear este tipo de dato ya que se requiere una estructura que almacene los diferentes tipos de datos de los que se hablaron anteriormente. 
+
+El registro creado esta conformado por los siguientes campos:
+\begin{itemize}
+\item uri: Es una variable de tipo string que almacena el URI sin segmentar. Este campo del registro será utilizado por el módulo de entrenamiento al momento de escribir los logs correspondientes.
+\item host: Es una variable de tipo hash table cuyas claves son número y sus valores  son de tipo string. En esta sección se almacenan los segmentos del URI correspondiente al host.
+\item path: Es una variable de tipo hash table cuyas claves son número y sus valores  son de tipo string. En esta sección se almacenan los segmentos del URI correspondiente al path.
+\item query: Es una variable de tipo hash table cuyas claves y sus valores son de tipo string. En esta sección se almacenan los atributos y los valores del query del URI en caso de que el mismo posea. Los atributos y los valores se almacenarán en una hash table como se mencionó con anterioridad, en donde la clave del mismo serán los atributos del query y en donde los valores de las misma serán los valores del query del URI.
+\item fragment: Es una variable de tipo string que almacenará el fragment del URI en caso de poseerlo.
+\item número de estados: es una variable de tipo entero que almacena el número de estados del autómata que se emplea en el módelo teórico fueron visitados para reconocer el URI. Este campo del registro será utilizado por el módulo de evaluación.
+\item uri correcto: es una variable de tipo booleano que indica si el URI está sintácticamente correcto o no.
+\end{itemize}
+
+El uso de esta estructura y el de cada uno de sus campos se explicara a detalle en las secciones siguientes.
+
+\subsection{Implementación del automata de reconocimiento de URIs}
+Explicar lo que se debe implementar.
+Explicar que los automatas son tan potentes y tienen el mismo nivel de expresividad que una grámatica.
+Explicar que la implementacion se baso en modelar una gramatica con Bro a partir de funciones.
+EXplicar mas o menos como es el funcionamiento.
+Explicar como se guardan los parametros.
+\subsection{Implementación del la normalización de los URIs}
+Explicar que se utilizó la encoding table
+\section{Implementación del modulo de evaluación}
+\subsection{Estructura de datos}
+\subsection{Lectura del modelo de normalidad en Bro}
+\subsection{Evaluación de las probabilidades de los URI}
+\section{Implementación del modulo de entrenamiento}
+\subsection{Estructura de datos}
+\subsection{Entrenamiento Online}
+\subsection{Entrenamiento Offline}
+\subsection{Escritura del modelo de normalidad en Bro}

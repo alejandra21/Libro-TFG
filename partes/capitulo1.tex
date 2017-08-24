@@ -1,0 +1,44 @@
+\chapter{Introducción}
+\label{capitulo1}
+\lhead{Capítulo 1.}
+
+% De qué va a tratar el capítulo
+% El capítulo 1 suele ser el marco teórico.
+
+\section{Objetivos generales}
+\begin{enumerate}
+  \item Implementar un detector de ataques híbrido que haga uso del sistema SSM mediante el uso de la herramienta Bro.
+\end{enumerate}
+
+
+\section{Objetivos especificos}
+
+\begin{enumerate}
+  \item Implementación de una representación de un autómata de estados finito que sirva para evaluar tanto la sintaxis como la probabilidad de generación de una petición del protocolo HTTP.\\
+  \item Desarrollo de un modulo que mida la probabilidad de generación de los segmentos del URI.\\
+  \item Desarrollo de un modulo de entrenamiento con el cual se permita obtener un modelo de normalidad a partir de trafico libre de ataques.\\
+  \item Obtener los valores optimos del los parametros de configuracion del sistema para asi garantizar la menor cantidad de falsos positivos posibles.\\
+\end{enumerate}
+
+\section{Planificación}
+
+El desarrollo de este proyecto se bas\'o en cuatro grandes fases:
+\begin{enumerate}
+\item Conocer el estado  del tema.
+\item Implementación del autómata de reconocimiento de URI's
+\item Realizar los entrenamientos.
+\item Documentación y desarrollo de libro de pasantía.
+\end{enumerate}
+
+En la fase de conocer el estado del arte del tema del proyecto tuvo una duraci\'on de cuatro semanas y durante este tiempo se estudio la documentaci\'on de la herramienta BRO y su lenguaje de scripting. En esta subfase, se aprendi\'o a utilizar tanto la herramienta BRO como a programar haciendo uso de su lenguaje de scripting. Adem\'as, se hizo un estudio sobre los IDS, los tipos de IDS y el sistema SSM. 
+Este fue un paso muy importante dentro de la documentaci\'on ya que el hecho de entender que era un IDS y como funciona un sistema SSM era una base fundamental para la realizaci\'on del proyecto. As\'i mismo, se hizo una lectura del RFC 3986 (URI) y se realiz\'o una pequeña investigaci\'on sobre el protocolo HTTP.\\
+
+Luego de la fase de conocer el estado del arte se procedi\'o a la segunda fase: la implementaci\'on del aut\'omata de reconocimiento de URIs. En esta fase se desarroll\'o el filtro de peticiones GET del protocolo HTTP en el lenguaje de scripting de Bro, y luego se implement\'o un modulo para segmentar los URIs que ven\'ian con las peticiones de tipo GET. Finalmente, se desarroll\'o el modulo de evaluaci\'on cuya funci\'on es la de evaluar la probabilidad de generaci\'on de los segmentos del URI dado un modelo de normalidad. Esta fase dur\'o seis semanas y para ambos modulos implementados se realizaron pruebas funcionales.\\
+
+Despu\'es de culminar la fase anterior se procedi\'o a abordar la fase de realizar los entrenamientos. Esta fase consisti\'o en implementar el modulo de entrenamiento del sistema para poder realizar modelos de normalidad del mismo, obtener paquetes de tipo http haciendo uso de un "sniffer" para realizar un pequeño modelo de normalidad y verificar la correctitud del modulo implementado. Luego se procedi\'o a realizar pruebas con las bases de datos RDB que es una base de datos de ataques, PVHR21 Y PVHR22 que son bases de datos con trazas normales, con la intenci\'on de probar el funcionamiento global del sistema\\
+
+Una vez probada toda la correctitud del sistema se procedi\'o a desarrollo de libro del proyecto de grado. Esta fase consisti\'o en estructurar y redactar el libro del proyecto.
+
+\section{Presupuesto}
+
+
