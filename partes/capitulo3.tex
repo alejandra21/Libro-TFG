@@ -18,6 +18,7 @@ Por último, el modulo de entrenamiento será el encargado de crear el modelo de
 Como se mencionó con anterioridad, el modulo de segmentación es el que se encarga de segmentar los URIs recibidos en las solicitudes de tipo GET o HEAD por el servidor de tipo HTTP. Pero antes de segmentar el URI, es necesario normalizarlo. Es por ello, que a continuación se describirá como es el proceso tanto de normalización como de segmentación de un URI.
 
 \subsection{Normalización de los URIs}
+\label{sec:normalizacion}
 
 La normalización de los URIs es un paso importante dentro del modulo de segmentación ya que mediante este paso es posible estandarizar todas las posibles formas en las que se puede escribir un URI en una para de este modo facilitar tanto la evaluación como el entrenamiento en el sistema.
 
@@ -36,6 +37,7 @@ Es claro que ambos URL poseen la misma información, y que a grandes rasgos se p
 
 
 \subsection{Segmentación de los URIs}
+\label{sec:delimitadores}
 
 Para la implementación del detector de instrusiones que se explica en el presente trabajo es de suma importancia realizar la segmentación y almacenamiento de los URIs que vienen adjuntos en las solicitudes que se le realizan al servidor HTTP. 
 
@@ -71,6 +73,7 @@ Entonces, la función que se encarga de segmentar tomará dicho URI y lo segment
 Cada uno de los segmentos serán almacenados en una estructura de datos para ser utilizados posteriormente en el sistema.
 
 \section{Modulo de evaluación}
+\label{sec:evaluacion}
 
 Este modulo, como se mencionó con anterioridad es el encargado de evaluar la probabilidad de generación de cada uno de los segmentos del URI dado un modelo de normalidad. Una vez calculadas estas probabilidades, el modulo se encargará de calcular un indice de anormalidad del URI mediante el uso de las formulas descritas en la sección (inserte número de la sección) para luego comparar dicho valor obtenido con un parámetro $\theta$. Si el indice de anormalidad es mayor o igual que el parametro $\theta$, entonces se dirá que el URI es anomalo. Por el contrario, si el indice de anormalidad es menor que dicho parámetro, entonces, se podría decir que el URI no posee anomalías.
 
