@@ -117,7 +117,7 @@ N_{s} =
 
 Como se puede observar en la fórmula presentada con anterioridad, mientras menor sea la probabilidad de aparición de las observaciones, mayor será el índice de anormalidad, por esta razón, una vez calculado el índice, se podría decir que un URI U es anómalo, si el índice de anormalidad es mayor o igual a un umbral de detección $\theta$ de lo contrario se dirá que el URI no posee anomalías, esto es:
 
-\begin{equation}
+\begin{equation}\label{eq:ClaseU}
 Clase(U) = 
 	\begin{cases} 
       Normal & $si $  N_{s}(U) \leq \theta \\
@@ -131,7 +131,7 @@ El umbral de detección es un parámetro que se calcula de forma experimental. D
 
 No obstante, la fórmula presentada en el apartado (insertar número de la fórmula) posee algunos inconvenientes ya que no se estipula el caso en el que existan problemas de entrenamiento insuficiente que será presentado en la sección (inserte número de la sección) o que los diferentes vectores B, tengan diferente número de observaciones. El segundo caso provoca un inconveniente a la hora de realizar la evaluación ya que el acumulado de las probabilidades de los vectores B estarán ligados a la longitud de los mismos. Para solucionar dicho problema se utilizara la propuesta de Estévez [Estévez-Tapiador 2004a], en el que se establece como factor de compensación la probabilidad de observación para de esta manera obtener una probabilidad normalizada. Esta sería la siguiente expresión:
 
-\begin{equation}
+\begin{equation}\label{eq:sumB}
 \varepsilon_{0} = E[B] = \frac{1}{M}\sum_{i=1}^{M}b_{i}
 \end{equation}
 
@@ -140,7 +140,7 @@ El entrenamiento insuficiente es un problema que se presenta cuando se toma una 
 El otro caso en el que se utilizarán los valores de poov(Si), es cuando la probabilidad de una palabra que está en el vocabulario es inferior al poov(Si), es decir:
 
 
-\begin{equation}
+\begin{equation}\label{eq:Pqtot}
 p_{qtot} = 
 	\begin{cases} 
       b_{qtot} & $si $  o_{t} \in O $ y $ b_{qtot} > p_{oov}(q_{t})\\
@@ -151,7 +151,7 @@ p_{qtot} =
 
 Entonces, la nueva expresión del índice de anormalidad que toma en cuenta todas las consideraciones nombradas con anterioridad, es la siguiente
 
-\begin{equation}
+\begin{equation}\label{eq:Ns}
 N_{s} = 
 	\begin{cases} 
       -Tlog(\varepsilon_{0})\sum_{t=1}^{T}log(p_{qtot}) & $si $  q_{t} = S_{f} \\
@@ -161,7 +161,7 @@ N_{s} =
 
 \subsection{Elementos adicionales del modelo}
 \subsection*{Entrenamiento insuficiente}
-\section{Modulo de entrenamiento}
+\section{Modulo de entrenamiento}\ref{sec:entrenamiento}
 
 El módulo de entrenamiento será el encargado de crear el modelo de normalidad del sistema, es decir, este módulo dará el conjunto de vocabulario junto con la probabilidad de observación de cada una de las observaciones. Para esto, el sistema recibirá solicitudes libres de ataques e irá calculando la probabilidad de aparición de cada una de las palabras que aparecen en las mismas.
 
@@ -198,7 +198,7 @@ La expresión para el vocabulario sería la siguiente:
 
 Para calcular la probabilidades de observación se utilizaría la siguiente expresión:
 
-\begin{equation}
+\begin{equation}\label{eq:entrenamiento}
 b_{ij} = \frac{\sum_{s=1}^{L}\sum_{t=1}^{Ts}\delta(o_{t}^{s} = v_{i,j} ,q_{t}^{s} = s_{i} )}{\sum_{s=1}^{L}\sum_{t=1}^{Ts}\delta(q_{t}^{s} = s_{i}) }
 \end{equation}
 

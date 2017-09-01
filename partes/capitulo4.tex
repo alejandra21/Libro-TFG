@@ -299,7 +299,7 @@ function normalizarUri(url: string): string {
 \end{verbatim}
         
 \section{Implementación del modulo de evaluación}
-En esta sección se explicará de manera detallada el modo en el que se implementó el módulo de evaluación explicado en la seccion \ref{sec:evaluacion}  haciendo uso de las herramientas otorgadas por Bro junto con las estructuras de datos utilizadas. El módulo de evaluación que a grandes rasgos se encarga de calcular el índice de anormalidad de un URI dado un modelo de normalidad para de esta manera evaluar si el mismo es anómalo o no. Esta evaluación se realizará comparando el índice de anormalidad con un parámetro $\theta$.
+En esta sección se explicará de manera detallada el modo en el que se implementó el módulo de evaluación explicado en la sección \ref{sec:evaluacion}  haciendo uso de las herramientas otorgadas por Bro junto con las estructuras de datos utilizadas. El módulo de evaluación que a grandes rasgos se encarga de calcular el índice de anormalidad de un URI dado un modelo de normalidad para de esta manera evaluar si el mismo es anómalo o no. Esta evaluación se realizará comparando el índice de anormalidad con un parámetro $\theta$.
 
 Para implementar lo que debe hacer el módulo de evaluación, se crearon dos grandes funcionalidades: una que se encargará de leer el modelo de normalidad y  otra que calculará el índice de anormalidad y evaluará si el mismo en anómalo o no. Ambas serán explicadas en las secciones presentadas a continuación.
 
@@ -308,6 +308,7 @@ Para implementar lo que debe hacer el módulo de evaluación, se crearon dos gra
 El módulo de evaluación del sistema cuenta con varias estructura de datos compuestas de tipo “register” y de tipo “table”. La funcionalidad de leer el modelo de normalidad consta de dos estructuras de tipo “table” y dos de tipo “register”, mientras que la que se encarga de calcular el índice de normalidad cuenta con una sola estructura de tipo “table”.
 
 \subsubsection{Lectura del modelo de normalidad}
+\label{sssec:estructuraModelo}
 
 Existen dos estructuras de tipo “register” en la función para leer el modelo de normalidad y dos de tipo “table”.
 Las estructuras de tipo “register” poseen los siguientes campo:
@@ -362,6 +363,8 @@ En la tabla “config” como se mencionó anteriormente se van a almacenar las 
 Los campos “word”, “state” y “probability” no se almacenaron en una sola estructura ya que para leer el modelo de normalidad que estará almacenado en un archivo de texto se hizo uso de una herramienta otorgada por Bro que requiere que exista una estructura de datos  para las claves de la tabla que almacenará la información (en este caso “Btable”) y otra para los valores de la misma.
 
 \subsubsection{Evaluación de las probabilidades de los URI}
+\label{sssec:estructuraEvaluacion}
+
 La función  que se encarga de calcular el índice de anormalidad  y evaluar si el mismo es anómalo o no, solo contiene una estructura compuesta de tipo “record” y se utiliza junto a una herramienta de Bro que funciona para escribir logs. Los logs que son escritos a través de esta herramienta son archivos de texto que contiene una lista de los Uri que presenta anomalías.
 
 La estructura lleva como nombre “InfoAtaque” y contiene los siguientes campos:
@@ -386,7 +389,7 @@ Todos los campos anteriormente descritos poseen la cualidad de ser de tipo “lo
 
 \subsection{Lectura del modelo en Bro}
 \label{sec:lecturaModelo}
-En esta sección se explicará cual es el formato de almacenamiento del modelo de normalidad y como se implementó la lectura del mismo. El modelo teórico que fue explicado en la sección (insertar número de la sección) posee elementos como: un conjunto “S” de estados, un conjunto “O” de símbolos observables que se encuentran en cada estado, una matriz “A” que contiene la probabilidad de transición entre estados, un conjunto “B” de vectores que contiene la probabilidad de las palabras observadas en cada estado y un vector de probabilidades iniciales. No obstante, los únicos elementos del modelo que se necesitan ingresar en sistema para que este funcione y realice las tareas de evaluación son: el conjunto “O” de símbolos observables que se encuentra en cada estado y el conjunto de vectores “B”. El conjunto “B” es necesario para resolver la ecuación (3.7 insertar etiqueta). Por otra parte, es necesario hacer uso tanto de “B” como “O” para obtener el valor de $b_{qtot}$ presentado en la ecuación (3.8 insertar etiqueta). Este elemento es sumamente importante para calcular el índice de anormalidad. Por otra parte, será necesario introducir al sistema los valores de probabilidad de fuera de vocabulario (Poov), ya que son necesarios para obtener el valor de $p_{qtot}$ en caso una cadena de caracteres del URI que se esté analizando no se encuentre en el conjunto de observaciones “O”. Además, se requiere el valor del parámetro $\theta$ para evaluar el índice de anormalidad según lo estipulado en la ecuación (3.6) .
+En esta sección se explicará cual es el formato de almacenamiento del modelo de normalidad y como se implementó la lectura del mismo. El modelo teórico que fue explicado en la sección ~\ref{sec:modeloSSM} posee elementos como: un conjunto “S” de estados, un conjunto “O” de símbolos observables que se encuentran en cada estado, una matriz “A” que contiene la probabilidad de transición entre estados, un conjunto “B” de vectores que contiene la probabilidad de las palabras observadas en cada estado y un vector de probabilidades iniciales. No obstante, los únicos elementos del modelo que se necesitan ingresar en sistema para que este funcione y realice las tareas de evaluación son: el conjunto “O” de símbolos observables que se encuentra en cada estado y el conjunto de vectores “B”. El conjunto “B” es necesario para resolver la expresión \ref{eq:sumB}. Por otra parte, es necesario hacer uso tanto de “B” como “O” para obtener el valor de $b_{qtot}$ presentado en la ecuación \ref{eq:Pqtot}. Este elemento es sumamente importante para calcular el índice de anormalidad. Por otra parte, será necesario introducir al sistema los valores de probabilidad de fuera de vocabulario (Poov), ya que son necesarios para obtener el valor de $p_{qtot}$ en caso una cadena de caracteres del URI que se esté analizando no se encuentre en el conjunto de observaciones “O”. Además, se requiere el valor del parámetro $\theta$ para evaluar el índice de anormalidad según lo estipulado en la ecuación \ref{eq:ClaseU} .
 
     Entonces, en conclusión, los parámetros que requieren ser introducidos al sistema de detección de intrusiones para que este funcione de manera correcta son: el conjunto de observaciones de cada estado (O), el conjunto de vectores de probabilidad de las palabras observadas en cada estado ( $B_{S}, B_{P}, B_{A}, B_{V}$ ), los valores de probabilidad de fuera de vocabulario, es decir $P_{oovS}, P_{oovP}, P_{oovA}, P_{oovV}$ y el valor del parámetro $\theta$.
 
@@ -412,7 +415,7 @@ El formato del archivo “config”, es específico será el siguiente:
 La primera columna corresponde a las etiquetas que identifican los valores que se encuentran en la segunda columna. Es importante recalcar que los nombres “Poov1”, “Poov2”, “Poov3”, “Poov4” y “Theta” deben ser escritos en el archivo obligatoriamente de la misma forma en la que aparecen en el ejemplo.
 
 \# Dar un ejemplo de como se almacena la información
-La información que se encuentre en el archivo “config” será almacenada en  la tabla llamada “config” que fue explicada en la sección (introducir sección de las estructuras de dato). También es importante recalcar que los nombres de las columnas (“clave” y “valor” en este caso) deben corresponder con los nombres de los atributos de las estructuras de datos de tipo “register” llamada “Clave” y “Valor” presentada en la sección (introducir sección de las estructuras de dato)
+La información que se encuentre en el archivo “config” será almacenada en  la tabla llamada “config” que fue explicada en la sección \ref{sssec:estructuraModelo}. También es importante recalcar que los nombres de las columnas (“clave” y “valor” en este caso) deben corresponder con los nombres de los atributos de las estructuras de datos de tipo “register” llamada “Clave” y “Valor” presentada en la sección \ref{sssec:estructuraModelo}
 
 Por otro lado, el formato del archivo “modeloBro.log” es el siguiente:
 
@@ -431,7 +434,7 @@ Por otro lado, el formato del archivo “modeloBro.log” es el siguiente:
 
 La segunda columna de este archivo (“word”) corresponde al conjunto de observaciones “O” de cada uno de los estados, mientras que la tercera columna (“probability”) indica la probabilidad de generación de cada palabra, es decir, esta columna almacena los datos de los vectores $B_{S}, B_{P}, B_{A}, B_{V}$. La primera columna (“state”), por otra parte indica a que estado del autómata pertenece cada palabra y su probabilidad de generación.
 
-Las filas del archivo “modeloBro.log” que tienen en la primera columna las palabras:       “numeroPalabraSs”, “numeroPalabraSp”, “numeroPalabraSa”, “numeroPalabraSv” contienen el número de palabras que han sido procesadas por estado. Esta informacion será utilizada en el entrenamiento en modo offline que será explicado en la sección (insertar número de la sección del entrenamiento offline).
+Las filas del archivo “modeloBro.log” que tienen en la primera columna las palabras:       “numeroPalabraSs”, “numeroPalabraSp”, “numeroPalabraSa”, “numeroPalabraSv” contienen el número de palabras que han sido procesadas por estado. Esta informacion será utilizada en el entrenamiento en modo offline que será explicado en la sección \ref{sec:entrenamientoOffline}.
 
 *MODO EN EL QUE SE LEEN LOS ARCHIVOS*
 
@@ -495,14 +498,207 @@ Btable = {      [Bss]  =  {192.168.1.13,    1.0}
       [numeroPalabraSv]  =  {numTotal,    319727.0}      };
 \end{verbatim}
 
-
 \subsection{Evaluación de las probabilidades de los URI}
-Explicar las funciones:
-* evaluar{HostPath,Valores,Atributos}
-* calcularIndiceAnormalidad
-* verifiarAnomalia
+
+Una vez leídos los parámetros necesarios para que el sistema funcione, el siguiente paso es hallar el índice de anormalidad mediante la expresión \ref{eq:Ns} para de este modo comparar el índice de anormalidad $N_{s}$ con el parámetro $\theta$ como se indica en la expresión \ref{eq:ClaseU}. Estas dos tareas esenciales en el módulo de evaluación se dividieron en tres funciones al momento de ser implementadas. Una de las funciones será encargada de calcular tanto el $\varepsilon_{0}$ que aparece en la expresión \ref{eq:sumB} como la sumatoria de los logaritmos de los $p_{qtot}$ que se encuentra en la expresión \ref{eq:Ns}. La segunda función se tomará el $\varepsilon_{0}$ y la sumatoria de los logaritmos de los $p_{qtot}$ que calculó la primera función y procederá a efectuar todas las operaciones que hay en la expresión \ref{eq:Ns} para de este modo obtener el índice de anormalidad $N_{s}$. Por otra parte, la tercera función tendrá como tarea comparar el índice de anormalidad $N_{s}$ con el parámetro $\theta$ y escribir en un archivo de texto aquellos URIs anómalos.
+
+La primera función, fue implementada con la ayuda de las tablas “Btable”, “config” y la estructuras de datos “uriSegmentado” que fueron explicadas en la secciones \ref{sssec:estructuraModelo} y \ref{sssec:estructuraSegmentacion} respectivamente.  Lo lógica seguida por dicha función fue la siguiente:
+
+Se toma el vocabulario de cada uno de los estado, es decir, la información almacenada en la estructura de tipo “uriSegmentado”, se itera por cada uno de los elementos. Mientras se está realizando la iteración, se verifica si los elementos se encuentran en los datos almacenados en la estructura de tipo “Btable”, es decir, en el vector “B” del estado respectivo. Si la palabra se encuentra dentro de la tabla “Btable”, entonces, se procederá a buscar la probabilidad de generación de dicha palabra, si no se encuentra, entonces se utilizara la probabilidad de fuera de vocabulario del estado con el que se está trabajo que se extraerá de la tabla llamada “config”. Con estos valores se realizarán dos operaciones: La primera será ir sumando cada una de las cantidades en una variable acumuladora para de esta forma calcular  la expresión \ref{eq:sumB} al final de la iteración. Esto se podrá hacer dividiendo el valor que hay en la variable acumuladora entre el número de elementos que posee el vocabulario del estado que se está estudiando.
+
+La segunda es ir sumando los logaritmos de cada una de las probabilidades e ir almacenando dicha suma en una variable acumuladora. Mediante esta operación se calculará la sumatoria de los logaritmos de los $p_{qtot}$ que se encuentra en la expresión \ref{eq:Ns}.
+
+Por otra parte, la segunda función se encargará de tomar los valores calculados por la primera función ($\varepsilon_{0}$ y $\sum log(p_{qtot})$)  así como el campo “número de estados” ( T ) de la estructura de datos de tipo “uriSegmentado”, el cual representa el número de estados que se recorre en el autómata para reconocer el URI que se está analizando para luego realizar las operaciones presentes en la ecuación \ref{eq:Ns}.
+
+Finalmente, la tercera verificará si el URI que se está analizando estaba sintácticamente bien construido verificando en el campo “uri correcto” de la estructura de datos de tipo “uriSegmentado”. Si el valor de dicho campo indica que el URI no estuvo bien construido, entonces, se escribirán en un “log”  los datos del URI  con la ayuda de las herramientas que aporta el “Notice Framework” de Bro y la estructura de datos “InfoAtaque” presentada en la sección \ref{sssec:estructuraEvaluacion}. La herramienta de Bro utilizada para realizar la escritura del log fue la función “write” del módulo LOG. La manera en la que se utilizó en el programa fue la siguiente:
+
+\begin{verbatim}
+    local rec: InfoAtaque;
+    rec = InfoAtaque();
+
+    rec$clasificacion = "Error de sintaxis en el URI : ";
+    rec$uri = Segmentacion::parsedUri$uri;
+    rec$probability = "-";
+
+    # Se escribe en el archivo
+    Log::write(LOG, rec);
+\end{verbatim}
+
+Por otra parte, si el valor del campo “uri correcto” indica que el URI está sintácticamente bien construido, entonces, se tomará el índice de anormalidad ($N_{s}$) calculada por la segunda función y siguiendo lo estipulado en la expresión \ref{eq:ClaseU}, se comparará con el parámetro $\theta$ obtenido a través de la tabla “config”. Si el índice de anormalidad es menor o igual que el parámetro $\theta$ entonces, se procederá a escribir en el log de los URIs anómalos de la misma forma en la que se describió anteriormente. La única diferencia sería que en la estructura de datos se escribiría la siguiente información:
+
+\begin{verbatim}
+            rec$clasificacion = "Se ha sobrepasado el umbral de anomalia : ";
+            rec$uri = Segmentacion::parsedUri$uri;
+            rec$probability = cat(" ",indicesAnormalidad);
+\end{verbatim}
+
 \section{Implementación del modulo de entrenamiento}
-\subsection{Estructura de datos}
-\subsection{Entrenamiento Online}
+
+En esta sección se explicarán las estructuras de datos utilizada y el modo en el que se implementó en Bro el módulo de entrenamiento. La explicación teórica del mismo se encuentra detallada en la sección \ref{sec:entrenamiento}.
+    
+    La implementación del módulo de entrenamiento consta de dos modos, el modo “Offline” y el modo “Online”. El entrenamiento en modo “Offline” se encargará de tomar los segmentos de un flujo de URIs sin anomalías, contar el número de aparición de cada uno de los segmentos de los URIs, para luego calcular la probabilidad de aparición de cada uno de ellos. Una vez culminadas estas tareas se procederá a escribir en un archivo toda la información recolectada, es decir, el conjunto de palabras observadas mientras se hacía el entrenamiento, sus probabilidades de aparición y el estado del autómata en el que se observaron las mismas.
+
+Por otra parte, el modo de entrenamiento en modo “Online” a diferencia del entrenamiento en modo “Offline” necesita como entrada: un flujo de segmentos de URIs y un archivo con un modelo de normalidad ya construido. Esta función, se encargará de ir modificando el modelo de normalidad ingresado a medida que se vayan recibiendo nuevos segmentos de URI para de esta manera construir el nuevo modelo.
+
+\subsection{Estructura de datos}\label{sub:estructuraEntrenamiento}
+El módulo de entrenamiento consta de varias estructuras de datos de tipo “register” y de tipo “table” para realizar su trabajo. Tanto el modo “Online” como el “Offline” comparten las mismas estructuras.
+
+La estructuras de tipo “record” serían las siguientes:
+
+“Entrenamiento”, cuyo funcionamiento es ir almacenando el número de veces que una palabra es observada junto con la probabilidad de observación, mientras se realiza el entrenamiento. Los campos de esta estructura son los siguientes:
+
+numPalabras: campo de tipo flotante que almacena el número de veces que una palabra es observada durante el entrenamiento.
+probability: campo de tipo flotante que almacene la probabilidad de observación de una palabra.
+
+En Bro, esta estructura luciria de la siguiente forma:
+
+\begin{verbatim}
+type Entrenamiento: record { 
+        numPalabras : double &default = 1.0;
+        probability: double &default = 0.0;
+};
+\end{verbatim}
+
+La otra estructura de tipo “record” es “Info”. “Info” se encargará de almacenar la información que será escrita en el archivo de texto que representará el modelo de normalidad. Los campos de esta estructura de datos son los siguientes:
+
+\begin{itemize}
+\item state: es un campo de tipo “string” que almacenará el nombre del estado al que pertenece la palabra y su probabilidad de observación.
+\item word: es un campo de tipo “string” que almacenará las palabras observadas durante el entrenamiento.
+\item probability: es un campo de tipo flotante que almacenará la probabilidad de observación de las palabras. 
+\end{itemize}
+La implementación de la misma se realiza de la siguiente manera haciendo uso del lenguaje de scripting de Bro:
+
+\begin{verbatim}
+type Info: record {
+
+        state: string &log &default = "";
+        word : string &log &default = "";
+        probability: double &log &default = 0.0;
+};
+\end{verbatim}
+
+Por otra parte, la estructura tipo “table” que se utilizó en la implementación de este módulo fueron las siguientes:
+
+Se hizo uso de una hash table que posee como clave un campo tipo “string” y como valor una estructura de datos de tipo “Entrenamiento”. Esta tabla tendrá como función almacenar las palabras que van apareciendo durante el entrenamiento, el número de veces que fueron observadas las mismas y la probabilidad de aparición . La clave de esta tabla serian las palabras observadas y el resto de la información sería almacenado en la estructura de datos “Entrenamiento”.
+
+Cada estado del autómata tendrá su tabla de entrenamiento propia para de esta manera tener una mayor organización de las observaciones realizadas durante el entrenamiento.
+
+La manera de escribir este tipo de tablas en Bro es la siguiente:
+
+\begin{verbatim}
+entrenamientoSs: table[string] of Entrenamiento = table();
+entrenamientoSp: table[string] of Entrenamiento = table();
+entrenamientoSa: table[string] of Entrenamiento = table();
+entrenamientoSv: table[string] of Entrenamiento = table();
+\end{verbatim}
+
 \subsection{Entrenamiento Offline}
+El entrenamiento en modo “Offline”, como se explicó en la introducción consiste en realizar observaciones de los segmentos de los URIs entrantes y calcular la probabilidad de aparición de cada uno de ellos. La  diferencia fundamental entre este modo y el “Online” es que en el segundo se toma un modelo de normalidad ya construido y se va actualizando a medida que van llegando peticiones nuevas, mientras que el primero se va creando el modelo de normalidad desde cero.
+
+La manera de implementar esta funcionalidad fue dividir la tarea que realiza este modo en dos funciones. La primera función se encargará de ir verificando por estado si los segmentos de los URIs de las peticiones que van llegando se encuentra en las tablas  “entrenamientoSs”, “entrenamientoSp”, “entrenamientoSa” o “entrenamientoSv”  explicadas en la sección \ref{sub:estructuraEntrenamiento} dependiendo el estado al que pertenezca el segmento que se está estudiando. Si  la palabra se encuentra en la tabla correspondiente, entonces se aumentará en una unidad el campo “numPalabras” de la misma. Si no se encuentra, entonces se agregara la palabra a la respectiva tabla de entrenamiento y se se aumentará en una unidad el campo “numPalabras”.
+
+La segunda función se utilizará una vez que el flujo de segmentos en el entrenamiento haya terminado. Esta función se encargará de calcular la probabilidad de aparición de las palabras dada una tabla del tipo de “entrenamientoSs”, “entrenamientoSp”, “entrenamientoSa” o “entrenamientoSv” y el número de palabras total de la misma haciendo uso de la fórmula (3.13 agregar referencia).
+
+\subsection{Entrenamiento Online}\label{sec:entrenamientoOffline}
+
+El modo de entrenamiento “Online” funciona de una manera un poco diferente al modo “Offline” ya que en este modo de entrenamiento existe un modelo de normalidad previamente construido que se tendrá que ir modificando a medida que van llegando nuevos flujos de segmentos de URI. El trabajo que se debe realizar en este modo fue dividido en dos funciones:
+
+La primera función será la encargada de leer el modelo de normalidad de la misma forma en que se explicó en la sección \ref{sec:lecturaModelo}, es decir, se creará una tabla como la “Btable” que contendrá toda la información del archivo de texto y además, se extraerá  el número total de palabras observadas por estado que se encuentra en el modelo. Estos valores serán almacenados en varias variables para ser utilizados posteriormente.
+
+La segunda función verificará si las palabras entrantes se encuentran en el conjunto de palabras leídas previamente en el modelo de normalidad. Si no se encuentran, entonces, se introducirá la nueva palabra a la tabla creada por la primera función ( “Btable”) y se calculará la probabilidad de aparición de la misma mediante el uso de la fórmula \ref{eq:entrenamiento}. 
+
+Por otra parte, si la palabra existe dentro de la tabla “Btable”, entonces, se procederá a hallar el número de veces que esta fue observada anteriormente para calcular la nueva probabilidad de aparición. Como se tiene la probabilidad antigua de aparición de dicha palabra ($b_{ij}$) y el número total de palabras observadas en el estado ($\sum_{s=1}^{L}\sum_{t=1}^{Ts}\delta(q_{t}^{s} = s_{i})$), entonces, se puede despejar la fórmula \ref{eq:entrenamiento} utilizada para calcular la probabilidad de aparición de la siguiente forma:
+
+\begin{equation}\label{eq:probAparicion}
+b_{ij}*(\sum_{s=1}^{L}\sum_{t=1}^{Ts}\delta(q_{t}^{s} = s_{i}) ) = \sum_{s=1}^{L}\sum_{t=1}^{Ts}\delta(o_{t}^{s} = v_{i,j} ,q_{t}^{s} = s_{i} )      
+\end{equation}
+
+Una vez calculado el número de veces que la palabra fue observada anteriormente con la ayuda de la fórmula \ref{eq:probAparicion}, se puede hallar la nueva probabilidad de aparición de la misma haciendo uso de la fórmula \ref{eq:entrenamiento}.
+
+En Bro este procedimiento se escribiría de la siguiente manera:
+
+\begin{verbatim}
+# Se calcula el número de veces que la palabra fue observada anteriormente
+x =  numPalabras*Btable[state,word]$probability;
+
+# Se suma una unidad al número de palabras total y se calcula la nueva probabilidad de #aparicion.
+numPalabras = numPalabras + 1;
+Btable[state,word]$probability = (x + 1)/(numPalabras);
+\end{verbatim}
+
+Donde :
+\begin{itemize}
+\item numPalabras es el número total de palabras observadas en un estado.
+\item state es el nombre del estado al que pertenece la palabra que se está estudiando.
+\item word contiene la palabra que se está estudiando.
+\item Btable es la tabla que contiene la información del modelo de normalidad leído en la primera función descrita en esta sección. El tipo de dato de “Btable” está mostrado en la sección (introducir número de sección en donde se explica el Btable)
+\end{itemize}
+
 \subsection{Escritura del modelo de normalidad en Bro}
+
+    La escritura del modelo de normalidad que se implementó a través de dos funciones. Una para escribir el archivo de salida cuando se esté entrenando en modo “Online” y otra para cuando se entrene en modo “Offline”. Estas funciones se encargarán de tomar los datos recolectados en el entrenamiento y escribirlos en un archivo de texto siguiendo el formato establecido en la sección \ref{sec:lecturaModelo}.
+
+    Para realizar esta tarea se hizo uso de la estructura de datos “Info”, que fue explicada en la sección \ref{sub:estructuraEntrenamiento} y de la herramienta “Logging Framework” de Bro. En concreto, se utilizaron las funciones “create\_stream” para crear el archivo en donde se va a escribir la información y la función “write”  para escribir los datos sobre el mismo.
+
+    La manera en que se utilizaron las herramientas junto con la estructura de datos “Info” fue la siguiente:
+
+Si el entrenamiento se está realizando en modo “Online”, entonces la función que se encarga de escribir el modelo tendrá la siguiente implementación:
+
+\begin{verbatim}
+    # Se crea el archivo.
+    local nombreArchivo = "modeloBro";
+    Log::create_stream(LOG, [$columns=Info, $path=nombreArchivo]);
+
+    # Se inicializa el registro que se utilizará para escribir sobre el
+    # archivo.
+    local rec: Info;
+    rec = Info();
+
+    # Se itera sobre las palabras del vocabulario para guardarlas en el log.
+    for ([estado,palabra] in Btable){
+
+        rec$word = palabra;
+        rec$probability = vocabulario[estado,palabra]$probability;
+        rec$state = estado;
+
+        # Se escribe en el archivo
+        Log::write(LOG, rec);
+        
+    }
+\end{verbatim}
+
+Por otra parte, si el modo de entrenamiento es en modo “Offline”, entonces la función que se encargará de escribir el archivo de texto estará implementada de la siguiente manera:
+
+\begin{verbatim}
+    # Se crea el archivo.
+    local nombreArchivo = "modeloBro";
+    Log::create_stream(LOG, [$columns=Info, $path=nombreArchivo]);
+
+    # Se inicializa el registro que se utilizará para escribir sobre el
+    # archivo.
+    local rec: Info;
+    rec = Info();
+
+    for (i in vocabulario){
+
+        # Se itera sobre las palabras del vocabulario para guardarlas en el log.
+        for (palabra in vocabulario[i]){
+
+            rec$word = palabra;
+            rec$probability = vocabulario[i][palabra]$probability;
+            rec$state = tablaEstados[i];
+
+            # Se escribe en el archivo
+            Log::write(LOG, rec);
+            
+        }
+
+    }
+\end{verbatim}
+Donde :
+
+\begin{itemize}
+\item vocabulario serán las tablas “entrenamientoSs”, “entrenamientoSp”, “entrenamientoSa” y “entrenamientoSv” explicadas en la sección (introducir numero de la sección).
+\end{itemize}
+
+Es preciso recalcar que la función debe recibir cada una de las tablas de entrenamiento de cada uno de los estados.
