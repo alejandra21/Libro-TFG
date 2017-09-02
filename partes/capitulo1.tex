@@ -5,40 +5,97 @@
 % De qué va a tratar el capítulo
 % El capítulo 1 suele ser el marco teórico.
 
-\section{Objetivos generales}
-\begin{enumerate}
-  \item Implementar un detector de ataques híbrido que haga uso del sistema SSM mediante el uso de la herramienta Bro.
-\end{enumerate}
-
-
-\section{Objetivos especificos}
+\section{Objetivos}
+\subsection{Objetivos generales}
+El objetivo del presente trabajo es incorporar la técnica de detección de intrusiones SSM propuesta en [1] en el sistema Bro. Para ello deben usarse las capacidades de scripting de Bro e incorporar las funcionalidades necesarias como un módulo que pueda activarse a demanda para monitorizar las peticiones a los servicios web.
+\subsection{Objetivos especificos}
+La consecución del objetivo general planteado puede abordarse a partir de los siguientes objetivos específicos:
 
 \begin{enumerate}
-  \item Implementación de una representación de un autómata de estados finito que sirva para evaluar tanto la sintaxis como la probabilidad de generación de una petición del protocolo HTTP.\\
-  \item Desarrollo de un modulo que mida la probabilidad de generación de los segmentos del URI.\\
-  \item Desarrollo de un modulo de entrenamiento con el cual se permita obtener un modelo de normalidad a partir de trafico libre de ataques.\\
-  \item Obtener los valores optimos del los parametros de configuracion del sistema para asi garantizar la menor cantidad de falsos positivos posibles.\\
+\item Interceptar las URI para su análisis haciendo uso de las herramientas presentadas por Bro para capturar y filtrar la información de los paquetes del protocolo HTTP.
+\item Desarrollar un módulo que permita evaluar el índice de anomalía de los URI.
+Se diseñará e implementará un módulo de evaluación haciendo uso de las herramientas otorgadas por el lenguaje de scripting de Bro y siguiendo las especificaciones y expresiones pautadas por la técnica de detección de intrusiones SSM. 
+\item Desarrollar un módulo para la estimación de los modelos de normalidad
+Se diseñará e implementará un módulo de entrenamiento haciendo uso de las herramientas otorgadas por el lenguaje de scripting de Bro que permita obtener un modelo de normalidad a partir de trafico libre de ataques.
+\item Evaluar experimentalmente el funcionamiento del sistema
+Se realizarán pruebas, tanto funcionales como operativas para verificar el correcto funcionamiento del sistema.
 \end{enumerate}
 
 \section{Planificación}
 
-El desarrollo de este proyecto se bas\'o en cuatro grandes fases:
-\begin{enumerate}
-\item Conocer el estado  del tema.
-\item Implementación del autómata de reconocimiento de URI's
-\item Realizar los entrenamientos.
-\item Documentación y desarrollo de libro de pasantía.
-\end{enumerate}
+La tareas en las que se dividió el desarrollo de este proyecto fueron las siguientes:
 
-En la fase de conocer el estado del arte del tema del proyecto tuvo una duraci\'on de cuatro semanas y durante este tiempo se estudio la documentaci\'on de la herramienta BRO y su lenguaje de scripting. En esta subfase, se aprendi\'o a utilizar tanto la herramienta BRO como a programar haciendo uso de su lenguaje de scripting. Adem\'as, se hizo un estudio sobre los IDS, los tipos de IDS y el sistema SSM. 
-Este fue un paso muy importante dentro de la documentaci\'on ya que el hecho de entender que era un IDS y como funciona un sistema SSM era una base fundamental para la realizaci\'on del proyecto. As\'i mismo, se hizo una lectura del RFC 3986 (URI) y se realiz\'o una pequeña investigaci\'on sobre el protocolo HTTP.\\
+\newlist{legal}{enumerate}{10}
+\setlist[legal]{label*=\arabic*.}
 
-Luego de la fase de conocer el estado del arte se procedi\'o a la segunda fase: la implementaci\'on del aut\'omata de reconocimiento de URIs. En esta fase se desarroll\'o el filtro de peticiones GET del protocolo HTTP en el lenguaje de scripting de Bro, y luego se implement\'o un modulo para segmentar los URIs que ven\'ian con las peticiones de tipo GET. Finalmente, se desarroll\'o el modulo de evaluaci\'on cuya funci\'on es la de evaluar la probabilidad de generaci\'on de los segmentos del URI dado un modelo de normalidad. Esta fase dur\'o seis semanas y para ambos modulos implementados se realizaron pruebas funcionales.\\
+\begin{legal}
+\item Estado del arte
+Durante esta etapa se realizó un estudio sobre los IDS, los tipos de IDS y el sistema SSM. Así mismo, se hizo una lectura del RFC 3986 (URI) y se investigó sobre el protocolo HTTP.
 
-Despu\'es de culminar la fase anterior se procedi\'o a abordar la fase de realizar los entrenamientos. Esta fase consisti\'o en implementar el modulo de entrenamiento del sistema para poder realizar modelos de normalidad del mismo, obtener paquetes de tipo http haciendo uso de un "sniffer" para realizar un pequeño modelo de normalidad y verificar la correctitud del modulo implementado. Luego se procedi\'o a realizar pruebas con las bases de datos RDB que es una base de datos de ataques, PVHR21 Y PVHR22 que son bases de datos con trazas normales, con la intenci\'on de probar el funcionamiento global del sistema\\
+\item Análisis de Bro 
+Durante esta etapa del proyecto se instaló, se estudio la documentación y se aprendió a hacer uso de la herramienta Bro y su lenguaje de scripting.
 
-Una vez probada toda la correctitud del sistema se procedi\'o a desarrollo de libro del proyecto de grado. Esta fase consisti\'o en estructurar y redactar el libro del proyecto.
+\item Arquitectura modular del sistema 
+
+En esta etapa se realizó el diseño de los módulos principales que conforman el sistema. Esta tarea se basó en dividir el trabajo de cada uno de los módulos en varias funcionalidades y en diseñar las estructuras de datos y el formato de los archivos de texto del sistema.
+
+    Esta tarea estuvo subdividida en las siguientes subtareas:
+
+\begin{legal}
+\item Diseño del módulo de análisis sintáctico/segmentación de URIS 
+\item Diseño del módulo de evaluación de URIs 
+\item Diseño del módulo de entrenamiento 
+\end{legal}
+\item Implementación del sistema 
+En esta etapa del proyecto se llevó a cabo la implementación del sistema haciendo uso del lenguaje de scripting de Bro.
+
+\begin{legal}
+\item Módulo de análisis sintáctico/segmentación de URIS 
+
+En esta etapa se tomaron los diseños esbozados previamente y se implementaron todas las funcionalidades necesarias para realizar el segmentador y el analizador sintáctico de los URIS. Fue necesario hacer uso de expresiones regulares y de las herramientas otorgadas por Bro para manejarlas.
+
+\item Módulo de evaluación de URIs 
+
+En esta etapa se tomaron los diseños realizados y se implementaron todas las expresiones, las estructuras de datos y las funcionalidades necesarias para construir un modulo de evaluacion funcional haciendo uso de las herramientas presentadas por Bro. 
+
+\item Módulo de entrenamiento 
+
+En esta etapa se implementaron las estructuras de datos y los dos modos de entrenamiento (Online y Offline) haciendo uso del lenguaje de scripting de Bro.
+
+\item Módulo de gestión del tipo de modo del sistema
+En esta etapa del proyecto se implementó el módulo de gestión del tipo de modo del sistema haciendo uso de bash scripting. Mediante este módulo se escogerá en que tipo de modo correrá el sistema (entrenamiento o evaluación).
+
+\item Módulo de reportes
+En esta etapa se implementaron los reportes del sistema haciendo uso de herramientas de Bro dedicadas exclusivamente a realizar este tipo de tareas.
+
+\end{legal}
+\item Evaluación y pruebas 
+Una vez finalizada la implementación del sistema se procedió a realizar pruebas tanto funcionales como operativas.
+\begin{legal}
+\item Realización de pruebas funcionales
+
+En esta etapa del proyecto se hicieron pruebas de manera individual a cada una de las funciones más importantes de los módulos que conforman el sistema y se realizaron las modificaciones adecuadas en las mismas.
+
+\item Realización de pruebas operativas
+
+La realización de las pruebas operativas se basó en tomar base de datos de trazas tanto normales como anormales, probar el funcionamiento de todo el sistema y realizar las modificaciones adecuadas.
+\end{legal}
+
+\item Documentación  
+ Esta fase consistió en estructurar y redactar el libro del proyecto.
+\end{legal}
+
+A continuación, se mostrará un diagrama de Gantt en donde se muestra el tiempo que tomó cada una de las tareas.
+
+\begin{center}
+\includegraphics[width=4in]{Proyecto-grado.png}
+\end{center}
+
 
 \section{Presupuesto}
 
+A continuación se mostrará una tabla que muestra el presupuesto del proyecto realizado.
 
+\begin{center}
+\includegraphics[width=4in]{presupuesto.png}
+\end{center}
