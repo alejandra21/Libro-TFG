@@ -1,204 +1,111 @@
-\chapter{Arquitectura del IDS}
+\chapter{Diseño y arquitectura del sistema}
 \label{capitulo3}
 \lhead{Capítulo 3. \emph{Diseño del sistema}}
 
-En esta sección se explicará la arquitectura y el diseño del IDS implementado. 
-La arquitectura del detector de instrusiones que se muestra en el presente trabajo se basa en una arquitectura modular.
+En este capitulo se explicará la arquitectura, el diseño y el modo en el que el IDS basado en SSM interactuara con Bro. Además, se detallaran las salidas y los datos de configuración que va a considerar el sistema para su correcto funcionamiento vas a considerar. Este capitulo tiene la intención de mostrar la visión general del modelado del sistema que se realizo a partir de las bases teóricas.
 
-Este consta de tres modulos. Un modulo para realizar la segmentación de los URIs, otro modulo para realizar la evaluación y un último modulo para realizar el entrenamiento y de esta forma crear un modelo de normalidad.
+\section{Arquitectura del sistema}
 
-A grandes rasgos, el modulo de segmentación se encargará de tomar el URI que proviene de la solicitud de tipo GET que se le hace al servidor HTTP, lo normalizará, lo segmentará siguiendo las especificaciones del RFC (insertar nombre del RFC) y lo almacenará en una estructura de datos para que de esta forma pueda ser utilizado en los otros dos modulos.
+La arquitectura del detector de intrusiones que se muestra en el presente trabajo se basa en una arquitectura modular la cual está conformada por tres modulo. Un modulo para realizar la segmentación de los URIs, otro  para realizar la evaluación y un tercero para realizar el entrenamiento y de esta forma crear un modelo de normalidad.
+
+A grandes rasgos, el modulo de segmentación se encargará de tomar el URI que proviene de la solicitud de tipo GET o HEAD que se le hace al servidor HTTP, normalizarlo y segmentarlo siguiendo las especificaciones del RFC (insertar nombre del RFC) .
 
 Por otra parte, el modulo de evaluación se encargará de evaluar la probabilidad de generación de cada uno de los segmentos del URI generados por el modulo de segmentación para al final decidir si el URI de la solicitud enviada al servidor de tipo HTTP es anómalo o no.
 
 Por último, el modulo de entrenamiento será el encargado de crear el modelo de normalidad del sistema. Para esto, el sistema recibirá solicitudes libres de ataques e irá calculando la probabilidad de aparición de cada una de las palabras que aparecen en las mismas.
 
-\section{Modulo de segmentación}
+Tanto el modulo de evaluación, como el modulo de entrenamiento son dependientes del modulo de segmentación ya que requieren de los segmentos de URI generados por eso para realizar su trabajo. 
 
-Como se mencionó con anterioridad, el modulo de segmentación es el que se encarga de segmentar los URIs recibidos en las solicitudes de tipo GET o HEAD por el servidor de tipo HTTP. Pero antes de segmentar el URI, es necesario normalizarlo. Es por ello, que a continuación se describirá como es el proceso tanto de normalización como de segmentación de un URI.
+La arquitectura del sistema queda detallada en la figura \ref{fig:arquitectura}.
 
-\subsection{Normalización de los URIs}
-\label{sec:normalizacion}
-
-La normalización de los URIs es un paso importante dentro del modulo de segmentación ya que mediante este paso es posible estandarizar todas las posibles formas en las que se puede escribir un URI en una para de este modo facilitar tanto la evaluación como el entrenamiento en el sistema.
-
-La normalización en pocas palabras, consiste en tomar el URL en el formato en el que viene y codificarlo al formato de tipo UTF-8. Este paso evitará inconvenientes al momento de guardar palabras o frases que sean iguales de manera doble en el diccionario solo porque las mismas estan codificadas siguiendo diferentes formatos.
-
-Un ejemplo sencillo de lo que se haría en la normalización del sistema se mostrará a continuación:
-
-Supongamos que al servidor de tipo HTTM le llega una petición de tipo GET con el siguiente URL:
-https://192.168.0.23?q=security+network
-
-Pero luego de un tiempo este mismo servidor recibe otra solicitud tipo GET con el siguiente URL:
-
-https://192.168.0.23?q=security\%20network
-
-Es claro que ambos URL poseen la misma información, y que a grandes rasgos se podría decir que son iguales. No obstante, el espacio en blanco esta codificado de manera diferente en cada uno de los dos. Esto significa que si no se normalizan los URIs la palabra "security+network" y "security\%20network" serían dos palabras totalmente disferentes dentro del vocabulario del sistema cuando no debería ser así. Entonces, en este caso, se normalizaría el primer URI para que el mismo este codificado en formato UTF-8 para que de esta forma se parezca al segundo URI (https://192.168.0.23?q=security\%20network). Así, la frase "security+network" pasaría a ser  "security\%20network".
-
-
-\subsection{Segmentación de los URIs}
-\label{sec:delimitadores}
-
-Para la implementación del detector de instrusiones que se explica en el presente trabajo es de suma importancia realizar la segmentación y almacenamiento de los URIs que vienen adjuntos en las solicitudes que se le realizan al servidor HTTP. 
-
-La idea del segmentador de URI es considerar una serie de delimitadores, que delimitan areas especificas dentro del URI y almacenar cada uno de los tokens que son divididos por estos de forma organizada en una estructura de datos.
-
-Los delimitadores que se tomarán en cuenta para segmentar serán los asociados al estándar del protocolo HTTP. Estos son los siguientes:
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=3in]{arquitectura.png}
+\caption{Arquitectura del sistema.}
+\label{fig:arquitectura}
+\end{center}
+\end{figure}
 
 \begin{itemize}
-\item D1 = ://, delimitador de protocolo.
-\item D2 = /, delimitador de recursos.
-\item D3 = ?, delimitador de parámetros.
-\item D4 = =, delimitador de asignación de atributos.
-\item D5 = \&, delimitador entre parametros.
-\item D6 = ASCII 32, delimitador de fin de recurso
+\item Modo evaluación: En este modo de operación solo se activaran los módulos de segmentación y evaluación del sistema. A manera general, esta modalidad, se encargará de recibir peticiones de tipo HTTP/GET, extraer su URI y segmentarlos a tráves del modulo de segmentación para luego evaluar si  el mismo es anómalo o no, haciendo uso del modulo de evaluación. El funcionamiento de esta modalidad queda detallado en la figura \ref{fig:modoSistema}.
+\item Modo entrenamiento ``Online'': En este modo de operación solo trabajaran los módulos de segmentación y entrenamiento. Esta modalidad es un tipo de entrenamiento en donde se toman peticiones de tipo HTTP/GET y se segmenta el URI que se encuentran en las mismas haciendo uso del modulo de segmentación. Una vez realizado esto, el modulo de entrenamiento tomara los segmentos arrojados por el modulo de segmentación, calculara la probabilidad de aparición de los mismos para de esta manera ir modificando un modelo de normalidad previamente establecido, es decir, la salida de este modo de entrenamiento sera la de el modelo previamente establecido con ciertas modificaciones realizadas a partir de las observaciones hechas. El funcionamiento de esta modalidad queda detallado en la figura \ref{fig:modoSistema}..
+\item Modo entrenamiento ``Offline'': Esta modalidad del sistema en análoga al modo de entrenamiento ``Online''. El único aspecto que diferencia a ambas modalidades es que cuando el sistema funciona en modo ``Offline'' no se toma en cuenta, ni se modifica un modelo de normalidad previamente construido. La salida de este modo de entrenamiento sera un modelo de normalidad construido desde cero.El funcionamiento de esta modalidad queda detallado en la figura \ref{fig:modoSistema}.
 \end{itemize}
 
-A modo ilustrativo, se utilizará un ejemplo concreto con un URI para mostrar como funciona la segmentación en el sistema.
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=\linewidth]{modoOperacion.jpeg}
+\caption{Modo evaluación (a), modo entrenamiento ``Online'' (b), modo entrenamiento ``Offline'' (c).}
+\label{fig:modoSistema}
+\end{center}
+\end{figure}
 
-Supongamos que tenemos el siguiente URI:
+\section{Módulos}
 
-http://159.90.9.166/consulta/?manifestacion=Pinturas+Rupestres
+En esta sección se describirán las tareas de cada uno de los módulos que conformar la arquitectura detallada en la figura \ref{fig:arquitectura}, el modo en el que se subdividieron dichas tareas, los datos de entrada y salida, y la interacción que existe entre los mismos.
 
-Entonces, la función que se encarga de segmentar tomará dicho URI y lo segmentará en las siguientes partes:
+\subsection{Modulo de segmentación}
 
-\begin{itemize}
-\item http : Esta primera parte corresponderá al segmento de protocolo. 
-\item 159.90.9.166 : Esta segunda parte será el segmento del host. 
-\item consulta : Esta tercera parte vendría siendo parte del segmento de recursos.
-\item manifestacion :Esta parte correspondería al atributo
-\item Pinturas\%20Rupestres : Esta parte corresponde al valor.  
-\end{itemize}
+El modulo de segmentación es un elemento clave dentro de la construcción del IDS basado en SSM, es por eso que su buen diseño e implementación es importante para el buen funcionamiento del sistema. Este se encarga, como se menciono anteriormente,de tomar el URI que proviene de la solicitud de tipo GET o HEAD que se le hace al servidor HTTP capturado por Bro, normalizarlo y segmentarlo siguiendo las especificaciones del RFC (insertar nombre del RFC) 
 
-Cada uno de los segmentos serán almacenados en una estructura de datos para ser utilizados posteriormente en el sistema.
+Es evidente entonces, que este modulo consta de dos funcionalidades fundamentales: la normalización de los URIs y la segmentación.  La normalización se encargará de tomar el URI de las peticiones HTTP entrantes y codificarlo a formato UTF-8. Normalizar es un paso importante dentro del sistema  ya que se estandarizar la forma en las que están escritos los URIs facilita tanto la evaluación como el entrenamiento en el sistema. Por otra parte, el output arrojado por esta función de normalización será tomado por la de segmentación, quien a su vez se encargará de segmentar el URI de la forma en la que se explica en la sección \ref{sec:delimitadores}, es decir, el URI se dividirá en las diferentes partes estipuladas en el RFC 3986: el ``host'', la ruta, los argumentos, los valores y el ``fragment''.
 
-\section{Modulo de evaluación}
+ En las base teórica, la segmentación de los URIs se realiza mediante un autómata que se encarga de reconocer (realizar un análisis sintáctico) y evaluar en cada uno de sus estados la probabilidad de generación de cada uno de los segmentos.  No obstante, en la función de segmentación del sistema implementado, esta tarea se modeló mediante un analizador sintáctico que hace uso de una gramática (libre de contexto) de atributos que genera el mismo lenguaje que reconoce el autómata presentado en la figura ~\ref{fig:automata}, es decir, el lenguaje de los URI.
+
+En la figura (insertar nombre de la figura) se puede apreciar el diagrama de bloques que refleja el funcionamiento del módulo de segmentación.
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=3in]{segArquiCompleta.jpeg}
+\caption{Diagrama de bloques del módulo de segmentación.}
+\label{fig:modoSistema}
+\end{center}
+\end{figure}
+
+*************************************************************************8
+Dentro de este modulo se pueden contemplar dos grandes funcionalidades: la normalización y la segmentación.
+
+En la normalización se encargará de traducir los URIs entrantes al formato UTF-8, mientras que, la segmentación tendrá el trabajo de dividir los URIs en segmentos. 
+
+``En el capítulo 3, se pudo apreciar la arquitectura del módulo de segmentación. Además, se pudo observar que el mismo consta de dos funcionalidades fundamentales: la normalización de los URIs y la segmentación. A grandes rasgos, la normalización se encargará de tomar el URI de las peticiones HTTP entrantes y codificarlo a formato UTF-8, el output arrojado por esta función será tomado por la de segmentación, quien a su vez se encargará de segmentar el URI de la forma en la que se explica en la sección \ref{sec:delimitadores}, es decir, el URI se dividirá en las diferentes partes estipuladas en el RFC 3986: el host, el path, los argumentos, los valores y el fragment''
+
+``El problema a resolver, presenta dos tareas fundamentales: segmentar y realizar un análisis sintáctico. En programación cuando se tiene un conjunto de datos de entrada (en este caso serían los URIs), y se desea realizar un análisis sintáctico sobre el mismo, lo más común es implementar un analizador sintáctico o parser.
+
+El análisis realizado por un analizador sintáctico “es el proceso en el cual se estudia la manera en la que una cadena de caracteres terminales es generado por una gramática.”  Compiler, principle, techniques and tools."
+
+Por otra parte, existen varios tipos de gramáticas, las gramáticas libre de contexto y las gramáticas regulares. Las que se suelen utilizar en un analizador sintáctico son las gramáticas libres de contexto. Una gramática libre de contexto “en el contexto del lenguaje natural, sería un conjunto de reglas que son utilizadas para construir o validar oraciones” “Formal Languages and Automata Theory” de D. Goswami and K. V. Krishna. 
+
+De manera más formal, según la definición 3.1.1 de: “Formal Languages and Automata Theory” de D. Goswami and K. V. Krishna. Se puede decir que una gramática libre de contexto es una  cuádrupla G = (N, $\sum$, P, S), donde:
+\begin{enumerate}
+\item N es un conjunto de no-terminales,
+\item $\sum$ es un conjunto de terminales. Los terminales son elementos fundamentales en el lenguaje generado por la gramática.
+\item S $\in$ N es el símbolo de inicio.
+\item P es un subconjunto finito de N x V * llamado el conjunto de reglas de producciones. Aquí, V = N U $\sum$."
+\end{enumerate}
+
+Entonces, para realizar el analizador sintáctico se requiere construir una gramática libre de contexto que genere el mismo lenguaje que reconoce el autómata presentado en la imagen ~\ref{fig:automata}, es decir, el lenguaje de los URI.
+
+Antes de presentar la gramática se mostrarán los tokens que utilizará la misma como elementos terminales. Un token “es la cadena de caracteres más corta que posee algún significado” Scott, Compilers.''
+
+
+
+
+A continuación se explicará con mas detalle ambas funcionalidades. 
+
+``La normalización es un paso importante dentro del modulo de segmentación ya que se encarga de estandarizar la forma en las que están escritos los URIs para de este modo facilitar tanto la evaluación como el entrenamiento en el sistema.''
+
+\subsection{Modulo de evaluación}
 \label{sec:evaluacion}
 
-Este modulo, como se mencionó con anterioridad es el encargado de evaluar la probabilidad de generación de cada uno de los segmentos del URI dado un modelo de normalidad. Una vez calculadas estas probabilidades, el modulo se encargará de calcular un indice de anormalidad del URI mediante el uso de las formulas descritas en la sección (inserte número de la sección) para luego comparar dicho valor obtenido con un parámetro $\theta$. Si el indice de anormalidad es mayor o igual que el parametro $\theta$, entonces se dirá que el URI es anomalo. Por el contrario, si el indice de anormalidad es menor que dicho parámetro, entonces, se podría decir que el URI no posee anomalías.
-
-\subsection{Expresiones para calcular indice de anormalidad}
+Este modulo, como se mencionó con anterioridad es el encargado de evaluar la probabilidad de generación de cada uno de los segmentos del URI dado un modelo de normalidad. Una vez calculadas estas probabilidades, el modulo se encargará de calcular un índice de anormalidad del URI mediante el uso de las formulas descritas en la sección ~\ref{subsec:exprIndice} para luego compararlo con un parámetro $\theta$ y de este modo saber si el URI posee alguna anormalidad o no. 
 
 
-Dado un conjuntos de observaciones $0 = o1,o2,...,oT$. Cada una pertenecientes a los estados $Q = q1,q2,..,qT$. En principio, se puede realizar la evaluación de un URI, dado un modelo $\lambda$,  calculando la probabilidad del conjunto completo de observaciones O del modelo $\lambda$ siguiendo el patrón de la secuencia de estados Q. Es decir:
+\subsection{Modulo de entrenamiento}\label{sec:entrenamiento}
 
-\begin{equation}
-P(O|\lambda,Q) = \pi_{q1}b_{q1o1}\prod_{t=1}^{T-1}a_{q_{t}q_{t+1}}b_{q_{t+1}o_{t+1}}
-\end{equation}
+El modelo de normalidad es uno de los aspecto importantes dentro del IDS basado en SSM ya que a partir de la información que este almacena se podrá decidir si un URI es anómalo o no dependiendo de la similitud que posea este con los datos que almacena el modelo. Por esta razón, realizar un modelo de normalidad apropiado es un aspecto  importante para que el módulo de evaluación haga detecciones de intrusiones más certeras.
 
-Para evitar problemas de desbordamiento de calcula el logaritmo de la probabilidad en lugar de la probabilidad.
+El módulo encargado de elaborar los modelos de normalidad será el módulo de entrenamiento. A grandes rasgos, este se encargará de recibir solicitudes libres de ataques e irá calculando la probabilidad de aparición de cada una de las palabras que aparecen en los URIs de las mismas, para finalmente dar al sistema una lista de palabras observadas junto con su probabilidad de aparición.
 
-\begin{equation}
-log(P(O|\lambda,Q)) = log(\pi_{q1}b_{q1o1}\prod_{t=1}^{T-1}a_{q_{t}q_{t+1}}b_{q_{t+1}o_{t+1}})
-\end{equation}
+En esta sección se explicará con detalles el funcionamiento y las expresiones utilizadas por el módulo de entrenamiento para construir el modelo de normalidad del sistema. 
 
-Si se considera que las probabilidades iniciales son cero excepto para S1 y que las probabilidades de transición son equivalentes a 1. Entonces, se tendría que la fórmula presentada en (inserte número de la fórmula anterior)  se podría resumir en la siguiente:
-
-\begin{equation}
-P(O|\lambda,Q) = \sum_{t=1}^{T}b_{q_{t}o_{t}}
-\end{equation}
-
-Entonces, en primera instancia se podría decir que el índice de anormalidad de un URI U, dado un modelo $\lambda$, se puede obtener de la siguiente forma:
-
-\begin{equation}
-N_{s} = -log(P(U|\lambda))
-\end{equation}
-
-La fórmula nombrada con anterioridad será aplicada sólo si el URI U llega al estado final Sf, de otra manera al índice de anormalidad Ns se le será asignado $\infty$, es decir
-
-\begin{equation}
-N_{s} = 
-	\begin{cases} 
-      -log(P(U|\lambda)) & $si $  q_{t} = S_{f} \\
-      \infty & $si $  q_{t} \neq S_{f} \\ 
-   \end{cases}
-\end{equation}
-
-
-Como se puede observar en la fórmula presentada con anterioridad, mientras menor sea la probabilidad de aparición de las observaciones, mayor será el índice de anormalidad, por esta razón, una vez calculado el índice, se podría decir que un URI U es anómalo, si el índice de anormalidad es mayor o igual a un umbral de detección $\theta$ de lo contrario se dirá que el URI no posee anomalías, esto es:
-
-\begin{equation}\label{eq:ClaseU}
-Clase(U) = 
-	\begin{cases} 
-      Normal & $si $  N_{s}(U) \leq \theta \\
-      Anomalo & $si $  N_{s}(U) > \theta \\ 
-   \end{cases}
-\end{equation}
-
-
-El umbral de detección es un parámetro que se calcula de forma experimental. Durante la pruebas se busca conseguir un valor $\theta$ con el cual se pueda obtener la proporción óptima entre las detecciones de anomalías correctas y los falsos positivos. 
-
-
-No obstante, la fórmula presentada en el apartado (insertar número de la fórmula) posee algunos inconvenientes ya que no se estipula el caso en el que existan problemas de entrenamiento insuficiente que será presentado en la sección (inserte número de la sección) o que los diferentes vectores B, tengan diferente número de observaciones. El segundo caso provoca un inconveniente a la hora de realizar la evaluación ya que el acumulado de las probabilidades de los vectores B estarán ligados a la longitud de los mismos. Para solucionar dicho problema se utilizara la propuesta de Estévez [Estévez-Tapiador 2004a], en el que se establece como factor de compensación la probabilidad de observación para de esta manera obtener una probabilidad normalizada. Esta sería la siguiente expresión:
-
-\begin{equation}\label{eq:sumB}
-\varepsilon_{0} = E[B] = \frac{1}{M}\sum_{i=1}^{M}b_{i}
-\end{equation}
-
-El entrenamiento insuficiente es un problema que se presenta cuando se toma una palabra durante la evaluación que no pertenezca al conjunto de palabras observadas durante el entrenamiento en el modelo. Esto puede ser debido a que la palabra es una palabra anómala o que no se entrenó lo suficiente al sistema. En este caso, la solución que se le aplicará a dicho problema será la de asignar un valor fijo de probabilidad muy baja a estos casos ( poov(Si): probabilidad de out of vocabulary) . Cada uno de los estados del modelo poseerá valores independientes de probabilidades que serán utilizados una vez se detecte este problema.
-
-El otro caso en el que se utilizarán los valores de poov(Si), es cuando la probabilidad de una palabra que está en el vocabulario es inferior al poov(Si), es decir:
-
-
-\begin{equation}\label{eq:Pqtot}
-p_{qtot} = 
-	\begin{cases} 
-      b_{qtot} & $si $  o_{t} \in O $ y $ b_{qtot} > p_{oov}(q_{t})\\
-      p_{oov} & $en otro caso$ \\ 
-   \end{cases}
-\end{equation}
-
-
-Entonces, la nueva expresión del índice de anormalidad que toma en cuenta todas las consideraciones nombradas con anterioridad, es la siguiente
-
-\begin{equation}\label{eq:Ns}
-N_{s} = 
-	\begin{cases} 
-      -Tlog(\varepsilon_{0})\sum_{t=1}^{T}log(p_{qtot}) & $si $  q_{t} = S_{f} \\
-      \infty & $si $  q_{t} \neq S_{f} \\ 
-   \end{cases}
-\end{equation}
-
-\subsection{Elementos adicionales del modelo}
-\subsection*{Entrenamiento insuficiente}
-\section{Modulo de entrenamiento}\ref{sec:entrenamiento}
-
-El módulo de entrenamiento será el encargado de crear el modelo de normalidad del sistema, es decir, este módulo dará el conjunto de vocabulario junto con la probabilidad de observación de cada una de las observaciones. Para esto, el sistema recibirá solicitudes libres de ataques e irá calculando la probabilidad de aparición de cada una de las palabras que aparecen en las mismas.
-
-\subsection{Expresiones usadas en el modulo de entrenamiento}
-
-Como se dijo con anterioridad, este módulo será el encargado de armar el vocabulario del módulo de normalidad del sistema. A grandes, el módulo de entrenamiento tomará un conjunto de solicitudes libres de ataques, las segmentará, para luego calcular la probabilidad de aparición de las palabras en el conjunto de observaciones totales de cada uno de los estados. En términos más formales, la  tarea que realiza este módulo se puede modelar de la siguiente forma:
-
-Dada una secuencia de observaciones 0 = o1,o2,...,oT ,y  su correspondiente secuencia de estados, Q = q1,q2,...,qT.
-
-El entrenamiento requiere de un conjunto considerable de observaciones  junto con los estados asociados a cada una de ellas.
-
-Por lo tanto, se considerara un conjunto de entrenamiento (omega) de L pares de secuencias de estados
-
-\begin{equation}
-\omega = {(O^{1},Q^{1}),(O^{2},Q^{2}),...,(O^{L},Q^{L})}
-\end{equation}
-
-Tal que
-
-\begin{equation}
-\begin{aligned}
-O^{i} = {o_{1}^{i},o_{1}^{i},...,o_{Ti}^{i}} \\
-Q^{i} = {q_{1}^{i},q_{2}^{i},...,q_{Ti}^{i}}
-\end{aligned}
-\end{equation}
-
-Entonces, para crear el vocabulario del modelo de normalidad solo se tendrá que un recuento de las frecuencias de aparición relativas de los símbolos y los estados. Es decir:
-
-La expresión para el vocabulario sería la siguiente:
-
-\begin{equation}
-\theta_{Sk} = \bigcup\limits_{i=1}^{L} {o_{j}^{i}|q_{j}^{i} = S_{k}}
-\end{equation}
-
-Para calcular la probabilidades de observación se utilizaría la siguiente expresión:
-
-\begin{equation}\label{eq:entrenamiento}
-b_{ij} = \frac{\sum_{s=1}^{L}\sum_{t=1}^{Ts}\delta(o_{t}^{s} = v_{i,j} ,q_{t}^{s} = s_{i} )}{\sum_{s=1}^{L}\sum_{t=1}^{Ts}\delta(q_{t}^{s} = s_{i}) }
-\end{equation}
-
+``Este módulo de entrenamiento será el encargado de armar el vocabulario del módulo de normalidad del sistema. Como se mencionó con anterioridad, este módulo tomará un conjunto de solicitudes libres de ataques, para luego calcular la probabilidad de aparición de las palabras en el conjunto de observaciones totales de cada uno de los estados. En términos más formales, la  tarea que realiza este módulo se puede modelar de la siguiente forma:''

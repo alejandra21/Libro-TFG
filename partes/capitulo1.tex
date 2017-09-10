@@ -1,6 +1,21 @@
 \chapter{Introducción}
 \label{capitulo1}
-\lhead{Capítulo 1.}
+
+\section{Motivación y antecedentes}
+
+Internet con el pasar de los años se ha estado integrando cada vez más en varios aspectos de nuestras vidas. A pesar de todos los beneficios que trae estar tan conectados a esta red de redes, es preciso recalcar igualmente los problemas que acarrea el hecho de estar conectado a esta sin la existencia de medidas de seguridad necesarias. 
+
+Los dispositivos, las aplicaciones y los sistemas que utilizamos en nuestro día a día almacenan información valiosa a la que pueden acceder personas no deseadas si no existen las medidas necesarias en las redes para evitar los ciberataques. Cada día más y más información digital existe en el mundo, y mientras crece el volumen de dicha información , aumenta también la cantidad de ciberataques que se realizan \cite{pwc}. Es por esta razón, que el concepto de ciberseguridad es de vital importancia cuando hablamos del cibermundo.  La ciberseguridad, se encarga de proteger redes de comunicación, sistemas y datos de ataques cibernéticos. 
+
+Uno de los métodos utilizados en la ciberseguridad son los detectores de intrusiones (IDS, por sus siglas en inglés Intrusion-detection system). Un IDS es detector que procesa información proveniente del sistema o redes de computadores que se desea proteger. Una vez que que detectada una intrusión este lanza alertas para activar el proceso de auditoría por parte de los administradores de sistema \cite{IDS}. 
+
+Por otra parte, uno de los servicios más utilizados en el mundo del Internet y que más contienen información son los servicios web. Estas características hacen que este tipo de servicios se uno de los más apetecibles para los ciberataques. Se hace evidente entonces, que se requieren medidas en el área de la ciberseguridad dirigidas a estos casos.
+
+Es por esta razón que grupos de investigación se han dedicado a tratar de solventar dicho problema. Tal es el caso del grupo de investigación de la Universidad de Granada que  ha desarrollado un IDS para detectar ataques a servidores web llamado SSM ("Segmented Stochastic Modelling"). SSM es un sistema basado en el uso de modelos realizados a partir de las peticiones hechas al servicio web. Los resultados experimentales en este sistema muestran la eficacia del mismo detectando anomalías en este tipo de servicios. Sin embargo, la implementación disponible de SSM es de laboratorio y funciona sobre trazas estáticas, por lo que la técnica no está disponible actualmente para su uso en redes en explotación.
+
+No obstante, para que realizar una implementación de sistema que funcione en redes en explotación, se requieren de herramientas aptas que permitan capturar y analizar el tráfico en la red. Por su parte, Bro, es un sistema de monitorización de red de código abierto muy utilizado hoy en día para el desarrollo de mecanismos de seguridad que posee: su propio lenguaje de scripting y una comunidad de asistencia que va creciendo cada vez más con el tiempo.
+
+Es por ello que resultaría interesante implementar un sistema de intrusiones que ha presentados resultados satisfactorios como es el caso de SSM haciendo uso de una herramienta tan potente y en auge como lo es Bro.
 
 % De qué va a tratar el capítulo
 % El capítulo 1 suele ser el marco teórico.
@@ -8,94 +23,128 @@
 \section{Objetivos}
 \subsection{Objetivos generales}
 El objetivo del presente trabajo es incorporar la técnica de detección de intrusiones SSM propuesta en [1] en el sistema Bro. Para ello deben usarse las capacidades de scripting de Bro e incorporar las funcionalidades necesarias como un módulo que pueda activarse a demanda para monitorizar las peticiones a los servicios web.
-\subsection{Objetivos especificos}
+\subsection{Objetivos específicos}
 La consecución del objetivo general planteado puede abordarse a partir de los siguientes objetivos específicos:
 
 \begin{enumerate}
-\item Interceptar las URI para su análisis haciendo uso de las herramientas presentadas por Bro para capturar y filtrar la información de los paquetes del protocolo HTTP.
-\item Desarrollar un módulo que permita evaluar el índice de anomalía de los URI.
-Se diseñará e implementará un módulo de evaluación haciendo uso de las herramientas otorgadas por el lenguaje de scripting de Bro y siguiendo las especificaciones y expresiones pautadas por la técnica de detección de intrusiones SSM. 
-\item Desarrollar un módulo para la estimación de los modelos de normalidad
-Se diseñará e implementará un módulo de entrenamiento haciendo uso de las herramientas otorgadas por el lenguaje de scripting de Bro que permita obtener un modelo de normalidad a partir de trafico libre de ataques.
-\item Evaluar experimentalmente el funcionamiento del sistema
-Se realizarán pruebas, tanto funcionales como operativas para verificar el correcto funcionamiento del sistema.
+\item Interceptar las URI para su análisis haciendo uso de Bro para capturar y filtrar la información de los paquetes del protocolo HTTP.
+\item Desarrollar un módulo que permita evaluar el índice de anomalía de los URI haciendo uso de las herramientas otorgadas por el lenguaje de scripting de Bro y siguiendo las especificaciones y expresiones pautadas por la técnica de detección de intrusiones SSM. 
+\item Desarrollar un módulo para la estimación de los modelos de normalidad haciendo uso de las herramientas otorgadas por el lenguaje de scripting de Bro que permita obtener un modelo de normalidad a partir de trafico libre de ataques.
+\item Evaluar experimentalmente el funcionamiento del sistema realizando pruebas, tanto funcionales como operativas para verificar el correcto funcionamiento del mismo.
 \end{enumerate}
 
 \section{Planificación}
 
-La tareas en las que se dividió el desarrollo de este proyecto fueron las siguientes:
+La tareas en las que se divide el desarrollo de este proyecto fueron las siguientes:
 
 \newlist{legal}{enumerate}{10}
 \setlist[legal]{label*=\arabic*.}
 
 \begin{legal}
 \item Estado del arte
-Durante esta etapa se realizó un estudio sobre los IDS, los tipos de IDS y el sistema SSM. Así mismo, se hizo una lectura del RFC 3986 (URI) y se investigó sobre el protocolo HTTP.
 
-\item Análisis de Bro 
-Durante esta etapa del proyecto se instaló, se estudio la documentación y se aprendió a hacer uso de la herramienta Bro y su lenguaje de scripting.
+Durante esta etapa se realizará un estudio sobre los IDS, los tipos de IDS y el sistema SSM. Así mismo, se hará una lectura del RFC 3986 (URI) y se investigará sobre el protocolo HTTP.
+
+\item Análisis de Bro
+
+Durante esta etapa del proyecto se instalará, se estudiará la documentación y se aprenderá a hacer uso de la herramienta Bro y su lenguaje de scripting.
 
 \item Arquitectura modular del sistema 
 
-En esta etapa se realizó el diseño de los módulos principales que conforman el sistema. Esta tarea se basó en dividir el trabajo de cada uno de los módulos en varias funcionalidades y en diseñar las estructuras de datos y el formato de los archivos de texto del sistema.
+En esta etapa se realizará el diseño de los módulos principales que conforman el sistema. Esta tarea se basará en dividir el trabajo de cada uno de los módulos en varias funcionalidades y en diseñar las estructuras de datos y el formato de los archivos de texto del sistema.
 
-    Esta tarea estuvo subdividida en las siguientes subtareas:
+    Esta tarea estará subdividida en las siguientes subtareas:
 
 \begin{legal}
 \item Diseño del módulo de análisis sintáctico/segmentación de URIS 
 \item Diseño del módulo de evaluación de URIs 
 \item Diseño del módulo de entrenamiento 
 \end{legal}
-\item Implementación del sistema 
-En esta etapa del proyecto se llevó a cabo la implementación del sistema haciendo uso del lenguaje de scripting de Bro.
+\item Implementación del sistema
+
+En esta etapa del proyecto se llevará a cabo la implementación del sistema haciendo uso del lenguaje de scripting de Bro.
 
 \begin{legal}
 \item Módulo de análisis sintáctico/segmentación de URIS 
 
-En esta etapa se tomaron los diseños esbozados previamente y se implementaron todas las funcionalidades necesarias para realizar el segmentador y el analizador sintáctico de los URIS. Fue necesario hacer uso de expresiones regulares y de las herramientas otorgadas por Bro para manejarlas.
+En esta etapa se tomarán los diseños esbozados previamente y se implementarán todas las funcionalidades necesarias para realizar el segmentador y el analizador sintáctico de los URIS.
 
 \item Módulo de evaluación de URIs 
 
-En esta etapa se tomaron los diseños realizados y se implementaron todas las expresiones, las estructuras de datos y las funcionalidades necesarias para construir un modulo de evaluacion funcional haciendo uso de las herramientas presentadas por Bro. 
+En esta etapa  se implementarán todas las expresiones, las estructuras de datos y las funcionalidades necesarias para construir un modulo de evaluación funcional haciendo uso de las herramientas presentadas por Bro. 
 
 \item Módulo de entrenamiento 
 
-En esta etapa se implementaron las estructuras de datos y los dos modos de entrenamiento (Online y Offline) haciendo uso del lenguaje de scripting de Bro.
+En esta etapa se implementarán las estructuras de datos y módulo de entrenamiento.
 
-\item Módulo de gestión del tipo de modo del sistema
-En esta etapa del proyecto se implementó el módulo de gestión del tipo de modo del sistema haciendo uso de bash scripting. Mediante este módulo se escogerá en que tipo de modo correrá el sistema (entrenamiento o evaluación).
+\item Módulo de gestión del tipo de sistema
+
+En esta etapa del proyecto se implementará el módulo de gestión del tipo de sistema haciendo uso de "bash scripting". 
 
 \item Módulo de reportes
-En esta etapa se implementaron los reportes del sistema haciendo uso de herramientas de Bro dedicadas exclusivamente a realizar este tipo de tareas.
+
+En esta etapa se implementarán los reportes del sistema haciendo uso de herramientas de Bro dedicadas exclusivamente a realizar este tipo de tareas.
 
 \end{legal}
 \item Evaluación y pruebas 
-Una vez finalizada la implementación del sistema se procedió a realizar pruebas tanto funcionales como operativas.
+
+Durante el desarrollo del proyecto se realizarán pruebas funcionales y una vez finalizada la implementación del sistema se procederá a realizar pruebas operativas.
 \begin{legal}
 \item Realización de pruebas funcionales
 
-En esta etapa del proyecto se hicieron pruebas de manera individual a cada una de las funciones más importantes de los módulos que conforman el sistema y se realizaron las modificaciones adecuadas en las mismas.
+Se harán pruebas de manera individual a cada una de las funciones más importantes de los módulos que conforman el sistema y se realizarán las modificaciones pertinentes en las mismas.
 
 \item Realización de pruebas operativas
 
-La realización de las pruebas operativas se basó en tomar base de datos de trazas tanto normales como anormales, probar el funcionamiento de todo el sistema y realizar las modificaciones adecuadas.
+La realización de las pruebas operativas se basará en tomar base de datos de trazas tanto normales como anormales, probar el funcionamiento de todo el sistema y realizar las modificaciones pertinentes.
+
 \end{legal}
 
 \item Documentación  
- Esta fase consistió en estructurar y redactar el libro del proyecto.
+ Esta fase consistirá en estructurar y redactar la memoria del proyecto.
 \end{legal}
 
-A continuación, se mostrará un diagrama de Gantt en donde se muestra el tiempo que tomó cada una de las tareas.
-
+\begin{figure}[H]
 \begin{center}
 \includegraphics[width=4in]{Proyecto-grado.png}
+\caption{Diagrama de Gantt del proyecto.}\label{fig1}
 \end{center}
+\end{figure}
 
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=4in]{tablaHoras.png}
+\caption{Número de horas invertidas.}\label{fig:horasProyecto}
+\end{center}
+\end{figure}
 
 \section{Presupuesto}
 
-A continuación se mostrará una tabla que muestra el presupuesto del proyecto realizado.
+El presupuesto del proyecto será dividido en el presupuesto de los materiales y en el presupuesto del personal. En el presupuesto de los materiales se mostrará la cantidad y el valor del software, las herramientas y los dispositivos utilizados para llevar a cabo el proyecto, así como los gastos generales que se realizaron durante el proceso de desarrollo. Por otra parte, el presupuesto del personal estará conformado por el salario del desarrollador y por el salario del director del proyecto. 
 
+El salario promedio anual de un desarrollador va desde los 35.000 euros a los 40.000 euros en España. Por otra parte, un director de proyectos estaría rondando entre los 65.000 y 85.000 euros \cite{salario}. Para calcular el monto a pagar por personal se calculó el numero de horas invertidas en el proyecto tanto por el director como por el desarrollador y se llevo a termino de meses. Así mismo, se estimo el salario que se debe pagar por mes al personal.
+
+Entonces, un desarrollador un desarrollador ``Junior'' estaría ganando por mes la cantidad de 37500 euros, mientras que un Senior tendría un salario mensual de 75000 euros. Como se puede observar en la figura \ref{fig:horasProyecto} las horas invertidas por el desarrollador fueron 300 horas. Esto se puede estimar en dos meses de salario si se hace el calculo haciendo uso de horas laborales de 5 días laborales por semana y 8 horas de trabajo por día. Por otra parte, el trabajo del director del proyecto trabajo un total de 40 horas, lo cual se puede estimar en una semana de trabajo siguiendo las mismas reglas laborales explicadas con anterioridad. 
+
+Si se calcula el monto que gana un desarrollador ``Junior'' por mes (incluyendo un mes de vacaciones) haciendo uso de la cantidad mencionada anteriormente estaríamos hablando de unos 3409 euros. Por su parte, el director del proyecto estaría ganando por mes 6818 euros.
+
+En la figura ~\ref{fig:presupuestoPersonal} se muestra el desglose detallado del presupuesto del personal.
+ 
+\begin{figure}[tb]
 \begin{center}
-\includegraphics[width=4in]{presupuesto.png}
+\includegraphics[width=4in]{presupuestoPersonal.png}
+\caption{Presupuesto del personal del proyecto.}
+\label{fig:presupuestoPersonal}
 \end{center}
+\end{figure}
+
+Por otra parte, el presupuesto de los materiales se pueden estudiar en la figura ~\ref{fig:presupuestoMaterial}.
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=4in]{presupuestoMaterial.png}
+\caption{Presupuesto del material del proyecto.}
+\label{fig:presupuestoMaterial}
+\end{center}
+\end{figure}

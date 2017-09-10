@@ -3,43 +3,22 @@
 \lhead{\emph{Introducción}}
 \addcontentsline{toc}{chapter}{Introducción}
 
-
-Hoy en dia es muy dif\'icil imaginar el mundo sin el Internet. Esta gran red de redes se ha convertido con el pasar de los años en la espina dorsal del mundo y se estima que mas y mas dispositivos se iran uniendo a esta  en un futuro.
-
-Un gran porcentaje del uso que se le da al Internet proviene de las aplicaciones web. Las aplicaciones web son programas cliente-servidor en donde el cliente se corre en un web browser. Estas pueden ser desde correos electronicos, hasta paginas web con algun servicio en especifico. Para compartir toda la informacion brindada por estas aplicaciones a traves del Internet, se hace uso del protocolo HTTP (Hypertext Transfer Protocol). 
-Es aqui donde entran los servidores HTTP, estos servidores son los encargados de suplir las peticiones de sus clientes y enviar o recibir la informacion por los mismos.
-
-Este tipo de servidores son un punto apetecible para los hackers ya que los mismos contienen informacion importante de las aplicaciones web. Como acceso a la base de datos de la aplicacion que contiene las claves, los nombres de usuarios y numero de tarjetas de credito.
-
-Una gran cantidad de informacion esta depositada en servidores de este tipo, es por esto, que es de total importancia velar por su seguridad.
-
-Este tema en cierta medida ser\'a el tema central en el presente trabajo. En el mismo, se hablara sobre la implementación de un protocolo desarrollado por J.E. Díaz-Verdejo, P. García-Teodoro, P. Muñoz, G. Maciá-Fernández, F. De Toro de la Universidad de Granada llamado SSM (Segmented Stochastic Modelling) en un lenguaje se scripting de un analizador de redes llamado Bro.
-
-SSM (Segmented Stochastic Modelling) es un sistema que “se basa en la definición de un autómata de estados finitos estocástico capaz de evaluar la probabilidad de generación de una petición concreta. El autómata permitirá, por tanto, dada una petición, evaluar si dicha petición es legítima (corresponde al modelo) y su probabilidad. En función de la probabilidad y de un umbral se clasificaran las peticiones como normales o anormales” J.E. Díaz-Verdejo, P. García-Teodoro, P. Muñoz, G. Maciá-Fernández, F. De Toro. 2007. Una aproximación basada en Snort para el desarrollo eimplantación de IDS híbridos.
-
-El objetivo de implementar este sistema es el de crear un detector de instrusiones (IDS) que detecte de manera adecuada intrusiones en servidores de tipo HTTP.
-
-En el siguiente trabajo se explicar\'an los detalles de la implementaci\'on del sistema, sus bases te\'oricas y las pruebas realizadas sobre el mismo. La estructura de este ser\'a la siguiente:
-
-En el capitulo uno se hablar\'a sobre la motivación de realizar dicho proyecto, los objetivos tanto generales como especificos, la planificaci\'on que se utilizo para realizar el proyecto y el presupuesto del mismo.
-
-Por otra parte,en el segundo cap\'itulo se tocar\'an temas relacionados con el estado del arte del proyecto.  En primero lugar se explicara la definici\'on de IDS y los tipos de IDS que existen, se explicara la composici\'on de los URI seg\'un el RFC (mencionar el numero del RFC) y se dar\'a una descripci\'on del funcionamiento SSM los modelos que lo conforman. Adem\'as, se hablar\'a sobre la herramiento utilizada y el lenguaje de scripting se utiliz\'o para implementar el sistema.
-
-En el tercer capitulo se hablara sobre el diseño del sistema. Aqu\'i se describir\'an los modulos en los que esta dividido el IDS y como es el funcionamiento de cada uno. Los detalles de implementacion de estos se explicaran en el capitulo cuarto.
-
-El quinto capitulo tocar\'a el tema de la evaluaci\'on y las pruebas. En este capitulo se hablara sobre la base de datos utilizada para realizar las pruebas y los resultados arrojados por las mismas. Adem\'as se describiran un poco las pruebas tanto operativas como funcionales realizadas sobre el sistema.
-
 % Descripción del problema, de lo general hacia lo específico
 
 
+
+Este Trabajo Final de Grado consistió en desarrollar e implementar los módulos necesarios para implementar un detector de intrusiones para servicios web, basado en SSM (por el ingles,``Segmented Stochastic Modelling'')\cite{ssm}, efectivo y que se pueda utilizar en redes de explotación. El detector fué implementado haciendo uso del lenguaje de ``scripting'' de un sistema de monitorización llamado Bro. Este sistema, se encargará de tomar peticiones HTTP de tipo GET, extraer sus URIs y analizar si los mismas poseen anomalías de una manera probabilística, utilizando modelos de normalidad. En el caso en el que se perciba alguna anormalidad, el sistema se encargará de emitir una alarma.
+ 
+El proyecto estuvo dividido en varias fases: La primera fase consistió en estudiar SSM y sus conceptos relacionados, así como familiarizarse con la herramienta Bro; la segunda fase se basó en diseñar y dividir las tareas del sistema en tres módulos principales: un modulo de segmentación, un modulo de evaluación y un modulo de entrenamiento; en la tercera fase se realizó la implementación y las pruebas funcionales del detector de intrusiones; en la cuarta fase se realizaron las pruebas operativas al sistema completo haciendo uso de bases de datos con trazas normales y bases de datos con trazas anómalas; y finalmente,en la sexta fase, se estructuró y se redactó la memoria del proyecto.
+
 % Trabajos anteriores
 
-
 % Objetivo general
-
 
 % Objetivos específicos
 
 % Organización del trabajo
+
 % Se describe brevemente qué se hace en cada capítulo
+
 
