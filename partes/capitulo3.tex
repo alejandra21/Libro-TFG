@@ -52,60 +52,83 @@ Es evidente entonces, que este modulo consta de dos funcionalidades fundamentale
 
  En las base teórica, la segmentación de los URIs se realiza mediante un autómata que se encarga de reconocer (realizar un análisis sintáctico) y evaluar en cada uno de sus estados la probabilidad de generación de cada uno de los segmentos.  No obstante, en la función de segmentación del sistema implementado, esta tarea se modeló mediante un analizador sintáctico que hace uso de una gramática (libre de contexto) de atributos que genera el mismo lenguaje que reconoce el autómata presentado en la figura ~\ref{fig:automata}, es decir, el lenguaje de los URI.
 
-En la figura (insertar nombre de la figura) se puede apreciar el diagrama de bloques que refleja el funcionamiento del módulo de segmentación.
+En la figura \ref{fig:arquiSegmentacion} se puede apreciar el diagrama de bloques que refleja el funcionamiento del módulo de segmentación.
 
 \begin{figure}[tb]
 \begin{center}
 \includegraphics[width=3in]{segArquiCompleta.jpeg}
 \caption{Diagrama de bloques del módulo de segmentación.}
-\label{fig:modoSistema}
+\label{fig:arquiSegmentacion}
 \end{center}
 \end{figure}
-
-*************************************************************************8
-Dentro de este modulo se pueden contemplar dos grandes funcionalidades: la normalización y la segmentación.
-
-En la normalización se encargará de traducir los URIs entrantes al formato UTF-8, mientras que, la segmentación tendrá el trabajo de dividir los URIs en segmentos. 
-
-``En el capítulo 3, se pudo apreciar la arquitectura del módulo de segmentación. Además, se pudo observar que el mismo consta de dos funcionalidades fundamentales: la normalización de los URIs y la segmentación. A grandes rasgos, la normalización se encargará de tomar el URI de las peticiones HTTP entrantes y codificarlo a formato UTF-8, el output arrojado por esta función será tomado por la de segmentación, quien a su vez se encargará de segmentar el URI de la forma en la que se explica en la sección \ref{sec:delimitadores}, es decir, el URI se dividirá en las diferentes partes estipuladas en el RFC 3986: el host, el path, los argumentos, los valores y el fragment''
-
-``El problema a resolver, presenta dos tareas fundamentales: segmentar y realizar un análisis sintáctico. En programación cuando se tiene un conjunto de datos de entrada (en este caso serían los URIs), y se desea realizar un análisis sintáctico sobre el mismo, lo más común es implementar un analizador sintáctico o parser.
-
-El análisis realizado por un analizador sintáctico “es el proceso en el cual se estudia la manera en la que una cadena de caracteres terminales es generado por una gramática.”  Compiler, principle, techniques and tools."
-
-Por otra parte, existen varios tipos de gramáticas, las gramáticas libre de contexto y las gramáticas regulares. Las que se suelen utilizar en un analizador sintáctico son las gramáticas libres de contexto. Una gramática libre de contexto “en el contexto del lenguaje natural, sería un conjunto de reglas que son utilizadas para construir o validar oraciones” “Formal Languages and Automata Theory” de D. Goswami and K. V. Krishna. 
-
-De manera más formal, según la definición 3.1.1 de: “Formal Languages and Automata Theory” de D. Goswami and K. V. Krishna. Se puede decir que una gramática libre de contexto es una  cuádrupla G = (N, $\sum$, P, S), donde:
-\begin{enumerate}
-\item N es un conjunto de no-terminales,
-\item $\sum$ es un conjunto de terminales. Los terminales son elementos fundamentales en el lenguaje generado por la gramática.
-\item S $\in$ N es el símbolo de inicio.
-\item P es un subconjunto finito de N x V * llamado el conjunto de reglas de producciones. Aquí, V = N U $\sum$."
-\end{enumerate}
-
-Entonces, para realizar el analizador sintáctico se requiere construir una gramática libre de contexto que genere el mismo lenguaje que reconoce el autómata presentado en la imagen ~\ref{fig:automata}, es decir, el lenguaje de los URI.
-
-Antes de presentar la gramática se mostrarán los tokens que utilizará la misma como elementos terminales. Un token “es la cadena de caracteres más corta que posee algún significado” Scott, Compilers.''
-
-
-
-
-A continuación se explicará con mas detalle ambas funcionalidades. 
-
-``La normalización es un paso importante dentro del modulo de segmentación ya que se encarga de estandarizar la forma en las que están escritos los URIs para de este modo facilitar tanto la evaluación como el entrenamiento en el sistema.''
 
 \subsection{Modulo de evaluación}
 \label{sec:evaluacion}
 
-Este modulo, como se mencionó con anterioridad es el encargado de evaluar la probabilidad de generación de cada uno de los segmentos del URI dado un modelo de normalidad. Una vez calculadas estas probabilidades, el modulo se encargará de calcular un índice de anormalidad del URI mediante el uso de las formulas descritas en la sección ~\ref{subsec:exprIndice} para luego compararlo con un parámetro $\theta$ y de este modo saber si el URI posee alguna anormalidad o no. 
+El módulo de evaluación, es el encargado de evaluar la probabilidad de generación de cada uno de los segmentos del URI otorgados por el modulo de segmentación, dado un modelo de normalidad. Una vez calculadas estas probabilidades, el modulo se encargará de calcular un índice de anormalidad del URI mediante el uso de las formulas descritas en la sección ~\ref{subsec:exprIndice} para luego compararlo con un parámetro $\theta$ (\ref{eq:ClaseU}) y de este modo saber si los segmentos de URI que ingresaron como entrada posee alguna anormalidad o no. Luego de realizar esta evaluación, el modulo se encargara de escribir los reportes del sistema en un ``log''.
 
+El módulo de evaluación, está conformado por dos grandes funcionalidades: una que se encargará de leer el modelo de normalidad y  otra que calculará el índice de anormalidad y evaluará si el mismo es anómalo o no. 
+
+**Función de lectura de datos:
+El modelo teórico que fue explicado en la sección ~\ref{sec:modeloSSM} posee elementos como: un conjunto “S” de estados, un conjunto “O” de símbolos observables que se encuentran en cada estado, una matriz “A” que contiene la probabilidad de transición entre estados, un conjunto “B” de vectores que contiene la probabilidad de las palabras observadas en cada estado y un vector de probabilidades iniciales. No obstante, los únicos elementos del modelo que se necesitan ingresar en el sistema para que este funcione y realice las tareas de evaluación son: el conjunto “O” de símbolos observables que se encuentra en cada estado y el conjunto de vectores “B”. El conjunto “B” es necesario para resolver la expresión \ref{eq:sumB}. Por otra parte, es necesario hacer uso tanto de “B” como “O” para obtener el valor de $b_{qtot}$ presentado en la ecuación \ref{eq:Pqtot}. Este elemento es sumamente importante para calcular el índice de anormalidad. Por otra parte, será necesario introducir al sistema los valores de probabilidad de fuera de vocabulario (Poov), ya que son necesarios para obtener el valor de $p_{qtot}$, presente en la ecuación \ref{eq:Pqtot}, en caso que una cadena de caracteres del URI que se esté analizando no se encuentre en el conjunto de observaciones “O”. Además, se requiere el valor del parámetro $\theta$ para evaluar el índice de anormalidad según lo estipulado en la ecuación \ref{eq:ClaseU} .
+
+    Entonces, en conclusión, los parámetros que requieren ser introducidos al sistema de detección de intrusiones para que este funcione de manera correcta son: el conjunto de observaciones de cada estado (O), el conjunto de vectores de probabilidad de las palabras observadas en cada estado ( $B_{S}, B_{P}, B_{A}, B_{V}$ ), los valores de probabilidad de fuera de vocabulario, es decir $P_{oovS}, P_{oovP}, P_{oovA}, P_{oovV}$ y el valor del parámetro $\theta$. Todos estos parámetros serán leídos por la función de lectura del modulo de evaluación.
+    
+Una vez leídos los parámetros necesarios para que el sistema funcione, estos serán enviados a la función de evaluación junto a los segmentos de URI dados por el módulo de segmentación. Una vez recibidos los datos de entrada, esta función se encargará de hallar el índice de anormalidad ($N_{s}$) mediante la expresión \ref{eq:Ns} para, de este modo compararlo con el parámetro $\theta$ como se indica en \ref{eq:ClaseU}.No obstante, las tareas de calculo y evaluación del índice de anormalidad, fueron subdivididas a su vez, en cuatro funciones. La primera de las funciones será la encargada de calcular tanto el $\varepsilon_{0}$ que aparece en la expresión \ref{eq:sumB} como la sumatoria de los logaritmos de los $p_{qtot}$ que se encuentra en \ref{eq:Ns}; la segunda función tomará el valor de $\varepsilon_{0}$ y la sumatoria de los logaritmos de los $p_{qtot}$ que calculó la primera función y procederá a efectuar todas las operaciones que hay en la expresión \ref{eq:Ns} para de este modo obtener el índice de anormalidad, $N_{s}$; por otra parte, la tercera función tendrá como tarea comparar el índice de anormalidad $N_{s}$ calculado por la tercera función, con el parámetro $\theta$ como se indica en \ref{eq:ClaseU}; la cuarta será la encargada de escribir en un archivo de texto aquellos URIs anómalos.
+
+El diagrama de bloques presente en la figura \ref{fig:arquiEvaluacion} representa el funcionamiento del módulo de evaluación.
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=3in]{evalArqui.jpeg}
+\caption{Diagrama de bloques del módulo de evaluación.}
+\label{fig:arquiEvaluacion}
+\end{center}
+\end{figure}
 
 \subsection{Modulo de entrenamiento}\label{sec:entrenamiento}
 
 El modelo de normalidad es uno de los aspecto importantes dentro del IDS basado en SSM ya que a partir de la información que este almacena se podrá decidir si un URI es anómalo o no dependiendo de la similitud que posea este con los datos que almacena el modelo. Por esta razón, realizar un modelo de normalidad apropiado es un aspecto  importante para que el módulo de evaluación haga detecciones de intrusiones más certeras.
 
-El módulo encargado de elaborar los modelos de normalidad será el módulo de entrenamiento. A grandes rasgos, este se encargará de recibir solicitudes libres de ataques e irá calculando la probabilidad de aparición de cada una de las palabras que aparecen en los URIs de las mismas, para finalmente dar al sistema una lista de palabras observadas junto con su probabilidad de aparición.
+El módulo encargado de elaborar los modelos de normalidad será el módulo de entrenamiento. A grandes rasgos, este se encargará de recibir un conjunto de segmentos libres de ataques proporcionados por el módulo de segmentación para ir calculando la probabilidad de aparición de cada una de las palabras que aparecen en los mismos, para finalmente, escribir en un archivo toda la información recolectada, es decir, el conjunto de palabras observadas mientras se hacía el entrenamiento, sus probabilidades de aparición y el estado del autómata en el que se observaron las mismas.
 
-En esta sección se explicará con detalles el funcionamiento y las expresiones utilizadas por el módulo de entrenamiento para construir el modelo de normalidad del sistema. 
+Este módulo consta de dos modos: el modo ``Offline'' y el modo ``Online''. La  diferencia fundamental entre el modo ``Online'' y el ``Offline'' es que en el primero necesita como entrada un modelo de normalidad ya construido y los segmentos de URI proporcionados por el módulo de segmentación. Una vez realizado el entrenamiento, esta modalidad se encargará de actualizar el modelo que se leyó al inicio. Por otra parte, el modo ``Online'' solo requiere como entrada los segmentos de URI y como salida proporcionará un  modelo de normalidad construido desde cero.
+
+El modo de entrenamiento ``Online'' fue dividido en tres funciones. La primera función irá observando los segmentos de los URIs de las peticiones que van llegando y contará el numero de veces que cada segmento fue observado durante el entrenamiento. La segunda función, toma el resultado de las observaciones realizadas por la primera función y calculará la probabilidad de aparición de cada uno de los segmentos haciendo uso de la formula \ref{eq:entrenamiento}. La tercera función tomara los resultados otorgados por la segunda función y los escribirá en un archivo de texto. Este archivo representara el modelo de normalidad construido.
+
+Por otra parte, las tareas a realizar por el modo de entrenamiento ``Offline'' fueron divididas de igual modo en tres funciones: La primera función se encargara de leer el modelo de normalidad; la segunda se encargará de tomar el modelo de normalidad leído por la primera función y el conjunto de segmentos de URI del módulo de segmentación. Esta información sera utilizada por la misma para ir calculando la probabilidad de aparición de los segmentos observados. La tercera función se encargara de recibir los resultados obtenidos por la segunda función y actualizara el modelo de normalidad previamente existente.
+
+En la figura {fig:arquiEntrenamiento} se puede apreciar el diagrama de bloques que describe el funcionamiento del módulo de entrenamiento.
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=4in]{entrenamArqui.jpeg}
+\caption{Diagrama de bloques del módulo de entrenamiento.}
+\label{fig:arquiEntrenamiento}
+\end{center}
+\end{figure}
+
+*********************************************************************
+
+El entrenamiento en modo “Offline” se encargará de tomar los segmentos de un flujo de URIs sin anomalías, contar el número de aparición de cada uno de los segmentos de los URIs, para luego calcular la probabilidad de aparición de cada uno de ellos. Una vez culminadas estas tareas se procederá a escribir en un archivo toda la información recolectada, es decir, el conjunto de palabras observadas mientras se hacía el entrenamiento, sus probabilidades de aparición y el estado del autómata en el que se observaron las mismas.
+
+Por otra parte, el modo de entrenamiento en modo “Online” a diferencia del entrenamiento en modo “Offline” necesita como entrada: un flujo de segmentos de URIs proporcionados por el modulo de segmentación y un archivo con un modelo de normalidad ya construido. Esta función, se encargará de ir modificando el modelo de normalidad ingresado a medida que se vayan recibiendo nuevos segmentos de URI para de esta manera construir el nuevo modelo.
+
+
+
+
+
+
+
+
+
+
+finalmente el conjunto de palabras observadas mientras se hacía el entrenamiento, sus probabilidades de aparición y el estado del autómata en el que se observaron las mismas
+
+dar al sistema una lista de palabras observadas junto con su probabilidad de aparición.
 
 ``Este módulo de entrenamiento será el encargado de armar el vocabulario del módulo de normalidad del sistema. Como se mencionó con anterioridad, este módulo tomará un conjunto de solicitudes libres de ataques, para luego calcular la probabilidad de aparición de las palabras en el conjunto de observaciones totales de cada uno de los estados. En términos más formales, la  tarea que realiza este módulo se puede modelar de la siguiente forma:''
+
+``La implementación del módulo de entrenamiento consta de dos modos, el modo “Offline” y el modo “Online”. El entrenamiento en modo “Offline” se encargará de tomar los segmentos de un flujo de URIs sin anomalías, contar el número de aparición de cada uno de los segmentos de los URIs, para luego calcular la probabilidad de aparición de cada uno de ellos. Una vez culminadas estas tareas se procederá a escribir en un archivo toda la información recolectada, es decir, el conjunto de palabras observadas mientras se hacía el entrenamiento, sus probabilidades de aparición y el estado del autómata en el que se observaron las mismas.
+
+Por otra parte, el modo de entrenamiento en modo “Online” a diferencia del entrenamiento en modo “Offline” necesita como entrada: un flujo de segmentos de URIs y un archivo con un modelo de normalidad ya construido. Esta función, se encargará de ir modificando el modelo de normalidad ingresado a medida que se vayan recibiendo nuevos segmentos de URI para de esta manera construir el nuevo modelo.''
