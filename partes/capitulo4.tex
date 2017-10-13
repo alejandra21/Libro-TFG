@@ -86,14 +86,6 @@ La estructura "URI" se utilizará al momento de segmentar las consultas del URI.
 
 \subsection{Implementación del segmentador y el analizador sintáctico}\label{subsec:implementacionAutom}
 
-En la función de segmentación, el problema que se quiere resolver es el siguiente: guardar los segmentos de un URI delimitados por los delimitadores presentados en la sección ~\ref{sec:delimitadores} en la estructura de datos de tipo “uriSegmentado”, detallada en la sección ~\ref{sssec:estructuraSegmentacion}, y a la vez verificar que el mismo tenga una estructura sintáctica correcta según los estándares del RFC 3986. En las base teórica, este problema es resuelto  mediante un autómata que se encarga de reconocer y evaluar en cada uno de sus estados la probabilidad de generación de cada uno de los segmentos. 
-
-En esta sección se explicará la forma en que se modeló y se implementó el problema presentado con anterioridad haciendo uso de las herramientas presentadas por el lenguaje de scripting de Bro.
-
-Estos tokens utilizarán las expresiones regulares que soporta Bro. Estas están basadas en las expresiones regulares empleadas en Lex, la librería para realizar análisis léxicos del lenguaje de programación C.
-
-La lista de tokens utiliza es la siguiente:
-
 \begin{itemize}
 \item protocolo: “http”|”https”
 \item host: $(([a-z]+[a-z0-9\-]*[.])?([a-z0-9]+[a-z0-9\-]*[.])+[a-z]{2,3}|localhost)(:([0-9]{1,5}))?|$\\ ((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(:([0-9]{1,5}))?
@@ -173,118 +165,7 @@ Para implementar la gramática ~\ref{eq:gramaticaAtributos} se modelaron los ele
 
 A continuación, se mostrará un pseudocódigo en donde se podrá apreciar de manera más clara el procedimiento llevado a cabo para implementar la grámatica \ref{eq:gramaticaAtributos} haciendo uso de las funciones nombradas con anterioridad.
 
-\begin{verbatim}
-# Hace el trabajo que realiza el símbolo no terminal "S" de la gramática
-function inicio(url: string){
-    # Se parsea el protocolo
-    local test_pattern = /(http(s)?:\/\/)?/;
-    local results = split(uri,test_pattern);
-    Se verifica la correctitud sintáctica
-    Si hay correctitud sintáctica entonces, se llama a la función parseHost
-}
-
-# Hace el trabajo que realiza el símbolo no terminal "H" de la gramática
-function parseHost(url: string){
-    # Se parsea el host
-    local test_pattern = /(([a-z]+[a-z0-9\-]*[.])?([a-z0-9]+[a-z0-9\-]*[.])\\
-                          +[a-z]{2,3}|localhost)(:([0-9]{1,5}))?/;
-    local results = split_all(url, test_pattern);
-    Se verifica la correctitud sintáctica
-    Si hay correctitud sintáctica entonces:
-        Se almacena el host en uri$host
-        Si existe una ruta entonces llamaremos a la función parsePath
-}
-
-# Hace el trabajo que realiza el símbolo no terminal "P" de la gramática
-function parsePath(url: string){
-    # Se parsea la ruta
-    local test_pattern = /[^?#]*\/?/;
-    local results = split_all(urlResult, test_pattern);
-    Se verifica la correctitud sintáctica
-    Si hay correctitud sintáctica entonces:
-        Se llama a la función segmentarQuery
-        Si existe un query, entonces llamaremos a la función parseQuery
-        Si no existe un query, pero si un fragment, 
-        entonces llamaremos a la función parseFragment
-
-}
-
-# Hace el trabajo que realiza el símbolo no terminal " P' " de la gramática
-function segmentarPath(path: string){
-
-    local test_pattern = /\//;
-    local results = split(url, test_pattern);
-    parsedUri$path = results;
-}
-
-# Hace el trabajo que realiza el símbolo no terminal "Q" de la gramática
-function parseQuery(url: string){
-    # Se parsea el query
-    local test_pattern = /\?[^#&]+((=[^#&]*)?(&[^#&]+(=[^#&]*)?)*)?/;
-    local results = split_all(url, test_pattern);
-    Se verifica la correctitud sintáctica
-    Si hay correctitud sintáctica entonces:
-        Se llama a la función segmentarQuery
-        Si existe un fragment, entonces llamaremos a 
-        la función parseFragment
-
-}
-
-# Hace el trabajo que realiza el símbolo no terminal " Q' " de la gramática
-function segmentarQuery(query: string){
-
-    local queryUri : URI;
-    # Se segmenta el query string.
-    queryUri = decompose_uri(query);
-    parsedUri$query = queryUri$params;
-}
-
-# Hace el trabajo que realiza el símbolo no terminal "F" de la gramática
-function parseFragment(url: string){
-    # Se parsea la ruta
-    local test_pattern = /#.*/;
-    local results = split_all(url, test_pattern);
-    Se verifica la correctitud sintáctica
-    Si hay correctitud sintáctica entonces:
-        Se almacena el fragment en uri$fragment
-}
-\end{verbatim}
-
-    Entonces, si se quiere poner en funcionamiento el módulo para segmentar de deberá llamar a la función “inicio” con un URL como parámetro de entrada.
-
 \subsection{Implementación del la normalización de los URIs}\label{subsec:implementacionNorm}
-
-La normalización de los URI debe realizarse de acuerdo a las especificaciones establecidas en la Sección 3.X, habiéndose implementado para ello una función denominada X, con el siguiente formato.
-
-\textbf{La normalización de los URI debe realizarse de acuerdo a las especificaciones establecidas en la Sección 3.X, habiéndose implementado para ello una función denominada X, con el siguiente formato}
-
-Esta función tomará como entrada una variable de tipo string y mediante un "loop for" se itera por cada una de las claves de la tabla que se presentó en la seccón ~\ref{sssec:estructuraNormalizacion}. Si alguno de los elementos de la tabla está contenido en el string que la función recibe como entrada, entonces se procederá a reemplazar el elemento del párametro de entrada por el valor que posee dicha clave en la hash table. Esta tarea de subsitución se realizará haciendo uso de la función “subst\_string” que proporciona Bro.
-
-“subst\_string” es una función de la forma: function(s: string, from: string, to: string) : string
-
-Se encarga de hacer sustituciones en una cadena de caracteres. Los parámetros de esta son:
-
-\begin{itemize}
-\item S: Cadena de caracteres en la que se efectúa la sustitución.
-\item From: La cadena de caracteres que se va a buscar en “S” para ser sustituida.
-\item To: Cadena de caracteres que pasará a sustituir a “From”.
-\end{itemize}
-
-A continuación se presenta la implementación de dicha función haciendo uso del lenguaje de scripting de Bro.
-
-\begin{verbatim}
-
-function normalizarUri(url: string): string {
-    for (word in encoding){
-
-        if (word in urlFinal){
-            urlFinal = subst_string(urlFinal,word,encoding[word]);
-
-        }
-}
-\end{verbatim}
-
-Donde "encoding" es un tabla como la que se presentó en la sección ~\ref{sssec:estructuraNormalizacion}
         
 \section{Implementación del modulo de evaluación}
 En esta sección se explicará de manera detallada las estructuras de datos utilizadas y la manera en la que se implementó el módulo de evaluación explicado en la sección \ref{sec:evaluacion}  haciendo uso del lenguaje de scripting de Bro. 
@@ -446,84 +327,10 @@ Donde $"Input::TableDescription"$ es una estructura de datos tipo “record” c
 \item val: Campo opcional que almacena el nombre del registro que define los valores de la tabla que almacena la información de los archivos de entrada.
 \end{itemize}
 
-Un ejemplo concreto de cómo luciría esta función si se quieren leer los archivos “config” y “modeloBro.log” seria la siguiente:
-
-La lectura del archivo “config” sería la siguiente:
-
-\begin{verbatim}
-Input::add_table([\$source=”config”, \$name=”config”,
-                          \$idx=Clave, \$val=Valor,
-                          \$destination=config]);
-\end{verbatim}                    
-
-Mientras que la lectura del archivo “modeloBro.log” se realizaría de la siguiente manera:
-
-\begin{verbatim}
-Input::add_table([\$source=”modeloBro.log”, \$name=”modeloBro”,
-                          \$idx=Word, \$val=Probability,
-                          \$destination=Btable]);
-\end{verbatim}
-
-Las tablas resultantes luego de leer ambos archivos serían:
-
-\begin{verbatim}
-config = {   [Poov1] = 0.0001,
-      [Poov2] =  0.0001,
-      [Poov3] =  0.0001,
-      [Poov4] =  0.0001,
-                   [Theta]  =  12.0       };
-\end{verbatim}
-
-\begin{verbatim}
-Btable = {      [Bss]  =  {192.168.1.13,    1.0}
-      [Bsp]  =  {idr,    0.16759},
-      [Bsa]  =  {idpd,    0.000006},
-      [Bsv]  =  {nombre,    0.000175},
-      [numeroPalabraSs]  = { numTotal,    205069.0},
-      [numeroPalabraSp]  = {numTotal,    423870.0},
-      [numeroPalabraSa]  =  {numTotal,    319727.0},
-      [numeroPalabraSv]  =  {numTotal,    319727.0}      };
-\end{verbatim}
-
 \subsection{Evaluación de las probabilidades de los URI}
 
-Una vez leídos los parámetros necesarios para que el sistema funcione, el siguiente paso es hallar el índice de anormalidad ($N_{s}$) mediante la expresión \ref{eq:Ns} para de este modo compararlo con el parámetro $\theta$ como se indica en la expresión \ref{eq:ClaseU}. Estas dos tareas esenciales en el módulo de evaluación se dividieron en tres funciones al momento de ser implementadas. Una de las funciones será encargada de calcular tanto el $\varepsilon_{0}$ que aparece en la expresión \ref{eq:sumB} como la sumatoria de los logaritmos de los $p_{qtot}$ que se encuentra en la expresión \ref{eq:Ns}. La segunda función tomará el valor de $\varepsilon_{0}$ y la sumatoria de los logaritmos de los $p_{qtot}$ que calculó la primera función y procederá a efectuar todas las operaciones que hay en la expresión \ref{eq:Ns} para de este modo obtener el índice de anormalidad, $N_{s}$. Por otra parte, la tercera función tendrá como tarea comparar el índice de anormalidad $N_{s}$ con el parámetro $\theta$ y escribir en un archivo de texto aquellos URIs anómalos.
-
-La primera función, fue implementada con la ayuda de las tablas “Btable”, “config” y la estructuras de datos se tipo “uriSegmentado” que fueron explicadas en la secciones \ref{sssec:estructuraModelo} y \ref{sssec:estructuraSegmentacion} respectivamente.  Lo lógica seguida por dicha función fue la siguiente:
-
-Se toma el vocabulario de cada uno de los estado, es decir, la información almacenada en la estructura de tipo “uriSegmentado” y se itera por cada uno de los elementos. Mientras se está realizando la iteración, se verifica si los elementos se encuentran en los datos que almacena la estructura de tipo “Btable”, es decir, en el vector “B” del estado respectivo. Si la palabra se encuentra dentro de la tabla “Btable”, entonces, se procederá a buscar la probabilidad de generación de dicha palabra, si no se encuentra, entonces se utilizará la probabilidad de fuera de vocabulario del estado con el que se está trabajo. Con estos valores se realizarán dos operaciones: La primera será ir sumando cada una de las cantidades en una variable acumuladora para de esta forma calcular  la expresión \ref{eq:sumB} al final de la iteración. Esto se podrá hacer dividiendo el valor que hay en la variable acumuladora entre el número de elementos que posee el vocabulario del estado que se está estudiando. La segunda operación será ir sumando los logaritmos de cada una de las probabilidades e ir almacenando dicha suma en una variable acumuladora, para de este modo calcular la sumatoria de los logaritmos de los $p_{qtot}$ que se encuentra en la expresión \ref{eq:Ns}.
-
-Por otra parte, la segunda función se encargará de tomar los valores calculados por la primera función ($\varepsilon_{0}$ y $\sum log(p_{qtot})$)  así como el campo “número de estados” ( T ) de la estructura de datos de tipo “uriSegmentado”, para luego realizar las operaciones presentes en la ecuación \ref{eq:Ns}.
-
-Finalmente, la tercera verificará si el URI que se está analizando estaba sintácticamente bien construido verificando en el campo “uri correcto” de la estructura de datos de tipo “uriSegmentado”. Si el valor de dicho campo indica que el URI no estuvo bien construido, entonces, se escribirán en un “log”  los datos del URI  con la ayuda de las herramientas que aporta el “Notice Framework” de Bro y la estructura de datos “InfoAtaque” presentada en la sección \ref{sssec:estructuraEvaluacion}. La herramienta de Bro utilizada para realizar la escritura del log fue la función “write” del módulo LOG. La manera en la que se utilizó en el programa fue la siguiente:
-
-\begin{verbatim}
-    local rec: InfoAtaque;
-    rec = InfoAtaque();
-
-    rec$clasificacion = "Error de sintaxis en el URI : ";
-    rec$uri = Segmentacion::parsedUri$uri;
-    rec$probability = "-";
-
-    # Se escribe en el archivo
-    Log::write(LOG, rec);
-\end{verbatim}
-
-Por otra parte, si el valor del campo “uri correcto” indica que el URI está sintácticamente bien construido, entonces, se tomará el índice de anormalidad ($N_{s}$) calculada por la segunda función y siguiendo lo estipulado en la expresión \ref{eq:ClaseU}, se comparará con el parámetro $\theta$ obtenido a través de la tabla “config”. Si el índice de anormalidad es menor o igual que el parámetro $\theta$ entonces, se procederá a escribir en el log de los URIs anómalos de la misma forma en la que se describió anteriormente. La única diferencia sería que en la estructura de datos se escribiría la siguiente información:
-
-\begin{verbatim}
-            rec$clasificacion = "Se ha sobrepasado el umbral de anomalia : ";
-            rec$uri = Segmentacion::parsedUri$uri;
-            rec$probability = cat(" ",indicesAnormalidad);
-\end{verbatim}
 
 \section{Implementación del modulo de entrenamiento}
-
-En esta sección se explicarán las estructuras de datos utilizada y el modo en el que se implementó en Bro el módulo de entrenamiento. La explicación teórica del mismo se encuentra detallada en la sección \ref{sec:entrenamiento}.
-    
-    La implementación del módulo de entrenamiento consta de dos modos, el modo “Offline” y el modo “Online”. El entrenamiento en modo “Offline” se encargará de tomar los segmentos de un flujo de URIs sin anomalías, contar el número de aparición de cada uno de los segmentos de los URIs, para luego calcular la probabilidad de aparición de cada uno de ellos. Una vez culminadas estas tareas se procederá a escribir en un archivo toda la información recolectada, es decir, el conjunto de palabras observadas mientras se hacía el entrenamiento, sus probabilidades de aparición y el estado del autómata en el que se observaron las mismas.
-
-Por otra parte, el modo de entrenamiento en modo “Online” a diferencia del entrenamiento en modo “Offline” necesita como entrada: un flujo de segmentos de URIs y un archivo con un modelo de normalidad ya construido. Esta función, se encargará de ir modificando el modelo de normalidad ingresado a medida que se vayan recibiendo nuevos segmentos de URI para de esta manera construir el nuevo modelo.
 
 \subsection{Estructura de datos}\label{sub:estructuraEntrenamiento}
 El módulo de entrenamiento consta de varias estructuras de datos de tipo “register” y de tipo “table” para realizar su trabajo. Tanto el modo “Online” como el “Offline” comparten las mismas estructuras.
@@ -578,112 +385,8 @@ entrenamientoSv: table[string] of Entrenamiento = table();
 \end{verbatim}
 
 \subsection{Entrenamiento Offline}
-El entrenamiento en modo “Offline”, como se explicó en la introducción consiste en realizar observaciones de los segmentos de los URIs entrantes y calcular la probabilidad de aparición de cada uno de ellos. La  diferencia fundamental entre este modo y el “Online” es que en el segundo se toma un modelo de normalidad ya construido y se va actualizando a medida que van llegando peticiones nuevas, mientras que el primero se va creando el modelo de normalidad desde cero.
-
-La manera de implementar esta funcionalidad fue dividir la tarea que realiza este modo en dos funciones. La primera función se encargará de ir verificando por estado si los segmentos de los URIs de las peticiones que van llegando se encuentra en las tablas  “entrenamientoSs”, “entrenamientoSp”, “entrenamientoSa” o “entrenamientoSv”  explicadas en la sección \ref{sub:estructuraEntrenamiento} dependiendo el estado al que pertenezca el segmento que se está estudiando. Si  la palabra se encuentra en la tabla correspondiente, entonces se aumentará en una unidad el campo “numPalabras” de la misma. Si no se encuentra, entonces se agregara la palabra a la respectiva tabla de entrenamiento y se se aumentará en una unidad el campo “numPalabras”.
-
-La segunda función se utilizará una vez que el flujo de segmentos en el entrenamiento haya terminado. Esta función se encargará de calcular la probabilidad de aparición de las palabras dada una tabla del tipo de “entrenamientoSs”, “entrenamientoSp”, “entrenamientoSa” o “entrenamientoSv” y el número de palabras total de la misma haciendo uso de la fórmula (3.13 agregar referencia).
 
 \subsection{Entrenamiento Online}\label{sec:entrenamientoOffline}
 
-El modo de entrenamiento “Online” funciona de una manera un poco diferente al modo “Offline” ya que en este modo de entrenamiento existe un modelo de normalidad previamente construido que se tendrá que ir modificando a medida que van llegando nuevos flujos de segmentos de URI. El trabajo que se debe realizar en este modo fue dividido en dos funciones:
-
-La primera función será la encargada de leer el modelo de normalidad de la misma forma en que se explicó en la sección \ref{sec:lecturaModelo}, es decir, se creará una tabla como la “Btable” que contendrá toda la información del archivo de texto y además, se extraerá  el número total de palabras observadas por estado que se encuentra en el modelo. Estos valores serán almacenados en varias variables para ser utilizados posteriormente.
-
-La segunda función verificará si las palabras entrantes se encuentran en el conjunto de palabras leídas previamente en el modelo de normalidad. Si no se encuentran, entonces, se introducirá la nueva palabra a la tabla creada por la primera función ( “Btable”) y se calculará la probabilidad de aparición de la misma mediante el uso de la fórmula \ref{eq:entrenamiento}. 
-
-Por otra parte, si la palabra existe dentro de la tabla “Btable”, entonces, se procederá a hallar el número de veces que esta fue observada anteriormente para calcular la nueva probabilidad de aparición. Como se tiene la probabilidad antigua de aparición de dicha palabra ($b_{ij}$) y el número total de palabras observadas en el estado ($\sum_{s=1}^{L}\sum_{t=1}^{Ts}\delta(q_{t}^{s} = s_{i})$), entonces, se puede despejar la fórmula \ref{eq:entrenamiento} utilizada para calcular la probabilidad de aparición de la siguiente forma:
-
-\begin{equation}\label{eq:probAparicion}
-b_{ij}*(\sum_{s=1}^{L}\sum_{t=1}^{Ts}\delta(q_{t}^{s} = s_{i}) ) = \sum_{s=1}^{L}\sum_{t=1}^{Ts}\delta(o_{t}^{s} = v_{i,j} ,q_{t}^{s} = s_{i} )      
-\end{equation}
-
-Una vez calculado el número de veces que la palabra fue observada anteriormente con la ayuda de la fórmula \ref{eq:probAparicion}, se puede hallar la nueva probabilidad de aparición de la misma haciendo uso de la fórmula \ref{eq:entrenamiento}.
-
-En Bro este procedimiento se escribiría de la siguiente manera:
-
-\begin{verbatim}
-# Se calcula el número de veces que la palabra fue observada anteriormente
-x =  numPalabras*Btable[state,word]$probability;
-
-# Se suma una unidad al número de palabras total y se calcula la nueva probabilidad de #aparicion.
-numPalabras = numPalabras + 1;
-Btable[state,word]$probability = (x + 1)/(numPalabras);
-\end{verbatim}
-
-Donde :
-\begin{itemize}
-\item numPalabras es el número total de palabras observadas en un estado.
-\item state es el nombre del estado al que pertenece la palabra que se está estudiando.
-\item word contiene la palabra que se está estudiando.
-\item Btable es la tabla que contiene la información del modelo de normalidad leído en la primera función descrita en esta sección. El tipo de dato de “Btable” está mostrado en la sección (introducir número de sección en donde se explica el Btable)
-\end{itemize}
-
 \subsection{Escritura del modelo de normalidad en Bro}
 
-    La escritura del modelo de normalidad que se implementó a través de dos funciones. Una para escribir el archivo de salida cuando se esté entrenando en modo “Online” y otra para cuando se entrene en modo “Offline”. Estas funciones se encargarán de tomar los datos recolectados en el entrenamiento y escribirlos en un archivo de texto siguiendo el formato establecido en la sección \ref{sec:lecturaModelo}.
-
-    Para realizar esta tarea se hizo uso de la estructura de datos “Info”, que fue explicada en la sección \ref{sub:estructuraEntrenamiento} y de la herramienta “Logging Framework” de Bro. En concreto, se utilizaron las funciones “create\_stream” para crear el archivo en donde se va a escribir la información y la función “write”  para escribir los datos sobre el mismo.
-
-    La manera en que se utilizaron las herramientas junto con la estructura de datos “Info” fue la siguiente:
-
-Si el entrenamiento se está realizando en modo “Online”, entonces la función que se encarga de escribir el modelo tendrá la siguiente implementación:
-
-\begin{verbatim}
-    # Se crea el archivo.
-    local nombreArchivo = "modeloBro";
-    Log::create_stream(LOG, [$columns=Info, $path=nombreArchivo]);
-
-    # Se inicializa el registro que se utilizará para escribir sobre el
-    # archivo.
-    local rec: Info;
-    rec = Info();
-
-    # Se itera sobre las palabras del vocabulario para guardarlas en el log.
-    for ([estado,palabra] in Btable){
-
-        rec$word = palabra;
-        rec$probability = vocabulario[estado,palabra]$probability;
-        rec$state = estado;
-
-        # Se escribe en el archivo
-        Log::write(LOG, rec);
-        
-    }
-\end{verbatim}
-
-Por otra parte, si el modo de entrenamiento es en modo “Offline”, entonces la función que se encargará de escribir el archivo de texto estará implementada de la siguiente manera:
-
-\begin{verbatim}
-    # Se crea el archivo.
-    local nombreArchivo = "modeloBro";
-    Log::create_stream(LOG, [$columns=Info, $path=nombreArchivo]);
-
-    # Se inicializa el registro que se utilizará para escribir sobre el
-    # archivo.
-    local rec: Info;
-    rec = Info();
-
-    for (i in vocabulario){
-
-        # Se itera sobre las palabras del vocabulario para guardarlas en el log.
-        for (palabra in vocabulario[i]){
-
-            rec$word = palabra;
-            rec$probability = vocabulario[i][palabra]$probability;
-            rec$state = tablaEstados[i];
-
-            # Se escribe en el archivo
-            Log::write(LOG, rec);
-            
-        }
-
-    }
-\end{verbatim}
-Donde :
-
-\begin{itemize}
-\item vocabulario serán las tablas “entrenamientoSs”, “entrenamientoSp”, “entrenamientoSa” y “entrenamientoSv” explicadas en la sección (introducir numero de la sección).
-\end{itemize}
-
-Es preciso recalcar que la función debe recibir cada una de las tablas de entrenamiento de cada uno de los estados.

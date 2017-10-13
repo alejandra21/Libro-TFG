@@ -9,8 +9,9 @@
 
 % Otros paquetes instalados
 % Básicos
-\usepackage{natbib}
+%\usepackage{natbib}
 \usepackage{enumerate}
+\usepackage{enumitem}
 
 % Para dibujar figuras
 \usepackage{tikz}
@@ -63,17 +64,19 @@
         \large Universidad Simón Bolívar \\
         Decanato de Estudios Profesionales \\
         Coordinación de Ingeniería de la Computación
-        \vfill \LARGE @títuloProyecto \vfill}
+        \vfill \LARGE Módulo para la detección de
+ataque mediante Bro \vfill}
     \author{Por: \\
-        @autor1 \\
-        @autor2 \\[1.2cm]
-        Realizado con la asesoría de: \\
-        @tutor \\[1.2cm]
-        PROYECTO DE GRADO \\
+        Cordero García Alejandra \\
+        Tutor académico: \\
+        Alvárez Kitty \\[1.2cm]
+        Tutor industrial: \\
+        Díaz Verdejo Jesús \\[1.2cm]
+        PASANTÍA LARGA \\
 Presentado ante la Ilustre Universidad Simón Bolívar \\
 como requisito parcial para optar al título de \\
 Ingeniero de Computación}
-    \date{Sartenejas, @mes de @año}
+    \date{Sartenejas, Octubre de 2017}
 \end{titlepage}
 
 \begin{document}
@@ -89,13 +92,32 @@ Ingeniero de Computación}
 \addtotoc{Resumen}
 \abstract{
 \addtocontents{toc}{\vspace{1em}}
-\blindtext
 
-\blindtext
+Esta pasantía larga consistió en desarrollar e implementar los
+módulos necesarios para implementar un detector de intrusiones para servicios
+web, basado en SSM (por el ingles,“Segmented Stochastic Modelling”)[11],
+que se pueda utilizar en redes de explotación. El detector fué implementado
+haciendo uso del lenguaje de “scripting” de un sistema de monitorización
+llamado Bro. Este sistema, se encargará de tomar peticiones HTTP de tipo
+GET, extraer sus URIs y analizar si los mismas poseen anomalías de una
+manera probabilística, utilizando modelos de normalidad. En el caso en el
+que se perciba alguna anormalidad, el sistema se encargará de emitir una
+alarma.
+El proyecto estuvo dividido en varias fases: La primera fase consistió en
+estudiar SSM y sus conceptos relacionados, así como familiarizarse con la
+herramienta Bro; la segunda fase se basó en diseñar y dividir las tareas del
+sistema en tres módulos principales: un modulo de segmentación, un módulo
+de evaluación y un modulo de entrenamiento; en la tercera fase se realizó la
+implementación y las pruebas funcionales del detector de intrusiones; en la
+cuarta fase se realizaron las pruebas operativas al sistema completo haciendo
+uso de bases de datos con trazas normales y bases de datos con trazas
+anómalas; y finalmente,en la sexta fase, se estructuró y se redactó la memoria
+del proyecto.
+
 
 % Las palabras clave son generalmente los nombres de áreas de investigación a
 % los cuales está asociado el trabajo. Generalmente son tres o cuatro.
-\noindent \begin{small} \textbf{Palabras clave}: @palabra1, @palabra2, @palabra3.
+\noindent \begin{small} \textbf{Palabras clave}: SSM, HTTP, GET, URI, Bro.
 \end{small}
 
 % Iniciar nueva página luego del resumen
@@ -105,9 +127,9 @@ Ingeniero de Computación}
 % Agradecimientos
 \acknowledgements{
 \addtocontents{toc}{\vspace{1em}}
-\blindtext
-
-\blindtext
+Agradezco en primer lugar a mis padres por darme su apoyo incondicional
+siempre. También debo darle las gracias a mis amigos por brindarme su
+ayuda y al Dr. Díaz Verdejo por su paciencia y dedicación.
 }
 \clearpage
 
@@ -125,7 +147,7 @@ Ingeniero de Computación}
 
 \lhead{\emph{Índice de Tablas}}
 \renewcommand*\listtablename{Índice de Tablas}
-\listoftables
+%\listoftables
 
 %\lhead{\emph{Índice de Algoritmos}}
 %\renewcommand*\listalgorithmname{Índice de algoritmos}
@@ -177,7 +199,9 @@ Ingeniero de Computación}
 % El número de capítulos varía. En mi libro fueron cuatro (sin contar
 % introducción y conclusión).
 \input{./partes/capitulo1}
+\input{./partes/capituloEmpresa}
 \input{./partes/capitulo2}
+\input{./partes/marcoTecnologico}
 \input{./partes/capitulo3}
 \input{./partes/capitulo4}
 \input{./partes/capitulo5}
@@ -185,18 +209,19 @@ Ingeniero de Computación}
 \input{./partes/conclusiones}
 
 % El estilo de la bibliografía es AAAI, definido en el archivo aaai.bst.
-\label{Bibliography}
-\bibliography{bibliografia}
-\lhead{\emph{Bibliografía}}
-\bibliographystyle{aaai}
-\addtocontents{toc}{\vspace{2em}}
+\input{./partes/referencias}
+
+%\label{Bibliography}
+%\bibliography{bibliografia}
+%\lhead{\emph{Bibliografía}}
+%\bibliographystyle{aaai}
+%\addtocontents{toc}{\vspace{2em}}
 
 % Apéndices
 \appendix
 \input{./partes/apendiceA}
 \input{./partes/apendiceB}
 \addtocontents{toc}{\vspace{2em}}
-
 \backmatter
 
 \end{document}

@@ -459,52 +459,6 @@ Entonces, la función que se encarga de segmentar tomará dicho URI y lo segment
 \item Pinturas\%20Rupestres : Segmento correspondiente al valor del query.  
 \end{itemize}
 
-\section{Bro}
-
-Bro es un software ``open source'' cap\'az de analizar a detalle las actividades que ocurren en la red. Se utiliza principalmente para inspeccionar todo el tráfico y detectar signos de actividad sospechosa. Sin embargo, Bro soporta una amplia gama de tareas de análisis de tráfico incluso fuera del dominio de seguridad, incluyendo mediciones de rendimiento y ``trouble-shouting''.\cite{Bro}
-
-Este software, posee un conjunto extenso de $"logs"$ que registran las actividades que se observan en la red. Estos $"logs"$ almacenan información de la capa de aplicación, como por ejemplo, los URIs y las respuestas del servidor en una sesión de tipo HTTP, o las solicitudes y respuestas DNS en una sesión DNS. Bro escribe todos estos datos en archivos con formatos bien predeterminados con la intención de facilitar el procesamiento de la información almacenada por programas externos. No obstante, el usuario tiene la posibilidad de elegir el formato en el que se almacenan los datos.
-
-Por otra parte, Bro incluye también un lenguaje de $"scripting"$, Turing completo y orientado a eventos, cuya funci\'on es extender y personalizar las funcionalidades primarias que otorga el mismo. Este lenguaje de $"scripting"$ posee una biblioteca estándar. 
-
-Así mismo, el lenguaje de Bro posee diversos ``frameworks'' que facilitan el trabajo al momento de programar nuevas funcionalidades. Los ``frameworks'' utilizados en el sistema implementado fueron: el ``Input Framework'' y el ``Logging Framework''.
-El ``Input Framework'' permite leer de manera mas cómoda y eficiente la información que se encuentra dentro de los $"logs"$ del sistema.
-Este $"framework"$ posee dos modalidades. La primera modalidad consiste en leer la información que se encuentra dentro de los $"logs"$ para luego almacenarla en una estructura de datos de tipo $"table"$. La segunda modalidad lee la información y la envía a un evento anteriormente programado.
-Por otra parte, el ``Logging Framework'', tiene como tarea facilitar el manejo y la escritura de los $"logs"$. Este, permite crear, escribir datos de forma organizada y filtrar información de los $"logs"$.
-
-Como se mencionó con anterioridad, el lenguaje de $"scripting"$ de Bro es un lenguaje orientado a objetos. Sin embargo, es importante recalcar, que el núcleo o motor principal de Bro es el motor de eventos, el cual reduce la información entrante de la red, en eventos de alto nivel. Por ejemplo, si se recibe una solicitud de tipo HTTP, Bro se encargará de convertir la misma en un evento de tipo $"http\_request"$ en donde se almacenará información como: la dirección IP, los puertos involucrados, el URI y la versión de tipo HTTP en uso.
-
-A su vez, los eventos creados por Bro a partir de la información entrante de la red son enviados a los manejadores de eventos escritos en el lenguaje de $"scripting"$ de Bro. Estos manejadores administran dichos eventos a tráves de una cola ordenada.
-
-En Bro hay eventos primitivos, como es el caso de $"http\_request"$ --evento generado por las solicitudes tipo HTTP -- , $"dns\_request"$, --evento generado por las solicitudes tipo DNS-- , $"bro\_init"$ -- evento generado al momento en el que Bro inicializa-- y $"bro\_done"$ --evento que se genera cuando se culminan de realizar todas las tareas que se deben realizar--. Sin embargo, este software brinda la capacidad a los programadores de implementar eventos propios. Estos eventos son un tipo especial de función que poseen las características de: no retornar valores, poder ser programados para una ejecución posterior y poseer una prioridad asociada y configurable que determine el orden en el que serán ejecutados.
-
-Un ejemplo de la implementación de un evento en el lenguaje de Bro sería la siguiente:
-
-\begin{verbatim}
-event myevent(s: string)
-	{
-	print "myevent", s, n;
-	}
-\end{verbatim}
-
-Así como se pueden escribir eventos en Bro, también se pueden implementar funciones haciendo uso de la palabra reservada $"function"$. Una función en Bro luciría de la siguiente manera":
-
-\begin{verbatim}
-
-function factorial(n: count): count
-    {
-    if ( n == 0 )
-        return 1;
-    else
-        return ( n * factorial(n - 1) );
-    }
-
-\end{verbatim}
-
-Por otra parte, el lenguaje de Bro además de permitir implementar eventos y funciones, posee diversos tipos y estructura de datos que facilitan el manejo de la información. 
-El conjunto de tipos de datos que posee el mismo se basa en los tipos de datos comunes que encontramos en la mayoría de los lenguajes de programación como: el $"int"$, que representa los números enteros de 64 bits, $"double"$ que representa los números flotantes de 64 bits, $"bool"$ para los booleanos y $"count"$  para los números enteros sin signo de 64 bits, y en un grupo de tipos de datos  mas especifico como: el $"addr"$ que representa direcciones ip, $"port"$ para los puertos de la capa de transporte, $"subnet"$ para las mascaras de subred, $"time"$ para almacenar datos que representen tiempo, $"interval"$ para representar intervalos de tiempo y $"pattern"$ para las expresiones regulares.
-
-Las estructura de datos que permite el lenguaje son: los conjuntos ("set"), las tablas ("table"), vectores ("vector") y registros ("record").
 
 
 

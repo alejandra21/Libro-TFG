@@ -5,11 +5,41 @@
 
 % Descripción del problema, de lo general hacia lo específico
 
+Hoy en dia es muy difícil imaginar el mundo sin el Internet. Esta gran red de
+redes se ha convertido en una parte importante en la comunicación en el mundo.
+Un gran porcentaje del uso que se le da al Internet proviene de las aplicaciones
+web. Para compartir toda la información brindada por estas aplicaciones a traves del Internet, se hace uso del protocolo HTTP ("Hypertext Transfer Protocol"), un protocolo cliente-servidor. Los servidores HTTP, son los encargados de suplir las peticiones de sus clientes y enviar o recibir la información por los mismos.
+Este tipo de servidores son un punto apetecible para los hackers ya que los
+mismos contienen informacion importante de las aplicaciones web. Como acceso a
+la base de datos de la aplicación que contiene las claves, los nombres de usuarios
+y número de tarjetas de crédito. Por esta razón, es de total importancia velar por su seguridad.
 
+Este punto será el tema central en el presente trabajo. En el
+mismo, explicará la implementación y las bases téoricas de un protocolo desarrollado en
+la Universidad de Granada llamado SSM ("Segmented Stochastic Modelling") en un
+lenguaje se "scripting" del analizador de redes Bro.
 
-Este Trabajo Final de Grado consistió en desarrollar e implementar los módulos necesarios para implementar un detector de intrusiones para servicios web, basado en SSM (por el ingles,``Segmented Stochastic Modelling'')\cite{ssm}, efectivo y que se pueda utilizar en redes de explotación. El detector fué implementado haciendo uso del lenguaje de ``scripting'' de un sistema de monitorización llamado Bro. Este sistema, se encargará de tomar peticiones HTTP de tipo GET, extraer sus URIs y analizar si los mismas poseen anomalías de una manera probabilística, utilizando modelos de normalidad. En el caso en el que se perciba alguna anormalidad, el sistema se encargará de emitir una alarma.
- 
-El proyecto estuvo dividido en varias fases: La primera fase consistió en estudiar SSM y sus conceptos relacionados, así como familiarizarse con la herramienta Bro; la segunda fase se basó en diseñar y dividir las tareas del sistema en tres módulos principales: un modulo de segmentación, un modulo de evaluación y un modulo de entrenamiento; en la tercera fase se realizó la implementación y las pruebas funcionales del detector de intrusiones; en la cuarta fase se realizaron las pruebas operativas al sistema completo haciendo uso de bases de datos con trazas normales y bases de datos con trazas anómalas; y finalmente,en la sexta fase, se estructuró y se redactó la memoria del proyecto.
+El objetivo de implementar este sistema es el de crear un detector de instrusiones
+(IDS) que detecte de manera adecuada intrusiones en servidores de tipo
+HTTP.
+
+La estructura del siguiente trabajo será la siguiente:
+En el capítulo uno se hablará sobre el planteamiento del problema,
+los objetivos tanto generales como especificos y la planificación que se utilizó para
+realizar el proyecto.
+Por otra parte,en el segundo capítulo se tocarán temas relacionados con el
+estado del arte del proyecto. En primero lugar se explicará la definición de IDS y
+los tipos de IDS que existen, se explicará la composición de los URI según el RFC
+(mencionar el numero del RFC) y se dará una descripción del funcionamiento SSM
+los modelos que lo conforman. Además, se describirá la herramiento utilizada
+y el lenguaje de "scripting" que se utilizó para implementar el sistema.
+En el tercer capítulo se hablará sobre el diseño del sistema. Aquí se describirán
+los módulos en los que esta dividido el IDS y como es el funcionamiento de cada
+uno. Los detalles de implementacion de estos se explicarán en el capítulo cuarto.
+El quinto capítulo tocará el tema de la evaluación y las pruebas. En este capítulo
+se hablará sobre la base de datos utilizada para realizar las pruebas y los
+resultados arrojados por las mismas. Además se describirán un poco las pruebas
+tanto operativas como funcionales realizadas sobre el sistema.
 
 % Trabajos anteriores
 
