@@ -1,13 +1,14 @@
 \chapter{Implementación}
 
+\label{capitulo4}
+\lhead{Capítulo 4. \emph{Detalles de implementación}}
+
 Una vez descrita la arquitectura modular del sistema y las funcionalidades asociadas a los diferentes componentes del sistema, en este capítulo se detallarán las cuestiones más relevantes en cuanto a su implementación.
 
 Así, en primer lugar, se describirán las funciones correspondientes al ... .
 
 A continuación se explicará las estructuras de datos utilizadas y como se realizó la implementación de cada uno de los módulos mencionados anteriormente haciendo uso de las herramientas presentadas por el lenguaje de scripting de Bro.
 
-\label{capitulo4}
-\lhead{Capítulo 4. \emph{Detalles de implementación}}
 \section{Implementación del modulo de segmentación}
 
 En esta sección, se explicará de manera detallada la implementación del módulo de segmentación y las estructuras de datos utilizadas en el mismo. Este módulo forma parte de los tres que conforman el sistema de detección de intrusiones basado en SSM. 
@@ -24,65 +25,51 @@ En el módulo de segmentación existen dos estructuras de datos fundamentales. U
 
 La estructura de datos utilizada en la función de normalización es un hash table que contiene los elementos de un encoding table de tipo UTF-8, en donde las claves de la tabla serían los elementos de tipo UTF-8 y los atributos de las mismas corresponderían a los caracteres sin alguna codificación. Con esta tabla, se quiere implementar un diccionario que mapee los elementos de tipo UTF-8 con sus respectivos caracteres lo mas rapido posible.
 
-Se utilizó un hash table para implementar este diccionario debido a que es ampliamente conocido que este tipo de tablas propocionan mucha eficiencia en el tiempo de búsqueda de sus elementos, como lo explica Cormen en su libro: "Introduction to Algoriths":
+Se utilizó un hash table para implementar este diccionario debido a que es ampliamente conocido que este tipo de tablas propocionan mucha eficiencia en el tiempo de búsqueda de sus elementos.
 
-“Una hash table es una estructura de datos efectiva para implementar diccionarios. A pesar de que la búsqueda de un elemento en una hash table puede tomar el mismo tiempo de búsqueda que una lista enlazada - O(n)/tiempo en el peor de los casos - en la práctica, el mapeo funciona extremadamente bien.  Bajos suposiciones razonable, el tiempo de búsqueda promedio de una hash table es de O(1)”.
-
-Para implementar este tipo de estructura se utilizó el tipo de dato “table” otorgado por el lenguaje de scripting de Bro. Un ejemplo concreto de como luce la estructura de dato implementada en Bro se mostrará a continuación:
-
-\begin{verbatim}
-global encoding : table[string] of string = {   ["%21"] =    "!"     ,
-                                                ["%22"] =    "”"    ,                                        
-                                                ["%23"] =    "#"    ,
-                                                ["%24"] =    "$"    }
-\end{verbatim}
-
-La funcionalidad de esta tabla de codificación será explicada en la sección \ref{subsec:implementacionNorm}.
+Para implementar este tipo de estructura se utilizó el tipo de dato “table” otorgado por el lenguaje de scripting de Bro.
 
 \subsubsection{Función de segmentación}
 \label{sssec:estructuraSegmentacion}
 
 Por otra parte, la estructura de datos utilizada en la función de segmentación de este módulo es un registro en el cual se almacenan todos los segmentos que se originan a partir de la segmentación de un URI, el URI sin segmentar, un booleano que informa si el URI segmentado sigue con la sintaxis establecida en el RFC 3896, y el número de estados que fueron visitados en el autómata presentado en el modelo teórico.
-
-En Bro existen las palabras claves “record” y “type” y se utilizan de forma similar en las que se emplean las palabras claves “typedef” y “struct” en C. Con estas palabras, Bro permite combinar nuevos tipos de datos y crear tipos de datos compuestos para adaptarse a las necesidades de la situación. 
-
-Se escogió un registro para almacenar la información ya que el lenguaje de scripting de Bro solo presenta como alternativa el tipo de dato “record” para crear un tipo de dato compuesto. 
+ 
+Se escogió un registro para almacenar la información ya que el lenguaje de ``scripting'' de Bro solo presenta como alternativa el tipo de dato ``record'' para crear un tipo de dato compuesto. 
 
 El registro creado esta conformado por los siguientes campos:
 \begin{itemize}
-\item uri: Es una variable de tipo string que almacena el URI sin segmentar. Este campo del registro será utilizado por el módulo de entrenamiento al momento de escribir los logs correspondientes.
-\item host: Es una variable de tipo hash table cuyas claves son número y sus valores  son de tipo string. En esta sección se almacenan los segmentos del URI correspondiente al host.
-\item path: Es una variable de tipo hash table cuyas claves son número y sus valores  son de tipo string. En esta sección se almacenan los segmentos del URI correspondiente al path.
-\item query: Es una variable de tipo hash table cuyas claves y sus valores son de tipo string. En esta sección se almacenan los atributos y los valores del query del URI en caso de que el mismo posea. Los atributos y los valores se almacenarán en una hash table como se mencionó con anterioridad, en donde la clave del mismo serán los atributos del query y en donde los valores de las misma serán los valores del query del URI.
-\item fragment: Es una variable de tipo string que almacenará el fragment del URI en caso de poseerlo.
+\item uri: Es una variable de tipo ``string'' que almacena el URI sin segmentar. Este campo del registro será utilizado por el módulo de entrenamiento al momento de escribir los logs correspondientes.
+\item host: Es una variable de tipo ``hash table'' cuyas claves son número y sus valores  son de tipo string. En esta sección se almacenan los segmentos del URI correspondiente al host.
+\item path: Es una variable de tipo ``hash table'' cuyas claves son número y sus valores  son de tipo string. En esta sección se almacenan los segmentos del URI correspondiente al path.
+\item query: Es una variable de tipo ``hash table'' cuyas claves y sus valores son de tipo string. En esta sección se almacenan los atributos y los valores del query del URI en caso de que el mismo posea. Los atributos y los valores se almacenarán en una hash table como se mencionó con anterioridad, en donde la clave del mismo serán los atributos del query y en donde los valores de las misma serán los valores del query del URI.
+\item fragment: Es una variable de tipo ``string'' que almacenará el fragment del URI en caso de poseerlo.
 \item número de estados: es una variable de tipo entero que almacena el número de estados del autómata que se emplea en el módelo teórico fueron visitados para reconocer el URI. Este campo del registro será utilizado por el módulo de evaluación.
 \item uri correcto: es una variable de tipo booleano que indica si el URI está sintácticamente correcto o no.
 \end{itemize}
 
-En Bro, esta estructura estaría escrita de la siguiente forma:
+El nombre que recibirá este tipo de estructura es ``UriSegmentado''. La misma se puede apreciar gráficamente en la figura (INSERTE REFERENCIA).
 
-El uso de esta estructura y el de cada uno de sus campos se explicara a detalle en las sección \ref{subsec:implementacionAutom}.
-
-Además de utilizar el tipo de dato “uriSegmentado”, el módulo de segmentación hace uso de una estructura de datos compuesta, primitiva del lenguaje de scripting de Bro llamada  “URI”. Dicha estructura posee los siguientes campos:
+Además de utilizar el tipo de dato ``UriSegmentado'', el módulo de segmentación hace uso de una estructura de datos compuesta, primitiva del lenguaje de ``scripting'' de Bro llamada  ``URI''. Dicha estructura posee los siguientes campos:
 
 \begin{itemize}
-\item scheme: Es un campo opcional de tipo “string” que almacena el protocolo del Uri.
+\item scheme: Es un campo opcional de tipo ``string'' que almacena el protocolo del URI.
 
-\item netlocation: Es un campo de tipo “string” que almacena el nombre de dominio o la dirección IP del Uri.
+\item netlocation: Es un campo de tipo ``string'' que almacena el nombre de dominio o la dirección IP del URI.
 
-\item portnum: Es un campo opcional de tipo “count”  que almacena el número de puerto del uri.
-path:Es un campo de tipo “string” que almacena la ruta del uri.
+\item portnum: Es un campo opcional de tipo ``count''  que almacena el número de puerto del URI.
+\item path:Es un campo de tipo ``string'' que almacena la ruta del URI.
 
-\item file\_name: En un campo opcional de tipo “string” que almacena el nombre completo  del archivo de la ruta del uri junto a su extensión.
+\item file\_name: En un campo opcional de tipo ``string'' que almacena el nombre completo  del archivo de la ruta del URI junto a su extensión.
 
-\item file\_base: En un campo opcional de tipo “string” que almacena el nombre  del archivo de la ruta del uri sin su extensión.
+\item file\_base: En un campo opcional de tipo ``string'' que almacena el nombre  del archivo de la ruta del URI sin su extensión.
 
-\item file\_ext: En un campo opcional de tipo “string” que almacena la extensión del archivo de la ruta.
+\item file\_ext: En un campo opcional de tipo ``string'' que almacena la extensión del archivo de la ruta.
 
-\item params: Es un campo opcional de tipo “table” que almacena todos los parámetros de la consulta del uri. Esta tabla mapea todos los atributos con sus valores.
+\item params: Es un campo opcional de tipo ``table'' que almacena todos los parámetros de la consulta del URI. Esta tabla mapea todos los atributos con sus valores.
+
 \end{itemize}
 
-La estructura "URI" se utilizará al momento de segmentar las consultas del URI.
+La estructura ``URI'' se puede apreciar gráficamente en la figura (INSERTE NUMERO DE LA FIGURA).
 
 \subsection{Implementación del segmentador y el analizador sintáctico}\label{subsec:implementacionAutom}
 
