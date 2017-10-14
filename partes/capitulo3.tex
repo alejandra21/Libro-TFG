@@ -112,7 +112,7 @@ El modo de entrenamiento ``Offline'' fue dividido en tres funciones. La primera 
 
 Por otra parte, las tareas a realizar por el modo de entrenamiento ``Online'' fueron divididas de igual modo en tres funciones: La primera función se encargara de leer el modelo de normalidad; la segunda se encargará de tomar el modelo de normalidad leído por la primera función y el conjunto de segmentos de URI del módulo de segmentación. Esta información sera utilizada por la misma para ir calculando la probabilidad de aparición de los segmentos observados. La tercera función se encargara de recibir los resultados obtenidos por la segunda función y actualizara el modelo de normalidad previamente existente.
 
-En la figura {fig:arquiEntrenamiento} se puede apreciar el diagrama de bloques que describe el funcionamiento del módulo de entrenamiento.
+En la figura \ref{fig:arquiEntrenamiento} se puede apreciar el diagrama de bloques que describe el funcionamiento del módulo de entrenamiento.
 
 \begin{figure}[tb]
 \begin{center}
@@ -133,9 +133,7 @@ El módulo de segmentación requiere como entrada los URIs extraidos de las peti
 
 \textbf{http request}(c: \textbf{connection}, method: \textbf{string}, original\_URI: \textbf{string},
 unescaped\_URI: \textbf{string}, version: \textbf{string})
-
 donde:
-
 \begin{itemize}
 \item c: es una estructura de datos de tipo ``connection'' que almacena de manera desglosada la información del mensaje HTTP.
 \item method: Es el método extraído de la petición (e.g., GET,POST).
@@ -148,16 +146,19 @@ donde:
 
 En esta sección, se explicará de manera detallada la implementación del módulo de segmentación y las estructuras de datos utilizadas en el mismo. Este módulo forma parte de los tres que conforman el sistema de detección de intrusiones basado en SSM.
 
-\subsubsection{Normalización}
+\subsubsection{Estructura de datos}
+\label{sssec:estructuraNormalizacion}
+
+\subsubsection*{Normalización}
 \label{sssec:estructuraNormalizacion}
 
 La estructura de datos utilizada en la función de normalización es un hash table que contiene los elementos de un encoding table de tipo UTF-8, en donde las claves de la tabla serían los elementos de tipo UTF-8 y los atributos de las mismas corresponderían a los caracteres sin alguna codificación. Con esta tabla, se quiere implementar un diccionario que mapee los elementos de tipo UTF-8 con sus respectivos caracteres lo mas rapido posible.
 
-Se utilizó un hash table para implementar este diccionario debido a que es ampliamente conocido que este tipo de tablas propocionan mucha eficiencia en el tiempo de búsqueda de sus elementos.
+Se utilizó un hash table para implementar este diccionario debido a que es ampliamente conocido que este tipo de tablas propocionan mucha eficiencia en el tiempo de búsqueda de sus elementos \cite{Cormen}.
 
 Para implementar este tipo de estructura se utilizó el tipo de dato ``table'' otorgado por el lenguaje de scripting de Bro.
 
-\subsubsection{Función de segmentación}
+\subsubsection*{Función de segmentación}
 \label{sssec:estructuraSegmentacion}
 
 Por otra parte, la estructura de datos utilizada en la función de segmentación de este módulo es un registro en el cual se almacenan todos los segmentos que se originan a partir de la segmentación de un URI, el URI sin segmentar, un booleano que informa si el URI segmentado sigue con la sintaxis establecida en el RFC 3896, y el número de estados que fueron visitados en el autómata presentado en el modelo teórico.
@@ -175,7 +176,15 @@ El registro creado esta conformado por los siguientes campos:
 \item uri correcto: es una variable de tipo booleano que indica si el URI está sintácticamente correcto o no.
 \end{itemize}
 
-El nombre que recibirá este tipo de estructura es ``UriSegmentado''. La misma se puede apreciar gráficamente en la figura (INSERTE REFERENCIA).
+El nombre que recibirá este tipo de estructura es ``UriSegmentado''. La misma se puede apreciar gráficamente en la figura \ref{fig:uriSegmentado}.
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=4in]{UriSegmentado.jpg}
+\caption{Ejemplo gráfico de la estructura ``UriSegmentado''.}
+\label{fig:uriSegmentado}
+\end{center}
+\end{figure}
 
 Además de utilizar el tipo de dato ``UriSegmentado'', el módulo de segmentación hace uso de una estructura de datos compuesta, primitiva del lenguaje de ``scripting'' de Bro llamada  ``URI''. Dicha estructura posee los siguientes campos:
 
@@ -197,9 +206,17 @@ Además de utilizar el tipo de dato ``UriSegmentado'', el módulo de segmentaci�
 
 \end{itemize}
 
-La estructura ``URI'' se puede apreciar gráficamente en la figura (INSERTE NUMERO DE LA FIGURA).
+La estructura ``URI'' se puede apreciar gráficamente en la figura \ref{fig:URI}.
 
-\subsection{Función de segmentación}
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=4in]{URIstruct.jpg}
+\caption{Ejemplo gráfico de la estructura ``URI''.}
+\label{fig:URI}
+\end{center}
+\end{figure}
+
+\subsubsection{Función de segmentación}
 
 En la función de segmentación, el problema que se quiere resolver es el siguiente:construir un analizador sintáctico que haga uso de una gramática (libre de contexto) de atributos que genera el mismo lenguaje que reconoce el autómata presentado en la figura 2.4. A nivel de implementación lo que se quiere construir es un analizador sintáctico que verifique que los URIs tengan una estructura sintáctica correcta según los estándares del RFC 3986, y que a la vez vaya almacenando los segmentos, delimitados por los delimitadores presentados en la sección 2.6, en la estructura de datos de la figura 4.2,
 detallada en la sección 4.2.1.
@@ -267,7 +284,7 @@ A continuación se explicara un poco el funcionamiento de cada una de ellas.
 
 \begin{itemize}
 \item split:
-La función ``split'' tiene la siguiente forma
+La función ``split'' tiene la siguiente forma:
 \textbf{split}(str: \textbf{string}, re: \textbf{pattern}) : \textbf{string\_array Attributes:\&deprecated}
 
 Esta función se encarga de dividir una cadena de caracteres de acuerdo a un patrón e introduce el resultado en un arreglo. Por ejemplo, $split"a-b--cd", /(\-)+/)$ retorna $\{"a", "b", "cd"\}.$
@@ -294,12 +311,412 @@ Por otra parte, para implementar la gramática ~\ref{eq:gramaticaAtributos} se m
 En conclusión, la función encargada de segmentar y realizar el análisis sintáctico del módulo de segmentación posee la siguiente estructura:
 
 \textbf{segmentar}(uri: \textbf{string}) : \textbf{UriSegmentado}.
-La función se encargará, de tomar una cadena de caracteres y segmentarla según delimitados por los delimitadores presentados en la sección 2.6 y almacenar los mismo en la estructura ``UriSegmentado''.
-
+La función se encargará, de tomar una cadena de caracteres y segmentarla según delimitados por los delimitadores presentados en la sección \ref{sec:delimitadores} y almacenar los mismo en la estructura ``UriSegmentado''.
 Los parámetros de dicha función son:
-
 \begin{itemize}
 \item url : Cadena de caracteres que será segmentada.
+\end{itemize}
+
+\subsubsection{Función de normalización}
+
+La normalización de los URI debe realizarse de acuerdo a las especificaciones establecidas en la Sección 2.6, habiéndose implementado para ello una función denominada ``normalizar'', con el siguiente formato.
+
+\textbf{normalizar}(url: \textbf{string}): \textbf{string} Donde:
+
+\begin{itemize}
+\item url: Variable de tipo ``string'' que sera normalizada.
+\end{itemize}
+
+Esta función tomará el parámetro de entrada y mediante un ``loop for''
+se itera por cada una de las claves de la tabla que se presentó en la figura
+(INSERTE REFERENCI DE LA TABALA DE NORMALIZACION). Si alguno de los elementos de la tabla está contenido en el ``string'' que la función recibe como entrada, entonces se procederá a reemplazar el elemento del párametro de entrada por el valor que posee dicha clave en la ``hash table''. Esta tarea de subsitución se realizará haciendo uso de la función ``subst string'' que proporciona Bro.
+
+``subst string'' es una función de la forma:
+
+\textbf{subst string}(s: \textbf{string}, from: \textbf{string}, to: \textbf{string}) : \textbf{string}
+Se encarga de hacer sustituciones en una cadena de caracteres. Los
+parámetros de esta son:
+
+\begin{itemize}
+\item S:Cadena de caracteres en la que se efectúa la sustitución.
+\item From: La cadena de caracteres que se va a buscar en ``S'' para ser
+sustituida.
+\item To: Cadena de caracteres que pasará a sustituir a ``From''.
+\end{itemize}
+
+\subsection{Implementación del módulo de evaluación}
+
+En esta sección se explicará de manera detallada las estructuras de datos utilizadas y la manera en la que se implementó el módulo de evaluación explicado en la sección \ref{sec:evaluacion}  haciendo uso del lenguaje de ``scripting'' de Bro.
+
+\subsubsection{Estructura de datos}
+
+El módulo de evaluación del sistema cuenta con varias estructura de datos compuestas de tipo ``register'' y de tipo ``table'' que serán explicados a continuación 
+
+\subsubsection*{Modelo de normalidad}
+\label{sssec:estructuraModelo}
+
+Existen dos estructuras de tipo ``register'' en la función para leer el modelo de normalidad y dos de tipo ``table''.
+Las estructuras de tipo ``register'' poseen los siguientes campo:
+
+La primera, cuyo nombre es ``Word'' posee los siguientes campo:
+\begin{itemize}
+\item ``word'' es un campo de tipo ``string'' en donde se almacenarán las palabras del vocabulario de cada uno de los estados del autómata presentado en la imagen \ref{fig:ssm}.
+\item ``state'' es un campo de tipo string en donde se indicará el estado del autómata presentado en la imagen \ref{fig:ssm} al que pertenece la palabra almacenada en el campo ``word''.
+\end{itemize}
+
+Esta estructura se puede observar de manera gráfica en la figura (INSERTE REFERENCIA DE LA IMAGEN).
+
+La segunda estructura llamada ``Probability'' solo posee un campo llamado ``probability''.
+\begin{itemize}
+\item ``probability'' es un campo de tipo ``double'' en donde se almacenará la probabilidad de generación de las palabras que se encuentran en el modelo.
+\end{itemize}
+
+Se puede observar un ejemplo gráfico de la estructura en la figura (INSERTE NUMERO DE LA FIGURA).
+
+La tercera estructura de tipo ``register'' que será utilizada en el módulo de evaluación se llamada ``TableDescription'' y pertenece al módulo ``Input'' de Bro y se utilizará al momento de leer los archivos de entrada.
+Los campos utilizados de esta estructura fueron los siguientes:
+\begin{itemize}
+\item source: campo de tipo ``string'' que almacena el nombre del archivo
+que va a ser leído.
+\item name: campo de tipo ``string'' que almacenará el nombre que se le
+asignará al flujo de entrada.
+\item destination: Nombre de la tabla que almacena la información contenida
+en los archivos.
+\item idx: Nombre del registro que definirá los valores que utilizará la tabla que almacena la información del archivo como clave.
+\item val: Campo opcional que almacena el nombre del registro que define
+los valores de la tabla que almacena la información de los archivos de
+entrada.
+\end{itemize}
+
+En la figura (INSERTE REFERENCIA) se muestra un ejemplo gráfico de ``TableDescription''.
+
+Por otra parte, las estructuras de tipo ``table'' son dos. Una tabla será utilizada para almacenar las palabras del vocabulario, la probabilidad de generación y el nombre del estado al que pertenece dicha información mientras que la otra almacenará las probabilidades de fuera de vocabulario de cada uno de los estados y el valor del parámetro $\theta$ presente en la expresión (INSERTE ETIQUETA DE LA EXPRESION EN DONDE APARECE THETA).
+
+La primera tabla es una ``hash table'' que posee dos elementos tipo ``string'' como clave, y como valor tiene un campo de tipo ``Probability''. Un ejemplo de como luciría dicha estructura de datos en Bro se muestra en la figura (INSERTE IMAGEN DE LA FIGURA).
+
+Esta tabla almacenará del modelo de normalidad del sistema, es decir, las palabras del vocabulario, la probabilidad de generación de las mismas y el estado al que pertenece dicha información. Las claves de esta tabla serán las palabras del vocabulario y el nombre del estado al que pertenecen. Toda esta informacion será dada a través de un archivo de texto cuya estructura será explicada en las sección ~\ref{sec:lecturaModelo}.
+
+La segunda tabla es una hash table que tendrá solo un elemento como clave de tipo ``string''. Los valores de la misma serán campo tipo ``Valor''. En Bro, dicha estructura luciría como se muestra en la figura (INSERTE NUMERO DE FIGURA).
+
+En la tabla (INSERTE NUMERO DE FIGURA)  se van a almacenar las probabilidades de fuera de vocabulario de cada uno de los estados del autómata y el parámetro $\theta$. La clave de la misma sería una cadena de caracteres que identifique cada una de las probabilidades  y el parámetro  $\theta$. Esas etiquetas serían las siguientes: Poov1, Poov2, Poov3, Poov4, Theta.  
+
+\subsubsection*{Evaluación de las probabilidades de los URI}
+\label{sssec:estructuraEvaluacion}
+
+La función  que se encarga de calcular el índice de anormalidad  y evaluar si el mismo es anómalo o no, solo contiene una estructura compuesta de tipo ``record'' y se utiliza junto a una herramienta de Bro que funciona para escribir ``logs''. Los ``logs'' que son escritos a través de esta herramienta son archivos de texto que contiene una lista de los URI que presentan anomalías.
+
+La estructura lleva como nombre ``InfoAtaque'' y contiene los siguientes campos:
+
+\begin{itemize}
+\item clasificacion: es un campo de tipo ``string'' que almacena la clasificación de los URIs anómalos, es decir, aquí se indica si el mismo presenta anomalía por estar sintácticamente mal construidos o porque el índice de anormalidad sobrepasó el parámetro $\theta$.
+\item uri: es un campo de tipo ``string'' en el que se va a almacenar el uri que va a ser registrado en el log.
+\item probability: es un campo de tipo ``string'' en donde se va a almacenar el valor del índice de anormalidad del uri.
+\end{itemize}
+
+Todos los campos anteriormente descritos poseen la cualidad de ser de tipo ``log'' tambien. Con esto se indica cuál de los elementos de la estructura de datos se escribirá sobre los logs.
+
+    El registro ``InfoAtaque'' se puede observar de manera gráfica en la figura (INSERTE REFERENCIA DE LA FIGURA). 
+    
+\subsubsection{Modelo de normalidad en Bro}
+\label{sec:lecturaModelo}
+
+En esta sección se explicará cual es el formato de almacenamiento del
+modelo de normalidad y los parámetros de configuración, y se explicará como
+se implementó la lectura del mismo.
+
+
+Como se mencionó en la sección (INSERTE NUMERO DE LA SECCION), los elementos que necesitan ser introducidos al módulo de evaluación para su correcto funcionamiento son: el conjunto de observaciones de cada estado (O), el conjunto de vectores de probabilidad de las palabras observadas en cada estado ( $B_{S}, B_{P}, B_{A}, B_{V}$ ), los
+valores de probabilidad de fuera de vocabulario ($P_{oovP}, P_{oovA}, P_{oovV}$), y el valor del parámetro $\theta$ (Ec. INSERTE ECUACION).
+
+\subsubsection*{Formato de los archivos de entrada}
+
+    Los parámetros necesarios para el funcionamiento del módulo de evaluación, serán introducidos a tráves de dos archivos, un archivo llamado
+``config'' que contendrá los valores de la probabilidad de fuera de vocabulario ($P_{oovP}, P_{oovA}, P_{oovV}$ ) y el valor del parámetro $\theta$ (Ec. INSERTE ECUACION) y otro llamado
+``modeloBro.log'' en el cual estará el conjunto de observaciones de cada estado junto a sus probabilidades de generación.
+   
+Tanto el archivo ``config'' como el ``modeloBro.log'' están regidos bajo un formato que establece la herramienta de Bro para leer archivos de entrada.
+
+El formato que establece Bro para los archivos de entrada define que la información se debe introducir en columnas separada mediante tabs, y que debe existir un encabezado al inicio del mismo que inicie abriendo con un numeral (\#) seguido de la palabra ``fields''. Luego de esta palabra se escribirán los nombres que se le asignará a cada columna del archivo.
+
+Por lo tanto, el formato del archivo ``config'' sería como el que se muestra en la figura (INSERTE REFERENCIA DE LA FIGURA).
+
+La primera columna corresponde a las etiquetas que identifican los valores que se encuentran en la segunda columna. Es importante recalcar que los nombres ``Poov1'', ``Poov2'', ``Poov3'', ``Poov4'' y ``Theta'' deben ser escritos en el archivo obligatoriamente de la misma forma en la que aparecen en el ejemplo.
+
+La información que se encuentre en el archivo ``config'' será almacenada
+en la tabla que se muestra en la figura (MOSTRAR TABLA).
+
+Por otro lado, el formato del archivo ``modeloBro.log'' es el que se muestra en la figura (INSERTE REFERENCIA DE LA FIGURA).
+
+La segunda columna de este archivo (``word'') corresponde al conjunto de observaciones ``O'' de cada uno de los estados, mientras que la tercera columna (``probability'') indica la probabilidad de aparición de cada palabra ($B_{S}, B_{P}, B_{A}, B_{V}$). Por otra parte, la primera columna (``state'') indica a que estado del autómata (INSERTAR FIGURA) pertenece cada palabra y su probabilidad de generación.
+
+Las filas del archivo ``modeloBro.log'' que tienen en la primera columna las palabras: ``numeroPalabraSs'', ``numeroPalabraSp'', ``numeroPalabraSa'', ``numeroPalabraSv'' contienen el número de palabras que han sido procesadas por estado. Esta informacion será utilizada en el entrenamiento en modo offline que será explicado en la sección \ref{sec:entrenamientoOffline}.
+
+\subsubsection*{Lectura de los archivos}
+
+Una vez explicado el formato de los archivos que contienen los elementos del modelo y los parámetros necesarios para realizar el cálculo y la evaluación del índice de normalidad de los URIs a evaluar se procederá a explicar el funcionamiento de las funciones encargadas de leer los archivos con la información de entrada.
+
+Para leer dicha informacion se hizo uso del  ``Input Framework'' que otorga Bro como herramienta para leer archivos de entrada. La función utilizada para leer los archivos se llama ``add\_table'' y pertenece al módulo llamado ``Input''.
+
+``add\_table'' se encarga de leer archivos de entrada y almacenar sus datos en una tabla. El formato de esta funcion es el siguiente:\\
+%Extraido de : https://www.bro.org/sphinx/frameworks/input.html, https://www.bro.org/sphinx/scripts/base/frameworks/input/main.bro.html\#id-Input::add_table, https://www.bro.org/sphinx/scripts/base/frameworks/input/main.bro.html\#type-Input::TableDescription 
+%
+\textbf{Input::add\_table}(description: \textbf{Input::TableDescription}) : \textbf{bool} 
+
+Donde ``\textbf{TableDescription}'' es la estructura descrita graficamente en
+la figura (INSERTAR FIGURA).
+Por otra parte, un ejemplo de como se leería el archivo que contiene
+el modelo de normalidad (``modeloBro.log''), haciendo uso de la función anteriormente descrita se puede observar en la figura (INSERTE FIGURA).
+
+\subsubsection{Evaluación de las probabilidades de los URI}
+
+Como se puede apreciar en la sección (INSERTE SECCION), la función ``evaluacion'' se encargará de hallar el  índice de anormalidad, dado un conjunto de segmentos de URI, e indicará si el mismo es anómalo o no comparándolo con el valor
+de $\theta$, para luego escribir los resultados de la evaluación en un archivo de reportes del sistema. La función implementada que se encargara de realizar las tareas anteriormente descritas tiene el siguiente formato:
+
+\textbf{evaluacion}(uriParsed: \textbf{UriSegmentado}, Bvector: \textbf{table[string,string]
+of Probability}, config: \textbf{table[string] of Valor})
+donde:
+\begin{itemize}
+\item uriParsed: es un parámetro de tipo ``UriSegmentado'' (figura FIGURA DE URISEGMENTADO), que
+almacena los segmentos del URI.
+\item Bvector: es una tabla que almacena el conjunto de observaciones de cada estado (O) y el conjunto de vectores de probabilidad de las palabras observadas en cada estado, es decir, $B_{S}, B_{P}, B_{A}, B_{V}$ (figura FIGURA DE TABLA BVECTOR).
+\item config: Es una tabla que almacena los diferentes Poov y el valor de $\theta$. (figura FIGURA DE TABLA CONFIG)
+\end{itemize}
+
+No obstante, la tarea realizada por ``evaluacion'' fue subdividida en cuatro funciones: ``epsiloSumatoria'', ``calcularIndiceAnormalidad'',
+``evaluarIndiceAnormalidad'' y ``escribirReporte''. La función ``epsiloSumatoria'' se encargará de calcular tanto el $\varepsilon_{0}$ que aparece en la expresión (INSERTAR SECCION DE LA EXPRESION)
+como la sumatoria de los logaritmos de los $p_{qtot}$ que se encuentra en la
+expresión (INSERTAR SECCION DE LA EXPRESION).
+
+El formato de dicha función es el siguiente:
+
+\textbf{epsiloSumatoria}(segmentos: \textbf{UriSegmentado},
+Bvector: \textbf{table[string,string] of Probability}, epsilon : \textbf{double}, estado:\textbf{string}):
+\textbf{table[count] of double}
+
+donde los parámetros de entrada serán:
+\begin{itemize}
+\item segmentos: es un parámetro de tipo ``UriSegmentado'' (figura FIGURA DE URISEGMENTADO), que
+almacena los segmentos del URI.
+\item Bvector: es una tabla que almacena el conjunto de observaciones de cada estado (O) y el conjunto de vectores de probabilidad de las palabras observadas en cada estado, es decir, $B_{S}, B_{P}, B_{A}, B_{V}$ (figura FIGURA DE TABLA BVECTOR).
+\item epsilon: Valor correspondiente al Poov.
+\item estado: estado del autómata que se esta evaluando (``host'',``path'',``argumentos'',
+``valores'').
+\end{itemize}
+
+El parámetro de salida correspondería a una tabla que contiene dos elementos: el resultado de la suma de las probabilidades de aparición de las
+palabras y la suma del los logaritmos de la probabilidad de aparición.
+
+Por otra parte, ``calcularIndiceAnormalidad'', la encargada de calcular
+el  índice de anormalidad $N_{s}$ , tiene el siguiente formato:
+
+\textbf{calcularIndiceAnormalidad}(epsilon0: \textbf{double}, N: \textbf{double}, sumaLogaritmos: \textbf{double}) : double. Donde:
+
+\begin{itemize}
+\item epsilon0: Valor de $\varepsilon_{0}$ (expresión INSERTE EXPRESION).
+\item N: Valor de ``T'' en la expresión (INSERTE EXPRESION).
+\item sumaLogaritmos: Suma de los logaritmos de $p_{qtot}$ que se encuentra en la expresión (INSERTE EXPRESION).
+\end{itemize}
+
+El parámetro de salida de esta función será el valor del  índice de anormalidad.
+
+La función, ``evaluarIndiceAnormalidad'' que tiene como tarea comparar el  índice de anormalidad ($N_{s}$) con el parámetro $\theta$, tiene el siguiente formato:
+
+\textbf{evaluarIndiceAnormalidad}(theta: \textbf{double},indiceAnormalidad: \textbf{double})
+
+donde:
+\begin{itemize}
+\item theta: Umbral de normalidad ($\theta$).
+\item indicesAnormalidad: Índice de anormalidad.
+\end{itemize}
+
+La ultima función, ``escribirReporte'', la encargada de escribir en el archivo de reportes la información de los URIs que se han detectado como
+anómalos presenta el siguiente formato:
+
+\textbf{escribirReporte}(clasificacion: \textbf{string},
+uri: \textbf{string},indiceAnormalidad: \textbf{string})
+
+\begin{itemize}
+\item clasificacion: En este campo se informa si el URI es anómalo por sobrepasar el umbral de normalidad o por estar construido de manera
+incorrecta sintácticamente.
+\item uri: En este campo se introduce el URI que se quiere escribir en el
+archivo de salida.
+\item indiceAnormalidad: Este campo corresponde al índice de anormalidad.
+\end{itemize}
+
+La función anterior fue implementada con la ayuda de las herramientas
+que aporta el ``Logging Framework'' de Bro y la estructura de datos ``InfoA-
+taque'' (fig. INSERTAR FIGURA DE LA ESTRUCTURA). La funciones del ``Framework'' utilizadas fueron: ``write'' para escribir sobre el archivo y ``create\_stream'' para crearlo. Ambas pertenecen al modulo ``LOG''. 
+
+El formato que sigue la función ``write'' es el siguiente :
+
+\textbf{LOG::InfoAtaque}(id: \textbf{Log::ID}, columns: \textbf{any}) : \textbf{bool}
+Sus parámetros de entrada son:
+
+\begin{itemize}
+\item id: Es al ID asociado al archivo sobre el cual se va a escribir.
+\item column: Registro que contiene los valores que van a ser escritos en el
+archivo.
+\end{itemize}
+
+El parámetro de salida de esta función es ``verdadero'' si el archivo fue encontrado y no existieron problemas al momento de la escritura, y ``falso'' de
+lo contrario.
+
+Por otra parte, la función ``create\_stream'', esta definida de la siguiente
+forma:
+
+\textbf{LOG::create stream}(id: \textbf{Log::ID}, stream: \textbf{Log::Stream}) : \textbf{bool}
+
+Los parámetros de entrada de la misma son:
+
+\begin{itemize}
+\item id: Es al ID asociado al archivo sobre el cual se va a escribir.
+\item stream: Registro que almacenará la ruta en donde se quiere crear el
+archivo y la estructura de dato que se utilizará en la escritura del
+archivo.
+\end{itemize}
+
+El parámetro de salida de esta función sera ``verdadero'' si se puedo crear el
+archivo y ``falso'' si es posible.
+
+\subsection{Implementación del módulo de entrenamiento}
+
+Como se pudo apreciar en la sección (INSERTE SECCION) el modo de entrenamiento cuenta con dos modos: el modo ``Online'' y el modo ``Offline''. En esta se sección, se explicarán las estructuras de datos utilizadas por ambos modos y las funciones implementadas en cada uno de ellos.
+
+\subsubsection{Estructura de datos}
+El módulo de entrenamiento consta de varias estructuras de datos de
+tipo ``register'' y de tipo ``table'' para realizar su trabajo. Tanto el modo
+``Online'' como el ``Offline'' comparten las mismas estructuras.
+La estructuras serían las siguientes:
+``Entrenamiento'' es una estructura de tipo ``record'', cuyo funcionamiento es ir almacenando el número de veces que una palabra es observada junto con la probabilidad de observación, mientras se realiza el entrenamiento. Los
+campos de esta estructura son los siguientes:
+
+\begin{itemize}
+\item numPalabras: campo de tipo entero que almacena el número de veces
+que una palabra es observada durante el entrenamiento.
+\item probability: campo de tipo flotante que almacene la probabilidad de observación de una palabra.
+\end{itemize}
+
+Un ejemplo gráfico de la estructura ``Entrenamiento'' se puede apreciar
+en la figura (INSERTAR FIGURA).
+La otra estructura de tipo ``record'' es ``Info''. ``Info'' se encargará de
+almacenar la información que será escrita en el archivo de texto que representará el modelo de normalidad. Los campos de esta estructura de datos
+son los siguientes:
+
+\begin{itemize}
+\item state: es un campo de tipo ``string'' que almacenará el nombre del
+estado al que pertenece la palabra y su probabilidad de observación.
+\item word: es un campo de tipo ``string'' que almacenará las palabras observadas durante el entrenamiento.
+\item probability: es un campo de tipo flotante que almacenará la probabilidad de observación de las palabras.
+\end{itemize}
+
+La estructura ``Info'' se puede observar de manera gráfica en la figura
+(INSERTAR FIGURA).
+Por otra parte, la estructura tipo ``table'' que se utilizÓ en la implementaciÓn de este módulo fueron las siguientes:
+Se hizo uso de una tabla de hash que posee como clave un campo tipo
+``string'' y como valor una estructura de datos de tipo ``Entrenamiento''
+(fig. INSERTAR FIFURA). Esta tabla tendrá como función almacenar las palabras que van apareciendo durante el entrenamiento, el número de veces que fueron observadas las mismas y la probabilidad de aparición . La clave de esta tabla serán las palabras observadas y el resto de la informacion sería almacenado en la estructura de datos ``Entrenamiento''.
+Cada estado del autómata tendrá su tabla de entrenamiento propia para
+de esta manera tener una mayor organización de las observaciones realizadas durante el entrenamiento.
+
+\subsubsection{Entrenamiento ``Offline''}
+
+El modo de entrenamiento ``Offline'', es el encargado de crear un modelo de normalidad desde cero.Esta modalidad está conformada por una
+función general llamada ``entrenarOffline'', que fué subdividida en tres funciones: ``entrenamientoOffline'',
+``evaluarProbabilidad'' y ``escribirArchivoOffline''.
+
+``entrenarOffline'', será la función encargada de llamar el resto de las
+funciones, necesarias para realizar el entrenamiento en modo ``Offline''. Su
+formato es el siguiente:
+
+\textbf{entrenarOffline}(segmentos: \textbf{UriSegmentado})
+donde:
+
+\begin{itemize}
+\item segmentos: campo de tipo ``UriSegmentado'' (figura INSERTAR FIGURA), que almacena
+los segmentos de un URI
+\end{itemize}
+
+Por otra parte, la función ``entrenamientoOffline'' irá observando los segmentos de los URIs de las peticiones que van llegando y contará el número de veces que cada segmento fue observado durante el entrenamiento. El formato de la misma sigue la siguiente estructura:
+
+\textbf{entrenamientoOffline}(segmentos: \textbf{UriSegmentado}, vocabulario: \textbf{table[string] of Entrenamiento}, estado: \textbf{string})
+donde:
+\begin{itemize}
+\item segmentos: campo de tipo ``UriSegmentado'' (figura INSERTAR FIGURA), que almacena
+los segmentos de un URI (las observaciones).
+\item vocabulario: Tabla que contiene una lista de palabras y una lista de
+nÚmeros que corresponde al número de apariciones y probabilidad de
+aparición de las misma (fig. INSERTAR FIGURA).
+\item numPalabras: Número total de apariciones de todas las palabras vistas durante el entrenamiento de un estado en concreto.
+\item estado: estado del autómata que se esta entrenando (``host'', ``path'',
+``argumentos'',``valores'').
+\end{itemize}
+
+La ``evaluarProbabilidad'' , encargada de tomar el resultado de las observaciones realizadas por ``entrenamientoOffline'' y calcular la probabilidad de aparición de cada uno de los segmentos (ec. INSERTAR ECUACION) tiene el siguiente formato:
+
+\textbf{evaluarProbabilidad}(vocabulario: \textbf{table[string] of Entrenamiento},
+numPalabras: \textbf{double})
+\begin{itemize}
+\item vocabulario: Tabla que contiene una lista de palabras y una lista de
+números que corresponde al número de apariciones y probabilidad de
+aparición de las misma (fig. INSERTAR FIGURA).
+\item numPalabras: Número total de apariciones de todas las palabras vistas durante el entrenamiento de un estado en concreto.
+\end{itemize}
+
+Finalmente, ``escribirArchivoOffline'' toma los resultados otorgados por
+``evaluarProbabilidad'' y los escribirá en un archivo de texto. El formato de
+esta función es el siguiente:
+
+\textbf{escribirArchivoOffline}(vocabulario: \textbf{table[string] of Entrenamiento}, estado: \textbf{string})
+donde:
+\begin{itemize}
+\item vocabulario: Tabla que contiene una lista de palabras y una lista de
+números que corresponde al número de apariciones y probabilidad de
+aparición de las misma (fig. INSERTAR FIGURA).
+\item estado: estado al que pertenece la tabla ``vocabulario''.
+\end{itemize}
+
+\subsubsection{Entrenamiento ``Online''}
+
+El modo de entrenamiento ``Online'', encargado de hacer modificacio-
+nes a un modelo de normalidad previamente existente fue implementado
+haciendo uso de una función llamada ``entrenarOnline'' que a su vez esta
+subdividida en tres funciones. Los
+nombres que se les dio a estas al momento de ser implementadas fueron:
+``entrenamientoOnline'',``escribirArchivoOnline''.
+
+La función ``entrenarOnline'', cuya tarea sera llamar al resto de las funciones del entrenamiento en modo ``Online'' tiene el siguiente formato:
+
+\textbf{entrenarOnline}(uriParsed:\textbf{segmentos::UriSegmentado})
+donde:
+
+\begin{itemize}
+\item segmentos: campo de tipo ``UriSegmentado'' (figura INSERTAR FIGURA), que almacena
+los segmentos de un URI
+\end{itemize}
+
+Por otra parte, ``entrenamientoOnline'', encargada de calcular la probabilidad de aparición de los segmentos observados haciendo uso de de los segmentos de URI dado por ``entrenarOnline'' y el modelo de normalidad, leído por el módulo de lectura del sistema, sigue el siguiente formato:
+
+\textbf{entrenamientoOnline}(segmentos: \textbf{UriSegmentado},
+modelo: \textbf{table[string,string] of Probability}, numPalabras: \textbf{double}, state: \textbf{string})
+donde:
+\begin{itemize}
+\item segmentos: campo de tipo ``UriSegmentado'' (figura INSERTAR FIGURA), que almacena los segmentos de un URI.
+\item modelo: tabla que almacena el modelo de normalidad previamente
+leído.
+\item numPalabras:
+\item state: nombre del estado al que se le esta realizando el entrenamiento
+(``host'',\\``path'',``atributos'',``valores''.
+\end{itemize}
+
+Finalmente, ``escribirArchivoOnline'', se encargará de recibir todos los
+resultados obtenidos del entrenamiento para escribirlos sobre un archivo de
+texto. El formato de esta función es:
+
+\textbf{escribirArchivoOnline}(vocabulario: \textbf{table[string,string] of Probability})
+donde:
+\begin{itemize}
+\item vocabulario: Es una tabla que almacena los resultados del entrena-
+miento.
 \end{itemize}
 
 \section{Evaluación y pruebas}

@@ -160,7 +160,7 @@ En esta sección se explicará de manera detallada las estructuras de datos util
 
 \subsection{Estructura de datos}
 
-El módulo de evaluación del sistema cuenta con varias estructura de datos compuestas de tipo “register” y de tipo “table”. La funcionalidad de leer el modelo de normalidad consta de dos estructuras de tipo “table” y dos de tipo “register”, mientras que la que se encarga de calcular el índice de normalidad cuenta con una sola estructura de tipo “table”.
+El módulo de evaluación del sistema cuenta con varias estructura de datos compuestas de tipo “register” y de tipo “table” que serán explicados a continuación. La funcionalidad de leer el modelo de normalidad consta de dos estructuras de tipo “table” y dos de tipo “register”, mientras que la que se encarga de calcular el índice de normalidad cuenta con una sola estructura de tipo “table”.
 
 \subsubsection{Modelo de normalidad}
 \label{sssec:estructuraModelo}
@@ -215,8 +215,6 @@ config : table[string] of Evaluacion::Valor;
 
 En la tabla “config” como se mencionó anteriormente se van a almacenar las probabilidades de fuera de vocabulario de cada uno de los estados del autómata y el parámetro $\theta$. La clave de la misma sería una cadena de caracteres que identifique cada una de las probabilidades  y el parámetro “theta”. Esas etiquetas serían las siguientes: Poov1, Poov2, Poov3, Poov4, Theta.  
 
-Los campos “word”, “state” y “probability” no se almacenaron en una sola estructura ya que para leer el modelo de normalidad que estará almacenado en un archivo de texto se hizo uso de una herramienta otorgada por Bro que requiere que exista una estructura de datos  para las claves de la tabla que almacenará la información (en este caso “Btable”) y otra para los valores de la misma.
-
 \subsubsection{Evaluación de las probabilidades de los URI}
 \label{sssec:estructuraEvaluacion}
 
@@ -244,75 +242,51 @@ Todos los campos anteriormente descritos poseen la cualidad de ser de tipo “lo
 
 \subsection{Modelo de normalidad en Bro}
 \label{sec:lecturaModelo}
-En esta sección se explicará cual es el formato de almacenamiento del modelo de normalidad y como se implementó la lectura del mismo. El modelo teórico que fue explicado en la sección ~\ref{sec:modeloSSM} posee elementos como: un conjunto “S” de estados, un conjunto “O” de símbolos observables que se encuentran en cada estado, una matriz “A” que contiene la probabilidad de transición entre estados, un conjunto “B” de vectores que contiene la probabilidad de las palabras observadas en cada estado y un vector de probabilidades iniciales. No obstante, los únicos elementos del modelo que se necesitan ingresar en sistema para que este funcione y realice las tareas de evaluación son: el conjunto “O” de símbolos observables que se encuentra en cada estado y el conjunto de vectores “B”. El conjunto “B” es necesario para resolver la expresión \ref{eq:sumB}. Por otra parte, es necesario hacer uso tanto de “B” como “O” para obtener el valor de $b_{qtot}$ presentado en la ecuación \ref{eq:Pqtot}. Este elemento es sumamente importante para calcular el índice de anormalidad. Por otra parte, será necesario introducir al sistema los valores de probabilidad de fuera de vocabulario (Poov), ya que son necesarios para obtener el valor de $p_{qtot}$ en caso una cadena de caracteres del URI que se esté analizando no se encuentre en el conjunto de observaciones “O”. Además, se requiere el valor del parámetro $\theta$ para evaluar el índice de anormalidad según lo estipulado en la ecuación \ref{eq:ClaseU} .
+En esta sección se explicará cual es el formato de almacenamiento del modelo de normalidad y como se implementó la lectura del mismo. 
 
-    Entonces, en conclusión, los parámetros que requieren ser introducidos al sistema de detección de intrusiones para que este funcione de manera correcta son: el conjunto de observaciones de cada estado (O), el conjunto de vectores de probabilidad de las palabras observadas en cada estado ( $B_{S}, B_{P}, B_{A}, B_{V}$ ), los valores de probabilidad de fuera de vocabulario, es decir $P_{oovS}, P_{oovP}, P_{oovA}, P_{oovV}$ y el valor del parámetro $\theta$.
 
-    *FORMATO*
 
-Estos parámetros serán introducidos a través de dos archivos, un archivo llamado “config” que contendrá los valores de la probabilidad de fuera de vocabulario y el valor del parámetro $\theta$ y otro llamado “modeloBro.log” en el cual estará el conjunto de observaciones de cada estado junto a sus probabilidades de generación.
+
+
+El modelo teórico que fue explicado en la sección ~\ref{sec:modeloSSM} posee elementos como: un conjunto “S” de estados, un conjunto “O” de símbolos observables que se encuentran en cada estado, una matriz “A” que contiene la probabilidad de transición entre estados, un conjunto “B” de vectores que contiene la probabilidad de las palabras observadas en cada estado y un vector de probabilidades iniciales. No obstante, los únicos elementos del modelo que se necesitan ingresar en sistema para que este funcione y realice las tareas de evaluación son: el conjunto “O” de símbolos observables que se encuentra en cada estado y el conjunto de vectores “B”. El conjunto “B” es necesario para resolver la expresión \ref{eq:sumB}. Por otra parte, es necesario hacer uso tanto de “B” como “O” para obtener el valor de $b_{qtot}$ presentado en la ecuación \ref{eq:Pqtot}. Este elemento es sumamente importante para calcular el índice de anormalidad. Por otra parte, será necesario introducir al sistema los valores de probabilidad de fuera de vocabulario (Poov), ya que son necesarios para obtener el valor de $p_{qtot}$ en caso una cadena de caracteres del URI que se esté analizando no se encuentre en el conjunto de observaciones “O”. Además, se requiere el valor del parámetro $\theta$ para evaluar el índice de anormalidad según lo estipulado en la ecuación \ref{eq:ClaseU} .
+
+    Los parámetros que requieren ser introducidos al sistema de detección de intrusiones para que este funcione de manera correcta son: el conjunto de observaciones de cada estado (O), el conjunto de vectores de probabilidad de las palabras observadas en cada estado ( $B_{S}, B_{P}, B_{A}, B_{V}$ ), los valores de probabilidad de fuera de vocabulario, es decir $P_{oovS}, P_{oovP}, P_{oovA}, P_{oovV}$ y el valor del parámetro $\theta$.
 
 Tanto el archivo “config” como el “modeloBro.log” están regidos bajo un formato que establece la herramienta de Bro para leer archivos de entrada. Esta decisión fue tomada para poder utilizar dicha herramienta y así facilitar la lectura de ambos archivos.
 
 El formato que establece Bro para los archivos de entrada define que la información se debe introducir en columnas separada mediante tabs, y que debe existir un encabezado al inicio del mismo que inicie abriendo con un numeral (\#) seguido de la palabra “fields”. Luego de esta palabra se escribirán los nombres que se le asignará a cada columna del archivo.
 
-El formato del archivo “config” será el siguiente:
-
-\begin{verbatim}
-         #fields    clave    valor
-         Poov1    0.0001
-         Poov2    0.0001
-         Poov3    0.0001
-         Poov4    0.0001
-         Theta    12.0
-\end{verbatim}
+Por lo tanto, el formato del archivo “config” sería como el que se muestra en la figura (INSERTE REFERENCIA DE LA FIGURA):
 
 La primera columna corresponde a las etiquetas que identifican los valores que se encuentran en la segunda columna. Es importante recalcar que los nombres “Poov1”, “Poov2”, “Poov3”, “Poov4” y “Theta” deben ser escritos en el archivo obligatoriamente de la misma forma en la que aparecen en el ejemplo.
 
-\# Dar un ejemplo de como se almacena la información
-La información que se encuentre en el archivo “config” será almacenada en  la tabla llamada “config” que fue explicada en la sección \ref{sssec:estructuraModelo}. También es importante recalcar que los nombres de las columnas (“clave” y “valor” en este caso) deben corresponder con los nombres de los atributos de las estructuras de datos de tipo “register” llamada “Clave” y “Valor” presentada en la sección \ref{sssec:estructuraModelo}
+La información que se encuentre en el archivo “config” será almacenada
+en la tabla que se muestra en la figura (MOSTRAR TABLA).
 
-Por otro lado, el formato del archivo “modeloBro.log” es el siguiente:
-
-\begin{verbatim}
-      #fields    state    word    probability
-      #types    string    string    double
-      Bss    192.168.1.13    1.0
-      Bsp    idr    0.16759
-      Bsa    idpd    0.000006
-      Bsv    nombre    0.000175
-      numeroPalabraSs    numTotal    205069.0
-      numeroPalabraSp    numTotal    423870.0
-      numeroPalabraSa    numTotal    319727.0
-      numeroPalabraSv    numTotal    319727.0
-\end{verbatim}
+Por otro lado, el formato del archivo “modeloBro.log” es el que se muestra en la figura (INSERTE REFERENCIA DE LA FIGURA):
 
 La segunda columna de este archivo (“word”) corresponde al conjunto de observaciones “O” de cada uno de los estados, mientras que la tercera columna (“probability”) indica la probabilidad de generación de cada palabra, es decir, esta columna almacena los datos de los vectores $B_{S}, B_{P}, B_{A}, B_{V}$. Por otra parte, la primera columna (“state”) indica a que estado del autómata pertenece cada palabra y su probabilidad de generación.
 
 Las filas del archivo “modeloBro.log” que tienen en la primera columna las palabras:       “numeroPalabraSs”, “numeroPalabraSp”, “numeroPalabraSa”, “numeroPalabraSv” contienen el número de palabras que han sido procesadas por estado. Esta informacion será utilizada en el entrenamiento en modo offline que será explicado en la sección \ref{sec:entrenamientoOffline}.
 
-*MODO EN EL QUE SE LEEN LOS ARCHIVOS*
+
+
+\subsubsection*{Lectura de los archivos}
 
 Una vez explicado el formato de los archivos que contienen los elementos del modelo y los parámetros necesarios para realizar el cálculo y la evaluación del índice de normalidad de los URIs a evaluar se procederá a explicar el funcionamiento de las funciones encargadas de leer los archivos con la información de entrada.
 
-Para leer dicha informacion se hizo uso del  “input framework” que otorga Bro como herramienta para leer archivos de entrada y guardarla en tablas para que la misma pueda ser accedida de manera mas rapida y comoda dentro del código del programa. 
+Para leer dicha informacion se hizo uso del  “Input Framework” que otorga Bro como herramienta para leer archivos de entrada y guardarla en tablas para que la misma pueda ser accedida de manera mas rapida y comoda dentro del código del programa. 
 
 La función que se encarga de leer y almacenar en una tabla la información que está dentro de los archivos “config” y “modeloBro.log”  se llama $“add_table”$ y pertenece al módulo llamado “Input”.
 
-
+$“add_table”$ se encarga de leer archivos de entrada y almacenar sus datos
+en una tabla. El formato de esta funcion es el siguiente:
 %Extraido de : https://www.bro.org/sphinx/frameworks/input.html, https://www.bro.org/sphinx/scripts/base/frameworks/input/main.bro.html\#id-Input::add_table, https://www.bro.org/sphinx/scripts/base/frameworks/input/main.bro.html\#type-Input::TableDescription 
 %
-La misma tiene la siguiente forma: $Input::add_table(description: Input::TableDescription) : bool$ 
+\textbf{Input::add\_table}(description: \textbf{Input::TableDescription}) : \textbf{bool} 
 
-Donde $"Input::TableDescription"$ es una estructura de datos tipo “record” cuyos campos utilizados fueron los siguientes:
+Donde $"Input::TableDescription"$ es la  estructura de datos descrita gráficamente en la figura (INSERTE NUMERO DE LA FIGURA).
 
-\begin{itemize}
-\item source: campo de tipo “string” que almacena el nombre del archivo que va a ser leído.
-\item name: campo de tipo “string” que almacenará el nombre el nombre que se le asignará al flujo de entrada.
-\item destination: Nombre de la tabla que almacena la información contenida en los archivos.
-\item idx: Nombre del registro que definirá los valores que utilizará la tabla que almacena la información del archivo como clave.
-\item val: Campo opcional que almacena el nombre del registro que define los valores de la tabla que almacena la información de los archivos de entrada.
-\end{itemize}
 
 \subsection{Evaluación de las probabilidades de los URI}
 
