@@ -1,7 +1,27 @@
 \chapter{Conclusiones y Recomendaciones}
 \label{conclusiones}
 \lhead{\emph{Conclusiones y Recomendaciones}}
-
-
 % Incluir recomendaciones para trabajos futuros
 
+En este capítulo se presentarán las conclusiones y los aportes realizados por este proyecto. Así mismo, se mostrará una lista de recomendaciones, que expone un conjunto de ideas de futuras mejoras que se pueden aplicar al proyecto.
+
+\section{Conclusiones}
+
+En el presente Trabajo de Fin de Grado se realizó un estudio de SSM (``Stochastic Structural Model'') \cite{ssm} y todos sus conceptos asociados. Una vez realizado este trabajo, se diseñó de un arquitectura modular del sistema, en la cual se propuso la construcción de tres módulos, para luego pasar a la
+implementación de cada una de las funciones de los mismos, haciendo uso de la herramientas y del lenguaje de ``scripting'' de Bro, con la intención de obtener un IDS basado en SSM que puede ser utilizado por servicios web en
+producción. Los aportes realizados por este proyecto son los siguientes:
+
+\begin{enumerate}
+\item Se ha implementado un sistema que realiza detección de intrusiones en los servidores web.
+\item Se ha implementado un sistema con tres funcionalidades operativas: una para realizar detección de intrusiones y dos para realizar modelos de normalidad de los servicios web.
+\item Se han construido modelos de normalidad de servicios web que podrían ser utilizados para la detección de intrusiones.
+\end{enumerate}
+
+\section{Recomendaciones}
+
+\begin{enumerate}
+\item Calcular de manera experimental los valores óptimos de $\theta$ y los de probabilidad fuera de vocabulario que generen la menor cantidad posible de falsos positivos, haciendo uso de bases de datos mas extensas.
+\item Agregarle al IDS un conjunto de firmas de ataques conocidos aplicando la técnica propuesta en \cite{firmas}.
+\item Probar el sistema en un entorno de producción.
+\item Ampliar el sistema para que funcione en otros protocolos de la red.
+\end{enumerate}
