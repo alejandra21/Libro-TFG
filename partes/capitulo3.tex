@@ -149,6 +149,9 @@ En esta sección, se explicará de manera detallada la implementación del módu
 \subsubsection{Estructura de datos}
 \label{sssec:estructuraNormalizacion}
 
+En el módulo de segmentación existen tres estructuras de datos fundamentales. Una es utilizada en la función de normalización y la otras dos en
+la de segmentación.
+
 \subsubsection*{Normalización}
 \label{sssec:estructuraNormalizacion}
 
@@ -214,7 +217,7 @@ La estructura ``URI'' se puede apreciar gráficamente en la figura \ref{fig:URI}
 \caption{Ejemplo gráfico de la estructura ``URI''.}
 \label{fig:URI}
 \end{center}
-\end{figure}
+\end{figure}	
 
 \subsubsection{Función de segmentación}
 
@@ -285,6 +288,7 @@ A continuación se explicara un poco el funcionamiento de cada una de ellas.
 \begin{itemize}
 \item split:
 La función ``split'' tiene la siguiente forma:
+
 \textbf{split}(str: \textbf{string}, re: \textbf{pattern}) : \textbf{string\_array Attributes:\&deprecated}
 
 Esta función se encarga de dividir una cadena de caracteres de acuerdo a un patrón e introduce el resultado en un arreglo. Por ejemplo, $split"a-b--cd", /(\-)+/)$ retorna $\{"a", "b", "cd"\}.$
@@ -301,7 +305,9 @@ Los parámetros de dicha función son:
 Esta función realiza el mismo trabajo que ``split'' con la diferencia que los separadores son incluidos también el parámetro de salida.  Por ejemplo, $split\_all("a-b--cd", /(\-)+/)$ retorna $\{"a", "-", "b", "--", "cd"\}$.
 
 \item decompose\_uri:
-La función decompose\_uri tiene la siguiente forma: \textbf{decompose\_uri}(uri: \textbf{string}) : \textbf{URI}
+La función decompose\_uri tiene la siguiente forma:
+
+\textbf{decompose\_uri}(uri: \textbf{string}) : \textbf{URI}
 
 decompose\_uri dado un URI, retorna una estructura de datos compuesta de tipo URI explicada en la sección ~\ref{sssec:estructuraSegmentacion} que contiene información como el protocolo,la ruta, el número de puerto y los parámetros de las consultas del URI recibido.
 \end{itemize}
@@ -328,8 +334,7 @@ La normalización de los URI debe realizarse de acuerdo a las especificaciones e
 \end{itemize}
 
 Esta función tomará el parámetro de entrada y mediante un ``loop for''
-se itera por cada una de las claves de la tabla que se presentó en la figura
-(INSERTE REFERENCI DE LA TABALA DE NORMALIZACION). Si alguno de los elementos de la tabla está contenido en el ``string'' que la función recibe como entrada, entonces se procederá a reemplazar el elemento del párametro de entrada por el valor que posee dicha clave en la ``hash table''. Esta tarea de subsitución se realizará haciendo uso de la función ``subst string'' que proporciona Bro.
+se itera por cada una de las claves de la tabla que se presentó en la sección \ref{sssec:estructuraNormalizacion}. Si alguno de los elementos de la tabla está contenido en el ``string'' que la función recibe como entrada, entonces se procederá a reemplazar el elemento del párametro de entrada por el valor que posee dicha clave en la ``hash table''. Esta tarea de subsitución se realizará haciendo uso de la función ``subst string'' que proporciona Bro.
 
 ``subst string'' es una función de la forma:
 
@@ -364,14 +369,30 @@ La primera, cuyo nombre es ``Word'' posee los siguientes campo:
 \item ``state'' es un campo de tipo string en donde se indicará el estado del autómata presentado en la imagen \ref{fig:ssm} al que pertenece la palabra almacenada en el campo ``word''.
 \end{itemize}
 
-Esta estructura se puede observar de manera gráfica en la figura (INSERTE REFERENCIA DE LA IMAGEN).
+Esta estructura se puede observar de manera gráfica en la figura \ref{fig:WORD}.
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=4in]{Word.jpg}
+\caption{Ejemplo gráfico de la estructura ``Word''.}
+\label{fig:WORD}
+\end{center}
+\end{figure}	
 
 La segunda estructura llamada ``Probability'' solo posee un campo llamado ``probability''.
 \begin{itemize}
 \item ``probability'' es un campo de tipo ``double'' en donde se almacenará la probabilidad de generación de las palabras que se encuentran en el modelo.
 \end{itemize}
 
-Se puede observar un ejemplo gráfico de la estructura en la figura (INSERTE NUMERO DE LA FIGURA).
+Se puede observar un ejemplo gráfico de la estructura en la figura \ref{fig:Probability}.
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=4in]{Probability.jpg}
+\caption{Ejemplo gráfico de la estructura ``Probability''.}
+\label{fig:Probability}
+\end{center}
+\end{figure}	
 
 La tercera estructura de tipo ``register'' que será utilizada en el módulo de evaluación se llamada ``TableDescription'' y pertenece al módulo ``Input'' de Bro y se utilizará al momento de leer los archivos de entrada.
 Los campos utilizados de esta estructura fueron los siguientes:
@@ -388,17 +409,25 @@ los valores de la tabla que almacena la información de los archivos de
 entrada.
 \end{itemize}
 
-En la figura (INSERTE REFERENCIA) se muestra un ejemplo gráfico de ``TableDescription''.
+En la figura \ref{fig:TableDescription} se muestra un ejemplo gráfico de ``TableDescription''.
 
-Por otra parte, las estructuras de tipo ``table'' son dos. Una tabla será utilizada para almacenar las palabras del vocabulario, la probabilidad de generación y el nombre del estado al que pertenece dicha información mientras que la otra almacenará las probabilidades de fuera de vocabulario de cada uno de los estados y el valor del parámetro $\theta$ presente en la expresión (INSERTE ETIQUETA DE LA EXPRESION EN DONDE APARECE THETA).
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=4in]{TableDescription.jpg}
+\caption{Ejemplo gráfico de la estructura ``TableDescription''.}
+\label{fig:TableDescription}
+\end{center}
+\end{figure}	
 
-La primera tabla es una ``hash table'' que posee dos elementos tipo ``string'' como clave, y como valor tiene un campo de tipo ``Probability''. Un ejemplo de como luciría dicha estructura de datos en Bro se muestra en la figura (INSERTE IMAGEN DE LA FIGURA).
+Por otra parte, las estructuras de tipo ``table'' son dos. Una tabla será utilizada para almacenar las palabras del vocabulario, la probabilidad de generación y el nombre del estado al que pertenece dicha información mientras que la otra almacenará las probabilidades de fuera de vocabulario de cada uno de los estados y el valor del parámetro $\theta$ presente en la expresión \ref{eq:ClaseU}.
 
-Esta tabla almacenará del modelo de normalidad del sistema, es decir, las palabras del vocabulario, la probabilidad de generación de las mismas y el estado al que pertenece dicha información. Las claves de esta tabla serán las palabras del vocabulario y el nombre del estado al que pertenecen. Toda esta informacion será dada a través de un archivo de texto cuya estructura será explicada en las sección ~\ref{sec:lecturaModelo}.
+La primera tabla es una ``hash table'' que posee dos elementos tipo ``string'' como clave, y como valor tiene un campo de tipo ``Probability''.
 
-La segunda tabla es una hash table que tendrá solo un elemento como clave de tipo ``string''. Los valores de la misma serán campo tipo ``Valor''. En Bro, dicha estructura luciría como se muestra en la figura (INSERTE NUMERO DE FIGURA).
+Esta tabla almacenará el modelo de normalidad del sistema, es decir, las palabras del vocabulario, la probabilidad de generación de las mismas y el estado al que pertenece dicha información. Las claves de esta tabla serán las palabras del vocabulario y el nombre del estado al que pertenecen. Toda esta informacion será dada a través de un archivo de texto cuya estructura será explicada en las sección ~\ref{sec:lecturaModelo}.
 
-En la tabla (INSERTE NUMERO DE FIGURA)  se van a almacenar las probabilidades de fuera de vocabulario de cada uno de los estados del autómata y el parámetro $\theta$. La clave de la misma sería una cadena de caracteres que identifique cada una de las probabilidades  y el parámetro  $\theta$. Esas etiquetas serían las siguientes: Poov1, Poov2, Poov3, Poov4, Theta.  
+La segunda tabla es una hash table que tendrá solo un elemento como clave de tipo ``string''. Los valores de la misma serán campo tipo ``Valor''. 
+
+En dicha tabla se van a almacenar las probabilidades de fuera de vocabulario de cada uno de los estados del autómata y el parámetro $\theta$. La clave de la misma sería una cadena de caracteres que identifique cada una de las probabilidades  y el parámetro  $\theta$. Esas etiquetas serían las siguientes: Poov1, Poov2, Poov3, Poov4, Theta.  
 
 \subsubsection*{Evaluación de las probabilidades de los URI}
 \label{sssec:estructuraEvaluacion}
@@ -415,7 +444,15 @@ La estructura lleva como nombre ``InfoAtaque'' y contiene los siguientes campos:
 
 Todos los campos anteriormente descritos poseen la cualidad de ser de tipo ``log'' tambien. Con esto se indica cuál de los elementos de la estructura de datos se escribirá sobre los logs.
 
-    El registro ``InfoAtaque'' se puede observar de manera gráfica en la figura (INSERTE REFERENCIA DE LA FIGURA). 
+    El registro ``InfoAtaque'' se puede observar de manera gráfica en la figura \ref{fig:InfoAtaque}. 
+    
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=4in]{InfoAtaque.jpg}
+\caption{Ejemplo gráfico de la estructura ``InfoAtaque''.}
+\label{fig:InfoAtaque}
+\end{center}
+\end{figure}	
     
 \subsubsection{Modelo de normalidad en Bro}
 \label{sec:lecturaModelo}
@@ -424,9 +461,8 @@ En esta sección se explicará cual es el formato de almacenamiento del
 modelo de normalidad y los parámetros de configuración, y se explicará como
 se implementó la lectura del mismo.
 
-
-Como se mencionó en la sección (INSERTE NUMERO DE LA SECCION), los elementos que necesitan ser introducidos al módulo de evaluación para su correcto funcionamiento son: el conjunto de observaciones de cada estado (O), el conjunto de vectores de probabilidad de las palabras observadas en cada estado ( $B_{S}, B_{P}, B_{A}, B_{V}$ ), los
-valores de probabilidad de fuera de vocabulario ($P_{oovP}, P_{oovA}, P_{oovV}$), y el valor del parámetro $\theta$ (Ec. INSERTE ECUACION).
+Los elementos que necesitan ser introducidos al módulo de evaluación para su correcto funcionamiento son: el conjunto de observaciones de cada estado (O), el conjunto de vectores de probabilidad de las palabras observadas en cada estado ( $B_{S}, B_{P}, B_{A}, B_{V}$ ), los
+valores de probabilidad de fuera de vocabulario ($P_{oovP}, P_{oovA}, P_{oovV}$), y el valor del parámetro $\theta$ (Ec. \ref{eq:ClaseU}).
 
 \subsubsection*{Formato de los archivos de entrada}
 
@@ -438,16 +474,29 @@ Tanto el archivo ``config'' como el ``modeloBro.log'' están regidos bajo un for
 
 El formato que establece Bro para los archivos de entrada define que la información se debe introducir en columnas separada mediante tabs, y que debe existir un encabezado al inicio del mismo que inicie abriendo con un numeral (\#) seguido de la palabra ``fields''. Luego de esta palabra se escribirán los nombres que se le asignará a cada columna del archivo.
 
-Por lo tanto, el formato del archivo ``config'' sería como el que se muestra en la figura (INSERTE REFERENCIA DE LA FIGURA).
+Por lo tanto, el formato del archivo ``config'' sería como el que se muestra en la figura \ref{fig:archivoConfig}.
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=4in]{config.png}
+\caption{Formato de archivo ``config''.}
+\label{fig:archivoConfig}
+\end{center}
+\end{figure}	
 
 La primera columna corresponde a las etiquetas que identifican los valores que se encuentran en la segunda columna. Es importante recalcar que los nombres ``Poov1'', ``Poov2'', ``Poov3'', ``Poov4'' y ``Theta'' deben ser escritos en el archivo obligatoriamente de la misma forma en la que aparecen en el ejemplo.
 
-La información que se encuentre en el archivo ``config'' será almacenada
-en la tabla que se muestra en la figura (MOSTRAR TABLA).
+Por otro lado, el formato del archivo ``modeloBro.log'' es el que se muestra en la figura \ref{fig:archivoModeloBro}.
 
-Por otro lado, el formato del archivo ``modeloBro.log'' es el que se muestra en la figura (INSERTE REFERENCIA DE LA FIGURA).
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=4in]{modeloBro.png}
+\caption{Formato de archivo ``modeloBro.log''.}
+\label{fig:archivoModeloBro}
+\end{center}
+\end{figure}	
 
-La segunda columna de este archivo (``word'') corresponde al conjunto de observaciones ``O'' de cada uno de los estados, mientras que la tercera columna (``probability'') indica la probabilidad de aparición de cada palabra ($B_{S}, B_{P}, B_{A}, B_{V}$). Por otra parte, la primera columna (``state'') indica a que estado del autómata (INSERTAR FIGURA) pertenece cada palabra y su probabilidad de generación.
+La segunda columna de este archivo (``word'') corresponde al conjunto de observaciones ``O'' de cada uno de los estados, mientras que la tercera columna (``probability'') indica la probabilidad de aparición de cada palabra ($B_{S}, B_{P}, B_{A}, B_{V}$). Por otra parte, la primera columna (``state'') indica a que estado del autómata \ref{fig:ssm} pertenece cada palabra y su probabilidad de generación.
 
 Las filas del archivo ``modeloBro.log'' que tienen en la primera columna las palabras: ``numeroPalabraSs'', ``numeroPalabraSp'', ``numeroPalabraSa'', ``numeroPalabraSv'' contienen el número de palabras que han sido procesadas por estado. Esta informacion será utilizada en el entrenamiento en modo offline que será explicado en la sección \ref{sec:entrenamientoOffline}.
 
@@ -463,29 +512,27 @@ Para leer dicha informacion se hizo uso del  ``Input Framework'' que otorga Bro 
 \textbf{Input::add\_table}(description: \textbf{Input::TableDescription}) : \textbf{bool} 
 
 Donde ``\textbf{TableDescription}'' es la estructura descrita graficamente en
-la figura (INSERTAR FIGURA).
-Por otra parte, un ejemplo de como se leería el archivo que contiene
-el modelo de normalidad (``modeloBro.log''), haciendo uso de la función anteriormente descrita se puede observar en la figura (INSERTE FIGURA).
+la figura ~\ref{fig:TableDescription}.
 
 \subsubsection{Evaluación de las probabilidades de los URI}
 
-Como se puede apreciar en la sección (INSERTE SECCION), la función ``evaluacion'' se encargará de hallar el  índice de anormalidad, dado un conjunto de segmentos de URI, e indicará si el mismo es anómalo o no comparándolo con el valor
+La función ``evaluacion'' del módulo de evaluación, se encargará de hallar el  índice de anormalidad, dado un conjunto de segmentos de URI, e indicará si el mismo es anómalo o no comparándolo con el valor
 de $\theta$, para luego escribir los resultados de la evaluación en un archivo de reportes del sistema. La función implementada que se encargara de realizar las tareas anteriormente descritas tiene el siguiente formato:
 
 \textbf{evaluacion}(uriParsed: \textbf{UriSegmentado}, Bvector: \textbf{table[string,string]
 of Probability}, config: \textbf{table[string] of Valor})
 donde:
 \begin{itemize}
-\item uriParsed: es un parámetro de tipo ``UriSegmentado'' (figura FIGURA DE URISEGMENTADO), que
+\item uriParsed: es un parámetro de tipo ``UriSegmentado'' (figura \ref{fig:uriSegmentado}), que
 almacena los segmentos del URI.
-\item Bvector: es una tabla que almacena el conjunto de observaciones de cada estado (O) y el conjunto de vectores de probabilidad de las palabras observadas en cada estado, es decir, $B_{S}, B_{P}, B_{A}, B_{V}$ (figura FIGURA DE TABLA BVECTOR).
-\item config: Es una tabla que almacena los diferentes Poov y el valor de $\theta$. (figura FIGURA DE TABLA CONFIG)
+\item Bvector: es una tabla que almacena el conjunto de observaciones de cada estado (O) y el conjunto de vectores de probabilidad de las palabras observadas en cada estado, es decir, $B_{S}, B_{P}, B_{A}, B_{V}$.
+\item config: Es una tabla que almacena los diferentes Poov y el valor de $\theta$.
 \end{itemize}
 
 No obstante, la tarea realizada por ``evaluacion'' fue subdividida en cuatro funciones: ``epsiloSumatoria'', ``calcularIndiceAnormalidad'',
-``evaluarIndiceAnormalidad'' y ``escribirReporte''. La función ``epsiloSumatoria'' se encargará de calcular tanto el $\varepsilon_{0}$ que aparece en la expresión (INSERTAR SECCION DE LA EXPRESION)
+``evaluarIndiceAnormalidad'' y ``escribirReporte''. La función ``epsiloSumatoria'' se encargará de calcular tanto el $\varepsilon_{0}$ que aparece en la expresión \ref{eq:sumB}
 como la sumatoria de los logaritmos de los $p_{qtot}$ que se encuentra en la
-expresión (INSERTAR SECCION DE LA EXPRESION).
+expresión \ref{eq:Ns}.
 
 El formato de dicha función es el siguiente:
 
@@ -495,9 +542,9 @@ Bvector: \textbf{table[string,string] of Probability}, epsilon : \textbf{double}
 
 donde los parámetros de entrada serán:
 \begin{itemize}
-\item segmentos: es un parámetro de tipo ``UriSegmentado'' (figura FIGURA DE URISEGMENTADO), que
+\item segmentos: es un parámetro de tipo ``UriSegmentado'' (figura \ref{fig:uriSegmentado}), que
 almacena los segmentos del URI.
-\item Bvector: es una tabla que almacena el conjunto de observaciones de cada estado (O) y el conjunto de vectores de probabilidad de las palabras observadas en cada estado, es decir, $B_{S}, B_{P}, B_{A}, B_{V}$ (figura FIGURA DE TABLA BVECTOR).
+\item Bvector: es una tabla que almacena el conjunto de observaciones de cada estado (O) y el conjunto de vectores de probabilidad de las palabras observadas en cada estado, es decir, $B_{S}, B_{P}, B_{A}, B_{V}$.
 \item epsilon: Valor correspondiente al Poov.
 \item estado: estado del autómata que se esta evaluando (``host'',``path'',``argumentos'',
 ``valores'').
@@ -512,14 +559,14 @@ el  índice de anormalidad $N_{s}$ , tiene el siguiente formato:
 \textbf{calcularIndiceAnormalidad}(epsilon0: \textbf{double}, N: \textbf{double}, sumaLogaritmos: \textbf{double}) : double. Donde:
 
 \begin{itemize}
-\item epsilon0: Valor de $\varepsilon_{0}$ (expresión INSERTE EXPRESION).
-\item N: Valor de ``T'' en la expresión (INSERTE EXPRESION).
-\item sumaLogaritmos: Suma de los logaritmos de $p_{qtot}$ que se encuentra en la expresión (INSERTE EXPRESION).
+\item epsilon0: Valor de $\varepsilon_{0}$ (expresión \ref{eq:sumB}).
+\item N: Valor de ``T'' en la expresión (expresión \ref{eq:sumB}).
+\item sumaLogaritmos: Suma de los logaritmos de $p_{qtot}$ que se encuentra en la expresión (expresión \ref{eq:sumB}).
 \end{itemize}
 
 El parámetro de salida de esta función será el valor del  índice de anormalidad.
 
-La función, ``evaluarIndiceAnormalidad'' que tiene como tarea comparar el  índice de anormalidad ($N_{s}$) con el parámetro $\theta$, tiene el siguiente formato:
+La función, ``evaluarIndiceAnormalidad'' que tiene como tarea comparar el  índice de anormalidad ($N_{s}$) con el parámetro $\theta$, de la forma en que se muestra en la expresión \ref{eq:ClaseU} tiene el siguiente formato:
 
 \textbf{evaluarIndiceAnormalidad}(theta: \textbf{double},indiceAnormalidad: \textbf{double})
 
@@ -544,8 +591,7 @@ archivo de salida.
 \end{itemize}
 
 La función anterior fue implementada con la ayuda de las herramientas
-que aporta el ``Logging Framework'' de Bro y la estructura de datos ``InfoA-
-taque'' (fig. INSERTAR FIGURA DE LA ESTRUCTURA). La funciones del ``Framework'' utilizadas fueron: ``write'' para escribir sobre el archivo y ``create\_stream'' para crearlo. Ambas pertenecen al modulo ``LOG''. 
+que aporta el ``Logging Framework'' de Bro y la estructura de datos ``InfoAtaque'' (fig. ~\ref{fig:InfoAtaque}). La funciones del ``Framework'' utilizadas fueron: ``write'' para escribir sobre el archivo y ``create\_stream'' para crearlo. Ambas pertenecen al modulo ``LOG''. 
 
 El formato que sigue la función ``write'' es el siguiente :
 
@@ -580,7 +626,7 @@ archivo y ``falso'' si es posible.
 
 \subsection{Implementación del módulo de entrenamiento}
 
-Como se pudo apreciar en la sección (INSERTE SECCION) el modo de entrenamiento cuenta con dos modos: el modo ``Online'' y el modo ``Offline''. En esta se sección, se explicarán las estructuras de datos utilizadas por ambos modos y las funciones implementadas en cada uno de ellos.
+Como se pudo apreciar en la sección \ref{sec:entrenamiento} el modo de entrenamiento cuenta con dos modos: el modo ``Online'' y el modo ``Offline''. En esta se sección, se explicarán las estructuras de datos utilizadas por ambos modos y las funciones implementadas en cada uno de ellos.
 
 \subsubsection{Estructura de datos}
 El módulo de entrenamiento consta de varias estructuras de datos de
@@ -597,10 +643,18 @@ que una palabra es observada durante el entrenamiento.
 \end{itemize}
 
 Un ejemplo gráfico de la estructura ``Entrenamiento'' se puede apreciar
-en la figura (INSERTAR FIGURA).
+en la figura \ref{fig:figEntrenamiento}.
 La otra estructura de tipo ``record'' es ``Info''. ``Info'' se encargará de
 almacenar la información que será escrita en el archivo de texto que representará el modelo de normalidad. Los campos de esta estructura de datos
 son los siguientes:
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=4in]{EntrenamientoRegister.jpg}
+\caption{Ejemplo gráfico de la estructura ``Entrenamiento''.}
+\label{fig:figEntrenamiento}
+\end{center}
+\end{figure}	
 
 \begin{itemize}
 \item state: es un campo de tipo ``string'' que almacenará el nombre del
@@ -610,11 +664,20 @@ estado al que pertenece la palabra y su probabilidad de observación.
 \end{itemize}
 
 La estructura ``Info'' se puede observar de manera gráfica en la figura
-(INSERTAR FIGURA).
-Por otra parte, la estructura tipo ``table'' que se utilizÓ en la implementaciÓn de este módulo fueron las siguientes:
+\ref{fig:figInfo}.
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=4in]{Info.jpg}
+\caption{Ejemplo gráfico de la estructura ``Entrenamiento''.}
+\label{fig:figInfo}
+\end{center}
+\end{figure}
+
+Por otra parte, la estructura tipo ``table'' que se utilizó en la implementación de este módulo fueron las siguientes:
 Se hizo uso de una tabla de hash que posee como clave un campo tipo
 ``string'' y como valor una estructura de datos de tipo ``Entrenamiento''
-(fig. INSERTAR FIFURA). Esta tabla tendrá como función almacenar las palabras que van apareciendo durante el entrenamiento, el número de veces que fueron observadas las mismas y la probabilidad de aparición . La clave de esta tabla serán las palabras observadas y el resto de la informacion sería almacenado en la estructura de datos ``Entrenamiento''.
+(fig. \ref{fig:figEntrenamiento}). Esta tabla tendrá como función almacenar las palabras que van apareciendo durante el entrenamiento, el número de veces que fueron observadas las mismas y la probabilidad de aparición . La clave de esta tabla serán las palabras observadas y el resto de la informacion sería almacenado en la estructura de datos ``Entrenamiento''.
 Cada estado del autómata tendrá su tabla de entrenamiento propia para
 de esta manera tener una mayor organización de las observaciones realizadas durante el entrenamiento.
 
@@ -632,8 +695,7 @@ formato es el siguiente:
 donde:
 
 \begin{itemize}
-\item segmentos: campo de tipo ``UriSegmentado'' (figura INSERTAR FIGURA), que almacena
-los segmentos de un URI
+\item segmentos: campo de tipo ``UriSegmentado'' (fig. \ref{fig:uriSegmentado}), que almacena los segmentos de un URI
 \end{itemize}
 
 Por otra parte, la función ``entrenamientoOffline'' irá observando los segmentos de los URIs de las peticiones que van llegando y contará el número de veces que cada segmento fue observado durante el entrenamiento. El formato de la misma sigue la siguiente estructura:
@@ -641,24 +703,24 @@ Por otra parte, la función ``entrenamientoOffline'' irá observando los segment
 \textbf{entrenamientoOffline}(segmentos: \textbf{UriSegmentado}, vocabulario: \textbf{table[string] of Entrenamiento}, estado: \textbf{string})
 donde:
 \begin{itemize}
-\item segmentos: campo de tipo ``UriSegmentado'' (figura INSERTAR FIGURA), que almacena
+\item segmentos: campo de tipo ``UriSegmentado'' (fig. ~\ref{fig:uriSegmentado}), que almacena
 los segmentos de un URI (las observaciones).
 \item vocabulario: Tabla que contiene una lista de palabras y una lista de
 nÚmeros que corresponde al número de apariciones y probabilidad de
-aparición de las misma (fig. INSERTAR FIGURA).
+aparición de las misma (fig. ~\ref{fig:figEntrenamiento}).
 \item numPalabras: Número total de apariciones de todas las palabras vistas durante el entrenamiento de un estado en concreto.
 \item estado: estado del autómata que se esta entrenando (``host'', ``path'',
 ``argumentos'',``valores'').
 \end{itemize}
 
-La ``evaluarProbabilidad'' , encargada de tomar el resultado de las observaciones realizadas por ``entrenamientoOffline'' y calcular la probabilidad de aparición de cada uno de los segmentos (ec. INSERTAR ECUACION) tiene el siguiente formato:
+La ``evaluarProbabilidad'' , encargada de tomar el resultado de las observaciones realizadas por ``entrenamientoOffline'' y calcular la probabilidad de aparición de cada uno de los segmentos (ec. \ref{eq:entrenamiento}) tiene el siguiente formato:
 
 \textbf{evaluarProbabilidad}(vocabulario: \textbf{table[string] of Entrenamiento},
 numPalabras: \textbf{double})
 \begin{itemize}
 \item vocabulario: Tabla que contiene una lista de palabras y una lista de
 números que corresponde al número de apariciones y probabilidad de
-aparición de las misma (fig. INSERTAR FIGURA).
+aparición de las misma (fig. ~\ref{fig:figInfo}).
 \item numPalabras: Número total de apariciones de todas las palabras vistas durante el entrenamiento de un estado en concreto.
 \end{itemize}
 
@@ -671,14 +733,13 @@ donde:
 \begin{itemize}
 \item vocabulario: Tabla que contiene una lista de palabras y una lista de
 números que corresponde al número de apariciones y probabilidad de
-aparición de las misma (fig. INSERTAR FIGURA).
+aparición de las misma (fig. ~\ref{fig:figInfo}).
 \item estado: estado al que pertenece la tabla ``vocabulario''.
 \end{itemize}
 
 \subsubsection{Entrenamiento ``Online''}
 
-El modo de entrenamiento ``Online'', encargado de hacer modificacio-
-nes a un modelo de normalidad previamente existente fue implementado
+El modo de entrenamiento ``Online'', encargado de hacer modificaciones a un modelo de normalidad previamente existente fue implementado
 haciendo uso de una función llamada ``entrenarOnline'' que a su vez esta
 subdividida en tres funciones. Los
 nombres que se les dio a estas al momento de ser implementadas fueron:
@@ -690,7 +751,7 @@ La función ``entrenarOnline'', cuya tarea sera llamar al resto de las funciones
 donde:
 
 \begin{itemize}
-\item segmentos: campo de tipo ``UriSegmentado'' (figura INSERTAR FIGURA), que almacena
+\item segmentos: campo de tipo ``UriSegmentado'' (fig. \ref{fig:uriSegmentado}), que almacena
 los segmentos de un URI
 \end{itemize}
 
@@ -700,7 +761,7 @@ Por otra parte, ``entrenamientoOnline'', encargada de calcular la probabilidad d
 modelo: \textbf{table[string,string] of Probability}, numPalabras: \textbf{double}, state: \textbf{string})
 donde:
 \begin{itemize}
-\item segmentos: campo de tipo ``UriSegmentado'' (figura INSERTAR FIGURA), que almacena los segmentos de un URI.
+\item segmentos: campo de tipo ``UriSegmentado'' (fig. \ref{fig:uriSegmentado}), que almacena los segmentos de un URI.
 \item modelo: tabla que almacena el modelo de normalidad previamente
 leído.
 \item numPalabras:
@@ -720,3 +781,222 @@ miento.
 \end{itemize}
 
 \section{Evaluación y pruebas}
+
+En el presente capítulo se explicará las pruebas funcionales y operativas
+realizadas al sistema. Así como las bases de datos utilizadas para realizar
+las mismas.
+
+\subsection{Base de datos}\label{ssec:DB}
+
+Las bases de datos utilizadas por las pruebas fueron trazas capturadas
+en servidores web. Para capturar estos paquetes de tipo HTTP los pasos a
+seguir fueron los siguientes:
+
+\begin{enumerate}
+\item Se instaló una aplicación de servicio web en el ordenador.
+\item Se corrió una aplicación web en la aplicación anteriormente instalada.
+\item Se empezaron a hacer solicitudes a la aplicación web a tráves de otro
+dispositivo. Mientras esto ocurria, ``Wireshark'' realizaba las capturas
+de los paquetes de la red.
+\end{enumerate}
+Se obtuvo cuatro bases de datos:
+\begin{itemize}
+\item db1.pcap: Capturas de paquetes provenientes de las solicitudes reali-
+zadas a una aplicación web, A.
+\item db2.pcap: Capturas de paquetes provenientes de la misma aplicación
+web A.
+\item db3.pcap: Capturas de paquetes provenientes de una aplicación web,
+B.
+\item db4.pcap: Capturas de paquetes descargadas de: \cite{wireshark}.
+\end{itemize}
+
+\subsection{Pruebas funcionales}
+
+En esta sección se explicarán las pruebas funcionales aplicadas a cada
+una de la funciones construidas en el sistema.
+
+\subsubsection{Filtro HTTP/GET}
+
+Para probar el filtro de tipo HTTP/GET se tomó la base de datos,
+\textbf{db1.pcap}, que contiene tanto paquetes HTTP/GET, como paquetes correspondientes a la sesión HTTP. La prueba consistió en pasarle a la función construida la base de datos de paquetes para que esta imprimiera los URIs de las peticiones HTTP/GET que estuviesen contenidas en la misma. En la
+figura \ref{fig:filtroHTTP} se muestra un esquema de la prueba que se realizó.
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=2in]{filtroHTTP.png}
+\caption{Esquema de pruebas realizadas al filtro HTTP/GET.}
+\label{fig:filtroHTTP}
+\end{center}
+\end{figure}
+
+\subsubsection{Lectura de archivos}
+
+La lectura de los archivos es de suma importancia, ya que el sistema utiliza un modelo de normalidad y un conjunto de parámetros que se introducen
+al mismo a tráves de archivos.
+La manera en la que se probó esta función consistió en leer ambos archivos de textos necesarios por el sistema: ``config'' y ``modeloBro.log'' y luego se imprimieron las tablas resultantes de la lectura de los mismos.
+En la figura \ref{fig:configFile}, se puede observar el archivo ``config'' que leerá la función de lectura del sistema y en la figura \ref{fig:configResult}, se puede apreciar la forma en la
+que la misma almacenó los datos en la tabla correspondiente.
+Por otra parte, en la figura \ref{fig:modelFile}, está el archivo ``modeloBro.log'' que fué utilizado en la prueba realizada, mientras que en la figura \ref{fig:modelResult} se muestra el resultado arrojado por la misma.
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=3in]{configFile.jpg}
+\caption{Archivo ``config''.}
+\label{fig:configFile}
+\end{center}
+\end{figure}
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=3in]{tablaConfig.png}
+\caption{Tabla que contiene información del archivo ``config''.}
+\label{fig:configResult}
+\end{center}
+\end{figure}
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=3in]{modeloOffline.jpg}
+\caption{Archivo ``modeloBro.log''.}
+\label{fig:modelFile}
+\end{center}
+\end{figure}
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=3in]{tablaModeloBro.png}
+\caption{Tabla que contiene información del archivo ``modeloBro.log''.}
+\label{fig:modelResult}
+\end{center}
+\end{figure}
+
+\subsubsection{Módulo de segmentación}
+
+Como se mencionó en los secciones anteriores, el modulo de segmentación
+cuenta con dos funciones principales: la función de normalización y la de
+segmentación. A continuación se mostrará la manera en la que se probó cada una de las funciones.
+
+\subsubsection*{Función de normalización}
+
+Las pruebas realizadas a la función de normalización consistió en realizar una lista de URIs sin normalizar, ingresarlos como parámetros a la función y observar los resultados arrojados por la misma.
+La lista de URIs utilizados en esta prueba se pueden observar en la figura \ref{fig:uriSinNorm}. Por otra parte, los resultados arrojados por la misma se muestran en la
+figura \ref{fig:uriNorm}.
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=3in]{uriSinNorm.png}
+\caption{URIs sin normalizar.}
+\label{fig:uriSinNorm}
+\end{center}
+\end{figure}
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=3in]{uriNorm.png}
+\caption{URIs normalizados.}
+\label{fig:uriNorm}
+\end{center}
+\end{figure}
+
+\subsubsection*{Función de segmentación}
+
+La pruebas realizadas a la función de segmentación, consistieron en ingresarle un conjunto de URIs a la misma y observar la manera en la que
+esta los segmentaba.
+
+\subsubsection{Módulo de entrenamiento}
+\subsubsection*{Modo ``Offline''}
+Como se pudo observar en los secciones anteriores, el módulo de entrenamiento esta conformado por una función, ``entrenarOffline'', que que se
+encarga de hacer la llamada a función de: ``entrenamientoOffline'', ``evaluarProbabilidad'', ``escribirArchivoOffline''.
+Para probar la función, ``entrenamientoOffline'', se construyeron una serie de datos de tipo ``UriSegmentado'' (fig. \ref{fig:uriSegmentado}), provenientes de la base de datos \textbf{db3.pcap} y le fueron pasados como parámetro de entrada a la misma. Una vez procesados los datos, se observó la salida de la misma para verificar la correctitud.
+
+Por otra parte, para probar la función ``evaluarProbabilidad'', se tomaron los resultados arrojados por ``entrenamientoOffline'' y se
+observó el resultado que arrojaba la misma. 
+
+La prueba que se le realizó a ``escribirArchivoOffline'', consistió en tomar el resultado arrojado por ``evaluarProbabilidad'' y observar el
+archivo de salida que escribía dicha función. 
+
+\subsubsection*{Modo ``Online''}
+Al igual que el modo ``Offline'', el modo ``Online'' esta conformado por
+una función,``entrenarOnline'', que se encarga de hacer la llamada a función
+del resto:``entrenamientoOnline'',``escribirArchivoOnline''
+Las pruebas de ``entrenamientoOnline'' consistieron en darle un modelo de normalidad y un conjunto de estructura
+de tipo ``UriSegmentado'' y observar la salida que arrojaba la misma.
+
+Para probar la función ``escribirArchivoOnline'', se tomó el resultado arrojado por ``entrenamientoOnline'' y se observó el archivo de salida escrito por la misma.
+\subsubsection{Módulo de evaluación}
+
+El modulo de evaluación consta de una función general, llamada ``evaluacion'' que se encarga de hacer la llamada a función de: ``epsiloSumatoria'',
+``calcularIndiceAnormalidad'', ``evaluarIndiceAnormalidad'' y ``escribirReporte'', que a su vez se encargan de realizar el trabajo del módulo de evaluación.
+Para probar la función ``epsiloSumatoria'', se ingresó un conjunto de datos de tipo de tipo ``UriSegmentado'', un modelo de normalidad previamente leído, un valor para el epsilon, y un conjunto de estado del autómata para observar los resultados que arrojaba la misma.
+Para la prueba de la función ``calcularIndiceAnormalidad'', se tomaron
+los resultados proporcionados por la función ``epsiloSumatoria'' y se observará el resultado obtenido.
+
+Tanto los resultados obtenidos por ``epsiloSumatoria'' por ``calcularIndiceAnormalidad'' fueron verificados calculando de manera manual los valores
+que estas funciones calculan, haciendo uso de las expresiones correspondientes.
+Las pruebas de la función ``evaluarIndiceAnormalidad'' consistieron en
+darle un  índice de anormalidad y un valor del parámetro $\theta$, como los que
+se muestran en la figura \ref{fig:archivoConfig} y verificar si la misma clasificaba de manera adecuada.
+Finalmente, para realizar la prueba de ``escribirReporte'' se le pasó una serie de URIs pertenecientes a la base de datos \textbf{db1.pcap}. Una vez realizado
+esto, se observó el archivo de salida escrito por dicha función.
+
+\subsection{Pruebas operativas}
+
+En esta sección se explicaran las pruebas operativas que se les aplicaron
+a las tres modalidades del sistema implementado.
+
+\subsubsection{Modo entrenamiento ``Offline''}
+
+Para probar el modo ``Offline'' del sistema, se tomó la base de datos \textbf{db3.pcap} explicada en la sección \ref{ssec:DB}, y se le ingresó al sistema configurado en modo ``Offline''. Una vez realizado esto, se observó el modelo de
+normalidad arrojado por dicha modalidad.
+En la figura \ref{fig:modeloOffline} se puede apreciar el modelo de normalidad obtenido
+por la misma.
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=4in]{modeloOffline.jpg}
+\caption{Modelo de normalidad obtenido en el modo ``Offline''.}
+\label{fig:modeloOffline}
+\end{center}
+\end{figure}
+
+\subsubsection{Modo entrenamiento ``Online''}
+
+El modo ``Online'' del sistema fue probado ingresando la base de datos \textbf{db4.pcap} explicada en la sección \ref{ssec:DB} al sistema junto con el modelo mostrado en la figura \ref{fig:modeloOffline}. Una vez realizado esto, se observo la salida y se pudo verificar que, en efecto el modelo antiguo fue modificado. En la figura \ref{fig:modeloOnline} se puede apreciar la salida de esta modalidad tras la prueba realizada.
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=4in]{modeloOnline.jpg}
+\caption{Modelo de normalidad obtenido en el modo ``Online''.}
+\label{fig:modeloOnline}
+\end{center}
+\end{figure}
+
+\subsubsection{Modo evaluación}
+
+Para realizar la prueba del modo de evaluación se tomó la base de datos
+\textbf{db1.pcap} para realizar un modelo de normalidad haciendo uso del modo de entrenamiento ``Offline''. De esta manera, se evaluarán las trazas que se encuentran en la base de datos, \textbf{db2.pcap} y \textbf{db3.pcap} y se observaran los resultados obtenidos.
+La intención de esta prueba es comparar los  índices de anormalidad
+obtenidos por la base de datos \textbf{db2.pcap} y \textbf{db3.pcap}.
+Como la base de datos \textbf{db2.pcap} posee el mismo comportamiento que
+el del modelo de normalidad por pertenecer a peticiones realizadas al mismo servidor, se espera que los  índices de anormalidad sean mas bajos que los obtenido por \textbf{db3.pcap}, ya que esta trazas pertenecen a peticiones que no se encuentran registradas en el comportamiento del modelo de normalidad.
+En la figura \ref{fig:indicesMalos} se muestran los resultados de los  índices de anormalidad calculados cuando se evalúa la base de datos \textbf{db3.pcap}.
+Se puede observar que los índices oscilan entre 25 y 36.
+Por otra parte, en la figura \ref{fig:indicesBuenos} se pueden detallar los índices de anormalidad resultantes, de evaluar la base de datos \textbf{db2.pcap}.Se puede apreciar que los índices de anormalidad de la figura \ref{fig:indicesBuenos} son mas bajos que los de la figura \ref{fig:indicesMalos}. Estos resultados son los esperados, ya que \textbf{db2.pcap} no presenta incongruencias con el modelo de normalidad construido, mientras que la base de dato \textbf{db3.pcap} si. Por lo tanto es conveniente que el sistema lo catalogue como anomalías.
+Un parámetro $\theta$, óptimo para esta prueba en particular, debería ser un
+valor que sea menor que 25 y mayor que 18.
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=4in]{indicesMalos.png}
+\caption{Índices de anormalidad obtenidos de db3.pcap.}
+\label{fig:indicesMalos}
+\end{center}
+\end{figure}
+
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[width=4in]{indicesBuenos.jpg}
+\caption{Índices de anormalidad obtenidos de db2.pcap.}
+\label{fig:indicesBuenos}
+\end{center}
+\end{figure}
