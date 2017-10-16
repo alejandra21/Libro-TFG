@@ -421,9 +421,11 @@ La normalización consiste en tomar el URL en el formato en el que viene y codif
 Un ejemplo sencillo de lo que se haría en la normalización del sistema sería el siguiente:
 
 Supongamos que al servidor de tipo HTTP recibe dos peticiones de tipo GET con los siguientes URIs:
-https://192.168.0.23?q=security+network
-https://192.168.0.23?q=security\%20network
 
+\begin{itemize}
+\item https://192.168.0.23?q=security+network
+\item https://192.168.0.23?q=security\%20network
+\end{itemize}
 Ambos URIs poseen la misma información, sin embargo, el espacio en blanco esta codificado de manera diferente en ambos casos. Si no se lleva a cabo la normalización, la palabra "security+network" y "security\%20network" serían tomadas como dos palabras totalmente diferentes por el sistema. En este caso, la función de normalización se encargaría de traducir el primer URI al formato UTF-8 para que no exista este problema. Por lo tanto,la frase "security+network" pasaría a ser  "security\%20network".
 
 
