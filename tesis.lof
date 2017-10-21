@@ -1,12 +1,42 @@
 \select@language {spanish}
 \addvspace {10\p@ }
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces URI.\relax }}{11}{figure.caption.30}
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Automata determinista.\relax }}{12}{figure.caption.32}
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Automata del modelo SSM\relax }}{14}{figure.caption.35}
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Diagrama de Gantt del proyecto.\relax }}{8}{figure.caption.34}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Petici\IeC {\'o}n-respuesta.\cite {httpKross}\relax }}{13}{figure.caption.42}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Mensaje HTTP.\cite {httpKross}\relax }}{14}{figure.caption.43}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces URI.\relax }}{15}{figure.caption.48}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Aut\IeC {\'o}mata.\cite {automata2}\relax }}{18}{figure.caption.51}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Aut\IeC {\'o}mata no-determinista.\cite {automataFinito}\relax }}{19}{figure.caption.53}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Aut\IeC {\'o}mata determinista.\cite {automataFinito}\relax }}{20}{figure.caption.54}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Ejemplo modelo Markov.\relax }}{22}{figure.caption.60}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Automata del modelo SSM\relax }}{23}{figure.caption.62}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Arquitectura del sistema.\relax }}{37}{figure.caption.92}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Modo evaluaci\IeC {\'o}n (a), modo entrenamiento ``Online'' (b), modo entrenamiento ``Offline'' (c).\relax }}{38}{figure.caption.93}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Diagrama de bloques del m\IeC {\'o}dulo de segmentaci\IeC {\'o}n.\relax }}{40}{figure.caption.97}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Diagrama de bloques del m\IeC {\'o}dulo de evaluaci\IeC {\'o}n.\relax }}{42}{figure.caption.99}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Diagrama de bloques del m\IeC {\'o}dulo de entrenamiento.\relax }}{44}{figure.caption.101}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Ejemplo gr\IeC {\'a}fico de la estructura ``UriSegmentado''.\relax }}{47}{figure.caption.108}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Ejemplo gr\IeC {\'a}fico de la estructura ``URI''.\relax }}{49}{figure.caption.109}
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Ejemplo gr\IeC {\'a}fico de la estructura ``Word''.\relax }}{54}{figure.caption.117}
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Ejemplo gr\IeC {\'a}fico de la estructura ``Probability''.\relax }}{55}{figure.caption.118}
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Ejemplo gr\IeC {\'a}fico de la estructura ``TableDescription''.\relax }}{56}{figure.caption.119}
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Ejemplo gr\IeC {\'a}fico de la estructura ``InfoAtaque''.\relax }}{58}{figure.caption.121}
+\contentsline {figure}{\numberline {5.12}{\ignorespaces Formato de archivo ``config''.\relax }}{59}{figure.caption.124}
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Formato de archivo ``modeloBro.log''.\relax }}{60}{figure.caption.125}
+\contentsline {figure}{\numberline {5.14}{\ignorespaces Ejemplo gr\IeC {\'a}fico de la estructura ``Entrenamiento''.\relax }}{65}{figure.caption.130}
+\contentsline {figure}{\numberline {5.15}{\ignorespaces Ejemplo gr\IeC {\'a}fico de la estructura ``Entrenamiento''.\relax }}{66}{figure.caption.131}
+\contentsline {figure}{\numberline {5.16}{\ignorespaces Esquema de pruebas realizadas al filtro HTTP/GET.\relax }}{70}{figure.caption.141}
+\contentsline {figure}{\numberline {5.17}{\ignorespaces Archivo ``config''.\relax }}{71}{figure.caption.143}
+\contentsline {figure}{\numberline {5.18}{\ignorespaces Tabla que contiene informaci\IeC {\'o}n del archivo ``config''.\relax }}{71}{figure.caption.144}
+\contentsline {figure}{\numberline {5.19}{\ignorespaces Archivo ``modeloBro.log''.\relax }}{71}{figure.caption.145}
+\contentsline {figure}{\numberline {5.20}{\ignorespaces Tabla que contiene informaci\IeC {\'o}n del archivo ``modeloBro.log''.\relax }}{72}{figure.caption.146}
+\contentsline {figure}{\numberline {5.21}{\ignorespaces URIs sin normalizar.\relax }}{72}{figure.caption.149}
+\contentsline {figure}{\numberline {5.22}{\ignorespaces URIs normalizados.\relax }}{72}{figure.caption.150}
+\contentsline {figure}{\numberline {5.23}{\ignorespaces Modelo de normalidad obtenido en el modo ``Offline''.\relax }}{75}{figure.caption.158}
+\contentsline {figure}{\numberline {5.24}{\ignorespaces Modelo de normalidad obtenido en el modo ``Online''.\relax }}{76}{figure.caption.160}
+\contentsline {figure}{\numberline {5.25}{\ignorespaces \IeC {\'I}ndices de anormalidad obtenidos de db3.pcap.\relax }}{76}{figure.caption.162}
+\contentsline {figure}{\numberline {5.26}{\ignorespaces \IeC {\'I}ndices de anormalidad obtenidos de db2.pcap.\relax }}{77}{figure.caption.163}
 \addvspace {10\p@ }

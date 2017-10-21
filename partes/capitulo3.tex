@@ -1,4 +1,4 @@
-\chapter{Desarrollo de las pasantías}
+\chapter{DESARROLLO DE PASANTÍAS}
 \label{capitulo3}
 \lhead{Capítulo 3. \emph{Diseño del sistema}}
 
@@ -343,9 +343,9 @@ La normalización de los URI debe realizarse de acuerdo a las especificaciones e
 Esta función tomará el parámetro de entrada y mediante un ``loop for''
 se itera por cada una de las claves de la tabla que se presentó en la sección \ref{sssec:estructuraNormalizacion}. Si alguno de los elementos de la tabla está contenido en el ``string'' que la función recibe como entrada, entonces se procederá a reemplazar el elemento del párametro de entrada por el valor que posee dicha clave en la ``hash table''. Esta tarea de subsitución se realizará haciendo uso de la función ``subst string'' que proporciona Bro.
 
-``subst string'' es una función de la forma:
+``subst\_string'' es una función de la forma:
 
-\textbf{subst string}(s: \textbf{string}, from: \textbf{string}, to: \textbf{string}) : \textbf{string}
+\textbf{subst\_string}(s: \textbf{string}, from: \textbf{string}, to: \textbf{string}) : \textbf{string}
 Se encarga de hacer sustituciones en una cadena de caracteres. Los
 parámetros de esta son:
 
@@ -474,7 +474,7 @@ valores de probabilidad de fuera de vocabulario ($P_{oovP}, P_{oovA}, P_{oovV}$)
 \subsubsection*{Formato de los archivos de entrada}
 
     Los parámetros necesarios para el funcionamiento del módulo de evaluación, serán introducidos a tráves de dos archivos, un archivo llamado
-``config'' que contendrá los valores de la probabilidad de fuera de vocabulario ($P_{oovP}, P_{oovA}, P_{oovV}$ ) y el valor del parámetro $\theta$ (Ec. INSERTE ECUACION) y otro llamado
+``config'' que contendrá los valores de la probabilidad de fuera de vocabulario ($P_{oovP}, P_{oovA}, P_{oovV}$ ) y el valor del parámetro $\theta$ (ec. \ref{eq:ClaseU}) y otro llamado
 ``modeloBro.log'' en el cual estará el conjunto de observaciones de cada estado junto a sus probabilidades de generación.
    
 Tanto el archivo ``config'' como el ``modeloBro.log'' están regidos bajo un formato que establece la herramienta de Bro para leer archivos de entrada.
@@ -505,7 +505,7 @@ Por otro lado, el formato del archivo ``modeloBro.log'' es el que se muestra en 
 
 La segunda columna de este archivo (``word'') corresponde al conjunto de observaciones ``O'' de cada uno de los estados, mientras que la tercera columna (``probability'') indica la probabilidad de aparición de cada palabra ($B_{S}, B_{P}, B_{A}, B_{V}$). Por otra parte, la primera columna (``state'') indica a que estado del autómata \ref{fig:ssm} pertenece cada palabra y su probabilidad de generación.
 
-Las filas del archivo ``modeloBro.log'' que tienen en la primera columna las palabras: ``numeroPalabraSs'', ``numeroPalabraSp'', ``numeroPalabraSa'', ``numeroPalabraSv'' contienen el número de palabras que han sido procesadas por estado. Esta informacion será utilizada en el entrenamiento en modo offline que será explicado en la sección \ref{sec:entrenamientoOffline}.
+Las filas del archivo ``modeloBro.log'' que tienen en la primera columna las palabras: ``numeroPalabraSs'', ``numeroPalabraSp'', ``numeroPalabraSa'', ``numeroPalabraSv'' contienen el número de palabras que han sido procesadas por estado. Esta informacion será utilizada en el entrenamiento en modo offline que será explicado en la sección ~\ref{sec:entrenamientoOffline}.
 
 \subsubsection*{Lectura de los archivos}
 

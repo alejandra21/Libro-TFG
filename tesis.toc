@@ -3,58 +3,71 @@
 \vspace {1em}
 \contentsline {chapter}{Agradecimientos}{\es@scroman {ii}}{dummy.2}
 \vspace {1em}
-\contentsline {chapter}{\IeC {\'I}ndice de Figuras}{\es@scroman {v}}{dummy.4}
-\contentsline {chapter}{Lista de Tablas}{\es@scroman {vi}}{dummy.6}
-\contentsline {chapter}{Acr\IeC {\'o}nimos y S\IeC {\'\i }mbolos}{\es@scroman {vii}}{dummy.8}
+\contentsline {chapter}{\IeC {\'I}ndice de Figuras}{\es@scroman {vi}}{dummy.4}
 \vspace {2em}
-\contentsline {chapter}{Introducci\IeC {\'o}n}{1}{chapter*.11}
-\contentsline {chapter}{\numberline {1}Introducci\IeC {\'o}n}{3}{chapter.12}
-\contentsline {section}{\numberline {1.1}Objetivos generales}{3}{section.13}
-\contentsline {section}{\numberline {1.2}Objetivos especificos}{3}{section.15}
-\contentsline {section}{\numberline {1.3}Planificaci\IeC {\'o}n}{4}{section.20}
-\contentsline {section}{\numberline {1.4}Presupuesto}{5}{section.25}
-\contentsline {chapter}{\numberline {2}Marco te\IeC {\'o}rico}{6}{chapter.26}
-\contentsline {section}{\numberline {2.1}Detector de intrusiones (IDS)}{6}{section.27}
-\contentsline {section}{\numberline {2.2}Protocolo HTTP}{8}{section.28}
-\contentsline {section}{\numberline {2.3}URI}{9}{section.29}
-\contentsline {section}{\numberline {2.4}Autom\'atas de estados finitos}{11}{section.31}
-\contentsline {section}{\numberline {2.5}Modelo de Markov}{12}{section.33}
-\contentsline {section}{\numberline {2.6}SSM}{13}{section.34}
-\contentsline {section}{\numberline {2.7}Bro}{16}{section.36}
-\contentsline {chapter}{\numberline {3}Arquitectura del IDS}{17}{chapter.37}
-\contentsline {section}{\numberline {3.1}Modulo de segmentaci\IeC {\'o}n}{18}{section.38}
-\contentsline {subsection}{\numberline {3.1.1}Normalizaci\IeC {\'o}n de los URIs}{18}{subsection.39}
-\contentsline {subsection}{\numberline {3.1.2}Segmentaci\IeC {\'o}n de los URIs}{19}{subsection.40}
-\contentsline {section}{\numberline {3.2}Modulo de evaluaci\IeC {\'o}n}{20}{section.41}
-\contentsline {subsection}{\numberline {3.2.1}Expresiones para calcular indice de anormalidad}{20}{subsection.42}
-\contentsline {subsection}{\numberline {3.2.2}Elementos adicionales del modelo}{23}{subsection.52}
-\contentsline {section}{\numberline {3.3}Modulo de entrenamiento}{23}{section.54}
-\contentsline {subsection}{\numberline {3.3.1}Expresiones usadas en el modulo de entrenamiento}{24}{subsection.55}
-\contentsline {chapter}{\numberline {4}Detalles de implementaci\IeC {\'o}n}{26}{chapter.60}
-\contentsline {section}{\numberline {4.1}Implementaci\IeC {\'o}n del modulo de segmentaci\IeC {\'o}n}{26}{section.61}
-\contentsline {subsection}{\numberline {4.1.1}Estructura de datos}{27}{subsection.62}
-\contentsline {subsection}{\numberline {4.1.2}Implementaci\IeC {\'o}n del automata de reconocimiento de URIs}{30}{subsection.63}
-\contentsline {subsection}{\numberline {4.1.3}Implementaci\IeC {\'o}n del la normalizaci\IeC {\'o}n de los URIs}{30}{subsection.64}
-\contentsline {section}{\numberline {4.2}Implementaci\IeC {\'o}n del modulo de evaluaci\IeC {\'o}n}{31}{section.65}
-\contentsline {subsection}{\numberline {4.2.1}Estructura de datos}{31}{subsection.66}
-\contentsline {subsection}{\numberline {4.2.2}Lectura del modelo de normalidad en Bro}{31}{subsection.67}
-\contentsline {subsection}{\numberline {4.2.3}Evaluaci\IeC {\'o}n de las probabilidades de los URI}{31}{subsection.68}
-\contentsline {section}{\numberline {4.3}Implementaci\IeC {\'o}n del modulo de entrenamiento}{31}{section.69}
-\contentsline {subsection}{\numberline {4.3.1}Estructura de datos}{31}{subsection.70}
-\contentsline {subsection}{\numberline {4.3.2}Entrenamiento Online}{31}{subsection.71}
-\contentsline {subsection}{\numberline {4.3.3}Entrenamiento Offline}{31}{subsection.72}
-\contentsline {subsection}{\numberline {4.3.4}Escritura del modelo de normalidad en Bro}{31}{subsection.73}
-\contentsline {chapter}{\numberline {5}Evaluaci\IeC {\'o}n y pruebas}{32}{chapter.74}
-\contentsline {section}{\numberline {5.1}Base de datos}{32}{section.75}
-\contentsline {subsection}{\numberline {5.1.1}Base de datos normales}{32}{subsection.76}
-\contentsline {subsection}{\numberline {5.1.2}Base de datos anomalas}{32}{subsection.77}
-\contentsline {section}{\numberline {5.2}Experimentaci\IeC {\'o}n}{32}{section.78}
-\contentsline {subsection}{\numberline {5.2.1}Pruebas funcionales}{32}{subsection.79}
-\contentsline {subsection}{\numberline {5.2.2}Pruebas operativas}{32}{subsection.80}
-\contentsline {chapter}{\numberline {6}Conclusiones y Recomendaciones}{33}{chapter.81}
-\vspace {2em}
-\contentsline {chapter}{\numberline {A}@nombreApendice}{34}{appendix.82}
-\contentsline {section}{\numberline {A.1}@secci\IeC {\'o}n}{34}{section.83}
-\contentsline {subsection}{\numberline {A.1.1}@subsecci\IeC {\'o}n}{34}{subsection.84}
-\contentsline {chapter}{\numberline {B}@nombreApendice}{35}{appendix.85}
-\vspace {2em}
+\contentsline {chapter}{Introducci\IeC {\'o}n}{1}{chapter*.6}
+\contentsline {chapter}{\numberline {1}EL PROBLEMA}{3}{chapter.7}
+\contentsline {section}{\numberline {1.1}Planteamiento del problema}{3}{section.8}
+\contentsline {section}{\numberline {1.2}Objetivos}{4}{section.9}
+\contentsline {subsection}{\numberline {1.2.1}Objetivos generales}{4}{subsection.10}
+\contentsline {subsection}{\numberline {1.2.2}Objetivos espec\IeC {\'\i }ficos}{5}{subsection.11}
+\contentsline {section}{\numberline {1.3}Justificaci\IeC {\'o}n e importancia}{5}{section.16}
+\contentsline {section}{\numberline {1.4}Planificaci\IeC {\'o}n}{6}{section.17}
+\contentsline {chapter}{\numberline {2}ENTORNO EMPRESARIAL}{9}{chapter.35}
+\contentsline {section}{\numberline {2.1}Descripci\IeC {\'o}n de la Empresa}{9}{section.36}
+\contentsline {section}{\numberline {2.2}Misi\IeC {\'o}n}{10}{section.37}
+\contentsline {section}{\numberline {2.3}Visi\IeC {\'o}n}{10}{section.38}
+\contentsline {section}{\numberline {2.4}Estructura Organizacional}{11}{section.39}
+\contentsline {chapter}{\numberline {3}MARCO TE\IeC {\'O}RICO}{12}{chapter.40}
+\contentsline {section}{\numberline {3.1}Protocolo HTTP}{12}{section.41}
+\contentsline {section}{\numberline {3.2}URI}{15}{section.47}
+\contentsline {section}{\numberline {3.3}Detector de intrusiones (IDS)}{16}{section.49}
+\contentsline {section}{\numberline {3.4}Aut\IeC {\'o}matas de estados finitos}{17}{section.50}
+\contentsline {section}{\numberline {3.5}Modelo de Markov}{20}{section.55}
+\contentsline {section}{\numberline {3.6}SSM}{22}{section.61}
+\contentsline {chapter}{\numberline {4}MARCO T\IeC {\'E}CNOLOGICO}{30}{chapter.80}
+\contentsline {section}{\numberline {4.1}Herramientas utilizadas}{30}{section.81}
+\contentsline {subsection}{\numberline {4.1.1}Bro}{31}{subsection.82}
+\contentsline {subsection}{\numberline {4.1.2}GitHub}{33}{subsection.83}
+\contentsline {subsection}{\numberline {4.1.3}Wireshark}{33}{subsection.84}
+\contentsline {section}{\numberline {4.2}Estaci\IeC {\'o}n de trabajo}{34}{section.85}
+\contentsline {subsection}{\numberline {4.2.1}Especificaciones}{34}{subsection.86}
+\contentsline {chapter}{\numberline {5}DESARROLLO DE PASANT\IeC {\'I}AS}{35}{chapter.87}
+\contentsline {section}{\numberline {5.1}Estado del arte}{35}{section.88}
+\contentsline {section}{\numberline {5.2}An\IeC {\'a}lisis de Bro}{35}{section.89}
+\contentsline {section}{\numberline {5.3}Dise\IeC {\~n}o de la arquitectura del sistema}{36}{section.90}
+\contentsline {subsection}{\numberline {5.3.1}Arquitectura del sistema}{36}{subsection.91}
+\contentsline {subsection}{\numberline {5.3.2}Filtrado de paquetes HTTP/GET}{38}{subsection.94}
+\contentsline {subsection}{\numberline {5.3.3}M\IeC {\'o}dulos}{38}{subsection.95}
+\contentsline {subsubsection}{\numberline {5.3.3.1}M\IeC {\'o}dulo de segmentaci\IeC {\'o}n}{38}{subsubsection.96}
+\contentsline {subsubsection}{\numberline {5.3.3.2}M\IeC {\'o}dulo de evaluaci\IeC {\'o}n}{39}{subsubsection.98}
+\contentsline {subsubsection}{\numberline {5.3.3.3}M\IeC {\'o}dulo de entrenamiento}{41}{subsubsection.100}
+\contentsline {section}{\numberline {5.4}Implementaci\IeC {\'o}n del sistema}{43}{section.102}
+\contentsline {subsection}{\numberline {5.4.1}Filtrado de paquetes HTTP/GET}{44}{subsection.103}
+\contentsline {subsection}{\numberline {5.4.2}Implementaci\IeC {\'o}n del modulo de segmentaci\IeC {\'o}n}{45}{subsection.104}
+\contentsline {subsubsection}{\numberline {5.4.2.1}Estructura de datos}{45}{subsubsection.105}
+\contentsline {subsubsection}{\numberline {5.4.2.2}Funci\IeC {\'o}n de segmentaci\IeC {\'o}n}{48}{subsubsection.110}
+\contentsline {subsubsection}{\numberline {5.4.2.3}Funci\IeC {\'o}n de normalizaci\IeC {\'o}n}{52}{subsubsection.113}
+\contentsline {subsection}{\numberline {5.4.3}Implementaci\IeC {\'o}n del m\IeC {\'o}dulo de evaluaci\IeC {\'o}n}{53}{subsection.114}
+\contentsline {subsubsection}{\numberline {5.4.3.1}Estructura de datos}{53}{subsubsection.115}
+\contentsline {subsubsection}{\numberline {5.4.3.2}Modelo de normalidad en Bro}{57}{subsubsection.122}
+\contentsline {subsubsection}{\numberline {5.4.3.3}Evaluaci\IeC {\'o}n de las probabilidades de los URI}{61}{subsubsection.127}
+\contentsline {subsection}{\numberline {5.4.4}Implementaci\IeC {\'o}n del m\IeC {\'o}dulo de entrenamiento}{64}{subsection.128}
+\contentsline {subsubsection}{\numberline {5.4.4.1}Estructura de datos}{64}{subsubsection.129}
+\contentsline {subsubsection}{\numberline {5.4.4.2}Entrenamiento ``Offline''}{66}{subsubsection.132}
+\contentsline {subsubsection}{\numberline {5.4.4.3}Entrenamiento ``Online''}{68}{subsubsection.133}
+\contentsline {section}{\numberline {5.5}Evaluaci\IeC {\'o}n y pruebas}{69}{section.134}
+\contentsline {subsection}{\numberline {5.5.1}Base de datos}{69}{subsection.135}
+\contentsline {subsection}{\numberline {5.5.2}Pruebas funcionales}{70}{subsection.139}
+\contentsline {subsubsection}{\numberline {5.5.2.1}Filtro HTTP/GET}{70}{subsubsection.140}
+\contentsline {subsubsection}{\numberline {5.5.2.2}Lectura de archivos}{70}{subsubsection.142}
+\contentsline {subsubsection}{\numberline {5.5.2.3}M\IeC {\'o}dulo de segmentaci\IeC {\'o}n}{71}{subsubsection.147}
+\contentsline {subsubsection}{\numberline {5.5.2.4}M\IeC {\'o}dulo de entrenamiento}{73}{subsubsection.152}
+\contentsline {subsubsection}{\numberline {5.5.2.5}M\IeC {\'o}dulo de evaluaci\IeC {\'o}n}{74}{subsubsection.155}
+\contentsline {subsection}{\numberline {5.5.3}Pruebas operativas}{74}{subsection.156}
+\contentsline {subsubsection}{\numberline {5.5.3.1}Modo entrenamiento ``Offline''}{74}{subsubsection.157}
+\contentsline {subsubsection}{\numberline {5.5.3.2}Modo entrenamiento ``Online''}{75}{subsubsection.159}
+\contentsline {subsubsection}{\numberline {5.5.3.3}Modo evaluaci\IeC {\'o}n}{75}{subsubsection.161}
+\contentsline {chapter}{\numberline {6}CONCLUSIONES Y RECOMENDACIONES}{78}{chapter.164}
+\contentsline {section}{\numberline {6.1}Conclusiones}{78}{section.165}
+\contentsline {section}{\numberline {6.2}Recomendaciones}{79}{section.169}

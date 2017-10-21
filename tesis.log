@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2017.6.8)  23 AUG 2017 23:40
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.5.29)  21 OCT 2017 14:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **tesis.tex
 (./tesis.tex
 LaTeX2e <2011/06/27>
-Babel <3.9h> and hyphenation patterns for 31 languages loaded.
+Babel <3.9h> and hyphenation patterns for 7 languages loaded.
 (./tesis.cls (/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2008/03/30 v1.1d Input encoding file
 \inpenc@prehook=\toks14
@@ -708,25 +708,26 @@ Package babel Info: Making > an active character on input line 644.
 Package: babelbib 2012/01/03 v1.31 babelbib: multilingual bibliographies (HH)
 \c@btxromaniannumeral=\count140
 )
-(/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty
-Package: natbib 2010/09/13 8.31b (PWD, AO)
-\bibhang=\skip71
-\bibsep=\skip72
-LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count141
-)
 (/usr/share/texlive/texmf-dist/tex/latex/tools/enumerate.sty
 Package: enumerate 1999/03/05 v3.00 enumerate extensions (DPC)
 \@enLab=\toks33
+)
+(/usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty
+Package: enumitem 2011/09/28 v3.5.2 Customized lists
+\labelindent=\skip71
+\enit@outerparindent=\dimen151
+\enit@toks=\toks34
+\enit@inbox=\box35
+\enitdp@description=\count141
 )
 (/usr/share/texmf/tex/latex/pgf/frontendlayer/tikz.sty
 (/usr/share/texmf/tex/latex/pgf/basiclayer/pgf.sty
 (/usr/share/texmf/tex/latex/pgf/utilities/pgfrcs.sty
 (/usr/share/texmf/tex/generic/pgf/utilities/pgfutil-common.tex
-\pgfutil@everybye=\toks34
+\pgfutil@everybye=\toks35
 )
 (/usr/share/texmf/tex/generic/pgf/utilities/pgfutil-latex.def
-\pgfutil@abb=\box35
+\pgfutil@abb=\box36
 
 (/usr/share/texlive/texmf-dist/tex/latex/ms/everyshi.sty
 Package: everyshi 2001/05/15 v3.00 EveryShipout Package (MS)
@@ -742,20 +743,20 @@ Package: pgf 2008/01/15 v2.10 (rcs-revision 1.12)
 Package: pgfsys 2010/06/30 v2.10 (rcs-revision 1.37)
 
 (/usr/share/texmf/tex/generic/pgf/utilities/pgfkeys.code.tex
-\pgfkeys@pathtoks=\toks35
-\pgfkeys@temptoks=\toks36
+\pgfkeys@pathtoks=\toks36
+\pgfkeys@temptoks=\toks37
 
 (/usr/share/texmf/tex/generic/pgf/utilities/pgfkeysfiltered.code.tex
-\pgfkeys@tmptoks=\toks37
+\pgfkeys@tmptoks=\toks38
 ))
-\pgf@x=\dimen151
-\pgf@y=\dimen152
-\pgf@xa=\dimen153
-\pgf@ya=\dimen154
-\pgf@xb=\dimen155
-\pgf@yb=\dimen156
-\pgf@xc=\dimen157
-\pgf@yc=\dimen158
+\pgf@x=\dimen152
+\pgf@y=\dimen153
+\pgf@xa=\dimen154
+\pgf@ya=\dimen155
+\pgf@xb=\dimen156
+\pgf@yb=\dimen157
+\pgf@xc=\dimen158
+\pgf@yc=\dimen159
 \w@pgf@writea=\write3
 \r@pgf@reada=\read1
 \c@pgf@counta=\count142
@@ -806,12 +807,12 @@ Package: pgfcore 2010/04/11 v2.10 (rcs-revision 1.7)
 (/usr/share/texmf/tex/generic/pgf/math/pgfmathcalc.code.tex
 (/usr/share/texmf/tex/generic/pgf/math/pgfmathutil.code.tex)
 (/usr/share/texmf/tex/generic/pgf/math/pgfmathparser.code.tex
-\pgfmath@dimen=\dimen159
+\pgfmath@dimen=\dimen160
 \pgfmath@count=\count148
-\pgfmath@box=\box36
-\pgfmath@toks=\toks38
-\pgfmath@stack@operand=\toks39
-\pgfmath@stack@operation=\toks40
+\pgfmath@box=\box37
+\pgfmath@toks=\toks39
+\pgfmath@stack@operand=\toks40
+\pgfmath@stack@operation=\toks41
 )
 (/usr/share/texmf/tex/generic/pgf/math/pgfmathfunctions.code.tex
 (/usr/share/texmf/tex/generic/pgf/math/pgfmathfunctions.basic.code.tex)
@@ -826,47 +827,47 @@ Package: pgfcore 2010/04/11 v2.10 (rcs-revision 1.7)
 ))
 (/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorepoints.code.tex
 File: pgfcorepoints.code.tex 2010/04/09  (rcs-revision 1.20)
-\pgf@picminx=\dimen160
-\pgf@picmaxx=\dimen161
-\pgf@picminy=\dimen162
-\pgf@picmaxy=\dimen163
-\pgf@pathminx=\dimen164
-\pgf@pathmaxx=\dimen165
-\pgf@pathminy=\dimen166
-\pgf@pathmaxy=\dimen167
-\pgf@xx=\dimen168
-\pgf@xy=\dimen169
-\pgf@yx=\dimen170
-\pgf@yy=\dimen171
-\pgf@zx=\dimen172
-\pgf@zy=\dimen173
+\pgf@picminx=\dimen161
+\pgf@picmaxx=\dimen162
+\pgf@picminy=\dimen163
+\pgf@picmaxy=\dimen164
+\pgf@pathminx=\dimen165
+\pgf@pathmaxx=\dimen166
+\pgf@pathminy=\dimen167
+\pgf@pathmaxy=\dimen168
+\pgf@xx=\dimen169
+\pgf@xy=\dimen170
+\pgf@yx=\dimen171
+\pgf@yy=\dimen172
+\pgf@zx=\dimen173
+\pgf@zy=\dimen174
 )
 (/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorepathconstruct.code.tex
 File: pgfcorepathconstruct.code.tex 2010/08/03  (rcs-revision 1.24)
-\pgf@path@lastx=\dimen174
-\pgf@path@lasty=\dimen175
+\pgf@path@lastx=\dimen175
+\pgf@path@lasty=\dimen176
 )
 (/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorepathusage.code.tex
 File: pgfcorepathusage.code.tex 2008/04/22  (rcs-revision 1.12)
-\pgf@shorten@end@additional=\dimen176
-\pgf@shorten@start@additional=\dimen177
+\pgf@shorten@end@additional=\dimen177
+\pgf@shorten@start@additional=\dimen178
 )
 (/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorescopes.code.tex
 File: pgfcorescopes.code.tex 2010/09/08  (rcs-revision 1.34)
-\pgfpic=\box37
-\pgf@hbox=\box38
-\pgf@layerbox@main=\box39
+\pgfpic=\box38
+\pgf@hbox=\box39
+\pgf@layerbox@main=\box40
 \pgf@picture@serial@count=\count150
 )
 (/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoregraphicstate.code.tex
 File: pgfcoregraphicstate.code.tex 2008/04/22  (rcs-revision 1.9)
-\pgflinewidth=\dimen178
+\pgflinewidth=\dimen179
 )
 (/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoretransformations.code.tex
 File: pgfcoretransformations.code.tex 2009/06/10  (rcs-revision 1.11)
-\pgf@pt@x=\dimen179
-\pgf@pt@y=\dimen180
-\pgf@pt@temp=\dimen181
+\pgf@pt@x=\dimen180
+\pgf@pt@y=\dimen181
+\pgf@pt@temp=\dimen182
 )
 (/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
 File: pgfcorequick.code.tex 2008/10/09  (rcs-revision 1.3)
@@ -882,7 +883,7 @@ File: pgfcorearrows.code.tex 2008/04/23  (rcs-revision 1.11)
 )
 (/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
 File: pgfcoreshade.code.tex 2008/11/23  (rcs-revision 1.13)
-\pgf@max=\dimen182
+\pgf@max=\dimen183
 \pgf@sys@shading@range@num=\count151
 )
 (/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
@@ -890,7 +891,7 @@ File: pgfcoreimage.code.tex 2010/03/25  (rcs-revision 1.16)
 
 (/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcoreexternal.code.tex
 File: pgfcoreexternal.code.tex 2010/09/01  (rcs-revision 1.17)
-\pgfexternal@startupbox=\box40
+\pgfexternal@startupbox=\box41
 ))
 (/usr/share/texmf/tex/generic/pgf/basiclayer/pgfcorelayers.code.tex
 File: pgfcorelayers.code.tex 2010/08/27  (rcs-revision 1.2)
@@ -903,15 +904,15 @@ File: pgfcorepatterns.code.tex 2009/07/02  (rcs-revision 1.3)
 )))
 (/usr/share/texmf/tex/generic/pgf/modules/pgfmoduleshapes.code.tex
 File: pgfmoduleshapes.code.tex 2010/09/09  (rcs-revision 1.13)
-\pgfnodeparttextbox=\box41
+\pgfnodeparttextbox=\box42
 )
 (/usr/share/texmf/tex/generic/pgf/modules/pgfmoduleplot.code.tex
 File: pgfmoduleplot.code.tex 2010/10/22  (rcs-revision 1.8)
 )
 (/usr/share/texmf/tex/latex/pgf/compatibility/pgfcomp-version-0-65.sty
 Package: pgfcomp-version-0-65 2007/07/03 v2.10 (rcs-revision 1.7)
-\pgf@nodesepstart=\dimen183
-\pgf@nodesepend=\dimen184
+\pgf@nodesepstart=\dimen184
+\pgf@nodesepend=\dimen185
 )
 (/usr/share/texmf/tex/latex/pgf/compatibility/pgfcomp-version-1-18.sty
 Package: pgfcomp-version-1-18 2007/07/23 v2.10 (rcs-revision 1.1)
@@ -921,10 +922,10 @@ Package: pgfcomp-version-1-18 2007/07/23 v2.10 (rcs-revision 1.1)
 (/usr/share/texmf/tex/generic/pgf/utilities/pgfkeys.code.tex))
 (/usr/share/texmf/tex/generic/pgf/utilities/pgffor.code.tex
 Package: pgffor 2010/03/23 v2.10 (rcs-revision 1.18)
-\pgffor@iter=\dimen185
-\pgffor@skip=\dimen186
-\pgffor@stack=\toks41
-\pgffor@toks=\toks42
+\pgffor@iter=\dimen186
+\pgffor@skip=\dimen187
+\pgffor@stack=\toks42
+\pgffor@toks=\toks43
 ))
 (/usr/share/texmf/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
 Package: tikz 2010/10/13 v2.10 (rcs-revision 1.76)
@@ -932,16 +933,16 @@ Package: tikz 2010/10/13 v2.10 (rcs-revision 1.76)
 (/usr/share/texmf/tex/generic/pgf/libraries/pgflibraryplothandlers.code.tex
 File: pgflibraryplothandlers.code.tex 2010/05/31 v2.10 (rcs-revision 1.15)
 \pgf@plot@mark@count=\count152
-\pgfplotmarksize=\dimen187
+\pgfplotmarksize=\dimen188
 )
-\tikz@lastx=\dimen188
-\tikz@lasty=\dimen189
-\tikz@lastxsaved=\dimen190
-\tikz@lastysaved=\dimen191
-\tikzleveldistance=\dimen192
-\tikzsiblingdistance=\dimen193
-\tikz@figbox=\box42
-\tikz@tempbox=\box43
+\tikz@lastx=\dimen189
+\tikz@lasty=\dimen190
+\tikz@lastxsaved=\dimen191
+\tikz@lastysaved=\dimen192
+\tikzleveldistance=\dimen193
+\tikzsiblingdistance=\dimen194
+\tikz@figbox=\box43
+\tikz@tempbox=\box44
 \tikztreelevel=\count153
 \tikznumberofchildren=\count154
 \tikznumberofcurrentchild=\count155
@@ -960,8 +961,8 @@ hs.code.tex
 File: tikzlibrarytopaths.code.tex 2008/06/17 v2.10 (rcs-revision 1.2)
 ))) (/usr/share/texlive/texmf-dist/tex/latex/tools/verbatim.sty
 Package: verbatim 2003/08/22 v1.5q LaTeX2e package for verbatim enhancements
-\every@verbatim=\toks43
-\verbatim@line=\toks44
+\every@verbatim=\toks44
+\verbatim@line=\toks45
 \verbatim@in@stream=\read2
 )
 (/usr/share/texlive/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
@@ -971,12 +972,12 @@ Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix
 <2008/02/07> (tvz)
 \FV@CodeLineNo=\count161
 \FV@InFile=\read3
-\FV@TabBox=\box44
+\FV@TabBox=\box45
 \c@FancyVerbLine=\count162
 \FV@StepNumber=\count163
 \FV@OutFile=\write4
 )
-Package hyperref Info: Option `colorlinks' set `false' on input line 27.
+Package hyperref Info: Option `colorlinks' set `false' on input line 28.
 
 (/usr/share/texlive/texmf-dist/tex/latex/mdframed/mdframed.sty
 Package: mdframed 2013/07/01 1.9b: mdframed
@@ -1044,18 +1045,18 @@ Package: l3file 2013/10/13 v4596 L3 File and I/O operations
 )
 (/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3skip.sty
 Package: l3skip 2013/07/28 v4581 L3 Dimensions and skips
-\c_zero_dim=\dimen194
-\c_max_dim=\dimen195
-\l_tmpa_dim=\dimen196
-\l_tmpb_dim=\dimen197
-\g_tmpa_dim=\dimen198
-\g_tmpb_dim=\dimen199
-\c_zero_skip=\skip73
-\c_max_skip=\skip74
-\l_tmpa_skip=\skip75
-\l_tmpb_skip=\skip76
-\g_tmpa_skip=\skip77
-\g_tmpb_skip=\skip78
+\c_zero_dim=\dimen195
+\c_max_dim=\dimen196
+\l_tmpa_dim=\dimen197
+\l_tmpb_dim=\dimen198
+\g_tmpa_dim=\dimen199
+\g_tmpb_dim=\dimen200
+\c_zero_skip=\skip72
+\c_max_skip=\skip73
+\l_tmpa_skip=\skip74
+\l_tmpb_skip=\skip75
+\g_tmpa_skip=\skip76
+\g_tmpb_skip=\skip77
 \c_zero_muskip=\muskip12
 \c_max_muskip=\muskip13
 \l_tmpa_muskip=\muskip14
@@ -1082,34 +1083,34 @@ Package: l3fp 2014/01/04 v4642 L3 Floating points
 )
 (/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3box.sty
 Package: l3box 2013/07/28 v4581 L3 Experimental boxes
-\c_empty_box=\box45
-\l_tmpa_box=\box46
-\l_tmpb_box=\box47
-\g_tmpa_box=\box48
-\g_tmpb_box=\box49
+\c_empty_box=\box46
+\l_tmpa_box=\box47
+\l_tmpb_box=\box48
+\g_tmpa_box=\box49
+\g_tmpb_box=\box50
 )
 (/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3coffins.sty
 Package: l3coffins 2013/12/14 v4624 L3 Coffin code layer
-\l__coffin_internal_box=\box50
-\l__coffin_internal_dim=\dimen200
-\l__coffin_offset_x_dim=\dimen201
+\l__coffin_internal_box=\box51
+\l__coffin_internal_dim=\dimen201
 Normal \dimen register pool exhausted, switching to extended pool.
-\l__coffin_offset_y_dim=\dimen256
-\l__coffin_x_dim=\dimen257
-\l__coffin_y_dim=\dimen258
-\l__coffin_x_prime_dim=\dimen259
-\l__coffin_y_prime_dim=\dimen260
-\c_empty_coffin=\box51
-\l__coffin_aligned_coffin=\box52
-\l__coffin_aligned_internal_coffin=\box53
-\l_tmpa_coffin=\box54
-\l_tmpb_coffin=\box55
-\l__coffin_display_coffin=\box56
-\l__coffin_display_coord_coffin=\box57
-\l__coffin_display_pole_coffin=\box58
-\l__coffin_display_offset_dim=\dimen261
-\l__coffin_display_x_dim=\dimen262
-\l__coffin_display_y_dim=\dimen263
+\l__coffin_offset_x_dim=\dimen256
+\l__coffin_offset_y_dim=\dimen257
+\l__coffin_x_dim=\dimen258
+\l__coffin_y_dim=\dimen259
+\l__coffin_x_prime_dim=\dimen260
+\l__coffin_y_prime_dim=\dimen261
+\c_empty_coffin=\box52
+\l__coffin_aligned_coffin=\box53
+\l__coffin_aligned_internal_coffin=\box54
+\l_tmpa_coffin=\box55
+\l_tmpb_coffin=\box56
+\l__coffin_display_coffin=\box57
+\l__coffin_display_coord_coffin=\box58
+\l__coffin_display_pole_coffin=\box59
+\l__coffin_display_offset_dim=\dimen262
+\l__coffin_display_x_dim=\dimen263
+\l__coffin_display_y_dim=\dimen264
 )
 (/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3color.sty
 Package: l3color 2012/08/29 v4156 L3 Experimental color support
@@ -1121,22 +1122,22 @@ Package: l3luatex 2013/07/28 v4581 L3 Experimental LuaTeX-specific functions
 )
 (/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3candidates.sty
 Package: l3candidates 2014/01/06 v4643 L3 Experimental additions to l3kernel
-\l__box_top_dim=\dimen264
-\l__box_bottom_dim=\dimen265
-\l__box_left_dim=\dimen266
-\l__box_right_dim=\dimen267
-\l__box_top_new_dim=\dimen268
-\l__box_bottom_new_dim=\dimen269
-\l__box_left_new_dim=\dimen270
-\l__box_right_new_dim=\dimen271
-\l__box_internal_box=\box59
-\l__coffin_bounding_shift_dim=\dimen272
-\l__coffin_left_corner_dim=\dimen273
-\l__coffin_right_corner_dim=\dimen274
-\l__coffin_bottom_corner_dim=\dimen275
-\l__coffin_top_corner_dim=\dimen276
-\l__coffin_scaled_total_height_dim=\dimen277
-\l__coffin_scaled_width_dim=\dimen278
+\l__box_top_dim=\dimen265
+\l__box_bottom_dim=\dimen266
+\l__box_left_dim=\dimen267
+\l__box_right_dim=\dimen268
+\l__box_top_new_dim=\dimen269
+\l__box_bottom_new_dim=\dimen270
+\l__box_left_new_dim=\dimen271
+\l__box_right_new_dim=\dimen272
+\l__box_internal_box=\box60
+\l__coffin_bounding_shift_dim=\dimen273
+\l__coffin_left_corner_dim=\dimen274
+\l__coffin_right_corner_dim=\dimen275
+\l__coffin_bottom_corner_dim=\dimen276
+\l__coffin_top_corner_dim=\dimen277
+\l__coffin_scaled_total_height_dim=\dimen278
+\l__coffin_scaled_width_dim=\dimen279
 ))
 Package: xparse 2013/12/31 v4634 L3 Experimental document command parser
 \l__xparse_current_arg_int=\count189
@@ -1164,83 +1165,83 @@ Package zref Info: New property: abspage on input line 62.
 (/usr/share/texlive/texmf-dist/tex/latex/needspace/needspace.sty
 Package: needspace 2010/09/12 v1.3d reserve vertical space
 )
-\mdf@templength=\skip79
+\mdf@templength=\skip78
 \c@mdf@globalstyle@cnt=\count196
-\mdf@skipabove@length=\skip80
-\mdf@skipbelow@length=\skip81
-\mdf@leftmargin@length=\skip82
-\mdf@rightmargin@length=\skip83
-\mdf@innerleftmargin@length=\skip84
-\mdf@innerrightmargin@length=\skip85
-\mdf@innertopmargin@length=\skip86
-\mdf@innerbottommargin@length=\skip87
-\mdf@splittopskip@length=\skip88
-\mdf@splitbottomskip@length=\skip89
-\mdf@outermargin@length=\skip90
-\mdf@innermargin@length=\skip91
-\mdf@linewidth@length=\skip92
-\mdf@innerlinewidth@length=\skip93
-\mdf@middlelinewidth@length=\skip94
-\mdf@outerlinewidth@length=\skip95
-\mdf@roundcorner@length=\skip96
-\mdf@footenotedistance@length=\skip97
-\mdf@userdefinedwidth@length=\skip98
-\mdf@needspace@length=\skip99
-\mdf@frametitleaboveskip@length=\skip100
-\mdf@frametitlebelowskip@length=\skip101
-\mdf@frametitlerulewidth@length=\skip102
-\mdf@frametitleleftmargin@length=\skip103
-\mdf@frametitlerightmargin@length=\skip104
-\mdf@shadowsize@length=\skip105
-\mdf@extratopheight@length=\skip106
-\mdf@subtitleabovelinewidth@length=\skip107
-\mdf@subtitlebelowlinewidth@length=\skip108
-\mdf@subtitleaboveskip@length=\skip109
-\mdf@subtitlebelowskip@length=\skip110
-\mdf@subtitleinneraboveskip@length=\skip111
-\mdf@subtitleinnerbelowskip@length=\skip112
-\mdf@subsubtitleabovelinewidth@length=\skip113
-\mdf@subsubtitlebelowlinewidth@length=\skip114
-\mdf@subsubtitleaboveskip@length=\skip115
-\mdf@subsubtitlebelowskip@length=\skip116
-\mdf@subsubtitleinneraboveskip@length=\skip117
-\mdf@subsubtitleinnerbelowskip@length=\skip118
+\mdf@skipabove@length=\skip79
+\mdf@skipbelow@length=\skip80
+\mdf@leftmargin@length=\skip81
+\mdf@rightmargin@length=\skip82
+\mdf@innerleftmargin@length=\skip83
+\mdf@innerrightmargin@length=\skip84
+\mdf@innertopmargin@length=\skip85
+\mdf@innerbottommargin@length=\skip86
+\mdf@splittopskip@length=\skip87
+\mdf@splitbottomskip@length=\skip88
+\mdf@outermargin@length=\skip89
+\mdf@innermargin@length=\skip90
+\mdf@linewidth@length=\skip91
+\mdf@innerlinewidth@length=\skip92
+\mdf@middlelinewidth@length=\skip93
+\mdf@outerlinewidth@length=\skip94
+\mdf@roundcorner@length=\skip95
+\mdf@footenotedistance@length=\skip96
+\mdf@userdefinedwidth@length=\skip97
+\mdf@needspace@length=\skip98
+\mdf@frametitleaboveskip@length=\skip99
+\mdf@frametitlebelowskip@length=\skip100
+\mdf@frametitlerulewidth@length=\skip101
+\mdf@frametitleleftmargin@length=\skip102
+\mdf@frametitlerightmargin@length=\skip103
+\mdf@shadowsize@length=\skip104
+\mdf@extratopheight@length=\skip105
+\mdf@subtitleabovelinewidth@length=\skip106
+\mdf@subtitlebelowlinewidth@length=\skip107
+\mdf@subtitleaboveskip@length=\skip108
+\mdf@subtitlebelowskip@length=\skip109
+\mdf@subtitleinneraboveskip@length=\skip110
+\mdf@subtitleinnerbelowskip@length=\skip111
+\mdf@subsubtitleabovelinewidth@length=\skip112
+\mdf@subsubtitlebelowlinewidth@length=\skip113
+\mdf@subsubtitleaboveskip@length=\skip114
+\mdf@subsubtitlebelowskip@length=\skip115
+\mdf@subsubtitleinneraboveskip@length=\skip116
+\mdf@subsubtitleinnerbelowskip@length=\skip117
 
 (/usr/share/texlive/texmf-dist/tex/latex/mdframed/md-frame-0.mdf
 File: md-frame-0.mdf 2013/07/01\ 1.9b: md-frame-0
 )
-\mdf@frametitlebox=\box60
-\mdf@footnotebox=\box61
-\mdf@splitbox@one=\box62
-\mdf@splitbox@two=\box63
-\mdf@splitbox@save=\box64
-\mdfsplitboxwidth=\skip119
-\mdfsplitboxtotalwidth=\skip120
-\mdfsplitboxheight=\skip121
-\mdfsplitboxdepth=\skip122
-\mdfsplitboxtotalheight=\skip123
-\mdfframetitleboxwidth=\skip124
-\mdfframetitleboxtotalwidth=\skip125
-\mdfframetitleboxheight=\skip126
-\mdfframetitleboxdepth=\skip127
-\mdfframetitleboxtotalheight=\skip128
-\mdffootnoteboxwidth=\skip129
-\mdffootnoteboxtotalwidth=\skip130
-\mdffootnoteboxheight=\skip131
-\mdffootnoteboxdepth=\skip132
-\mdffootnoteboxtotalheight=\skip133
-\mdftotallinewidth=\skip134
-\mdfboundingboxwidth=\skip135
-\mdfboundingboxtotalwidth=\skip136
-\mdfboundingboxheight=\skip137
-\mdfboundingboxdepth=\skip138
-\mdfboundingboxtotalheight=\skip139
-\mdf@freevspace@length=\skip140
-\mdf@horizontalwidthofbox@length=\skip141
-\mdf@verticalmarginwhole@length=\skip142
-\mdf@horizontalspaceofbox=\skip143
-\mdfsubtitleheight=\skip144
-\mdfsubsubtitleheight=\skip145
+\mdf@frametitlebox=\box61
+\mdf@footnotebox=\box62
+\mdf@splitbox@one=\box63
+\mdf@splitbox@two=\box64
+\mdf@splitbox@save=\box65
+\mdfsplitboxwidth=\skip118
+\mdfsplitboxtotalwidth=\skip119
+\mdfsplitboxheight=\skip120
+\mdfsplitboxdepth=\skip121
+\mdfsplitboxtotalheight=\skip122
+\mdfframetitleboxwidth=\skip123
+\mdfframetitleboxtotalwidth=\skip124
+\mdfframetitleboxheight=\skip125
+\mdfframetitleboxdepth=\skip126
+\mdfframetitleboxtotalheight=\skip127
+\mdffootnoteboxwidth=\skip128
+\mdffootnoteboxtotalwidth=\skip129
+\mdffootnoteboxheight=\skip130
+\mdffootnoteboxdepth=\skip131
+\mdffootnoteboxtotalheight=\skip132
+\mdftotallinewidth=\skip133
+\mdfboundingboxwidth=\skip134
+\mdfboundingboxtotalwidth=\skip135
+\mdfboundingboxheight=\skip136
+\mdfboundingboxdepth=\skip137
+\mdfboundingboxtotalheight=\skip138
+\mdf@freevspace@length=\skip139
+\mdf@horizontalwidthofbox@length=\skip140
+\mdf@verticalmarginwhole@length=\skip141
+\mdf@horizontalspaceofbox=\skip142
+\mdfsubtitleheight=\skip143
+\mdfsubsubtitleheight=\skip144
 \c@mdfcountframes=\count197
 
 ****** mdframed patching \endmdf@trivlist
@@ -1291,27 +1292,30 @@ LaTeX Info: Redefining \. on input line 24.
 LaTeX Info: Redefining \% on input line 24.
 
 
-LaTeX Warning: Label `capitulo1' multiply defined.
+LaTeX Warning: Label `sssec:estructuraNormalizacion' multiply defined.
+
+
+LaTeX Warning: Label `fig:URI' multiply defined.
 
 )
 \openout1 = `tesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 79.
-LaTeX Font Info:    ... okay on input line 79.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 85.
+LaTeX Font Info:    ... okay on input line 85.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
@@ -1325,20 +1329,20 @@ Package caption Info: End \AtBeginDocument code.
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count295
-\scratchdimen=\dimen279
-\scratchbox=\box65
+\scratchdimen=\dimen280
+\scratchbox=\box66
 \nofMPsegments=\count296
 \nofMParguments=\count297
-\everyMPshowfont=\toks45
+\everyMPshowfont=\toks46
 \MPscratchCnt=\count298
-\MPscratchDim=\dimen280
+\MPscratchDim=\dimen281
 \MPnumerator=\count299
 \makeMPintoPDFobject=\count300
-\everyMPtoPDFconversion=\toks46
+\everyMPtoPDFconversion=\toks47
 )
 \c@lstlisting=\count301
-\AtBeginShipoutBox=\box66
-Package hyperref Info: Link coloring OFF on input line 79.
+\AtBeginShipoutBox=\box67
+Package hyperref Info: Link coloring OFF on input line 85.
  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
@@ -1347,16 +1351,16 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count302
 )
-LaTeX Info: Redefining \ref on input line 79.
-LaTeX Info: Redefining \pageref on input line 79.
-LaTeX Info: Redefining \nameref on input line 79.
+LaTeX Info: Redefining \ref on input line 85.
+LaTeX Info: Redefining \pageref on input line 85.
+LaTeX Info: Redefining \nameref on input line 85.
 
 (./tesis.out) (./tesis.out)
 \@outlinefile=\write5
 \openout5 = `tesis.out'.
 
-LaTeX Info: Redefining \. on input line 79.
-LaTeX Info: Redefining \% on input line 79.
+LaTeX Info: Redefining \. on input line 85.
+LaTeX Info: Redefining \% on input line 85.
 
 babelbib: Set bibliography fall-back language to spanish
 (/usr/share/texlive/texmf-dist/tex/latex/babelbib/spanish.bdf
@@ -1367,17 +1371,17 @@ babelbib extension \btxifchangecaseoff added to \extrasspanish
 babelbib: Load BibTeX extensions \bibsspanish for spanish
 babelbib: Set language for keywords in the bibliography fixed to spanish
 ABD: EveryShipout initializing macros
-<img/./usb.png, id=224, 170.64754pt x 113.73491pt>
+<img/./usb.png, id=284, 170.64754pt x 113.73491pt>
 File: img/./usb.png Graphic file (type png)
  <use img/./usb.png>
-Package pdftex.def Info: img/./usb.png used on input line 82.
+Package pdftex.def Info: img/./usb.png used on input line 88.
 (pdftex.def)             Requested size: 86.72377pt x 57.8027pt.
-LaTeX Font Info:    Try loading font information for U+msa on input line 82.
+LaTeX Font Info:    Try loading font information for U+msa on input line 88.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 82.
+LaTeX Font Info:    Try loading font information for U+msb on input line 88.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -1388,7 +1392,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./img/./usb.png>] (./parte
 s/acta.tex
-<img/usb.png, id=232, 170.64754pt x 113.73491pt>
+<img/usb.png, id=292, 170.64754pt x 113.73491pt>
 File: img/usb.png Graphic file (type png)
  <use img/usb.png>
 Package pdftex.def Info: img/usb.png used on input line 6.
@@ -1396,7 +1400,7 @@ Package pdftex.def Info: img/usb.png used on input line 6.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/sc' undefined
-(Font)              using `OT1/cmr/bx/n' instead on input line 25.
+(Font)              using `OT1/cmr/bx/n' instead on input line 26.
 
 [1
 
@@ -1404,26 +1408,10 @@ LaTeX Font Warning: Font shape `OT1/cmr/bx/sc' undefined
 ------------------------------------------------------------------------------
  Abstract Page
 ------------------------------------------------------------------------------
-
-Package blindtext Warning: spanish not defined, using English instead.
-(blindtext)                 on input line 93.
-
-
-Package blindtext Warning: spanish not defined, using English instead.
-(blindtext)                 on input line 95.
-
 [1]
 ------------------------------------------------------------------------------
  Agradecimientos
 ------------------------------------------------------------------------------
-
-Package blindtext Warning: spanish not defined, using English instead.
-(blindtext)                 on input line 111.
-
-
-Package blindtext Warning: spanish not defined, using English instead.
-(blindtext)                 on input line 111.
-
 [2
 
 ]
@@ -1446,14 +1434,6 @@ Package spanish Warning: Replacing `OT1/cmr/bx/sc' by
 Package spanish Warning: Replacing `OT1/cmr/bx/sc' by 
 (spanish)                faked small caps on input line 6.
 
-
-Package spanish Warning: Replacing `OT1/cmr/bx/sc' by 
-(spanish)                faked small caps on input line 7.
-
-
-Package spanish Warning: Replacing `OT1/cmr/bx/sc' by 
-(spanish)                faked small caps on input line 8.
-
 [3
 
 
@@ -1461,309 +1441,735 @@ Package spanish Warning: Replacing `OT1/cmr/bx/sc' by
 \tf@toc=\write6
 \openout6 = `tesis.toc'.
 
- [4]
+ [4] [5]
 ------------------------------------------------------------------------------
  \IeC {\'I}ndice de Figuras
 ------------------------------------------------------------------------------
 (./tesis.lof
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
-)
-\tf@lof=\write7
-\openout7 = `tesis.lof'.
-
- [5
-
-
-]
-------------------------------------------------------------------------------
- Lista de Tablas
-------------------------------------------------------------------------------
-(./tesis.lot
-LaTeX Info: Redefining \. on input line 1.
-LaTeX Info: Redefining \% on input line 1.
-)
-\tf@lot=\write8
-\openout8 = `tesis.lot'.
-
  [6
 
 
-]
-------------------------------------------------------------------------------
- Acr\IeC {\'o}nimos y S\IeC {\'\i }mbolos
-------------------------------------------------------------------------------
-[7
+])
+\tf@lof=\write7
+\openout7 = `tesis.lof'.
 
+ [7]
+Underfull \hbox (badness 10000) in paragraph at lines 167--172
 
+ []
 
-]
-------------------------------------------------------------------------------
- Dedicatoria
-------------------------------------------------------------------------------
 [8
 
 ] (./partes/introduccion.tex [1
 
 
-
 ]) (./partes/capitulo1.tex [2]
 Cap\'{\i }tulo 1.
 ------------------------------------------------------------------------------
- 1 Introducci\IeC {\'o}n
+ 1 EL PROBLEMA
 ------------------------------------------------------------------------------
-
-Underfull \hbox (badness 10000) in paragraph at lines 17--18
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 18--19
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 19--20
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 20--21
-
- []
-
 [3
 
-]
-Underfull \hbox (badness 10000) in paragraph at lines 33--35
+] [4] [5]
+\c@legali=\count303
+\c@legalii=\count304
+\c@legaliii=\count305
+\c@legaliv=\count306
+\c@legalv=\count307
+\c@legalvi=\count308
+\c@legalvii=\count309
+\c@legalviii=\count310
+\c@legalix=\count311
+\c@legalx=\count312
+\enitdp@legal=\count313
+ [6] [7] <img/Proyecto-grado.png, id=541, 586.19pt x 161.60374pt>
+File: img/Proyecto-grado.png Graphic file (type png)
 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 36--37
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 38--39
-
- []
-
-[4]) (./partes/capitulo2.tex [5]
+<use img/Proyecto-grado.png>
+Package pdftex.def Info: img/Proyecto-grado.png used on input line 124.
+(pdftex.def)             Requested size: 289.07999pt x 79.69449pt.
+) (./partes/capituloEmpresa.tex [8 <./img/Proyecto-grado.png>]
 Cap\'{\i }tulo 2.
 ------------------------------------------------------------------------------
- 2 Marco te\IeC {\'o}rico
+ 2 ENTORNO EMPRESARIAL
 ------------------------------------------------------------------------------
-[6
+[9
 
-] [7]
-Underfull \hbox (badness 10000) in paragraph at lines 40--41
+] [10]) (./partes/capitulo2.tex [11]
+Cap\'{\i }tulo 3.
+------------------------------------------------------------------------------
+ 3 MARCO TE\IeC {\'O}RICO
+------------------------------------------------------------------------------
+[12
 
- []
+] <img/HTTP.png, id=582, 573.14125pt x 396.48125pt>
+File: img/HTTP.png Graphic file (type png)
+ <use img/HTTP.png>
+Package pdftex.def Info: img/HTTP.png used on input line 22.
+(pdftex.def)             Requested size: 216.81pt x 149.9808pt.
 
+<img/mensajeHTTP.png, id=587, 484.81125pt x 366.36874pt>
+File: img/mensajeHTTP.png Graphic file (type png)
 
-Underfull \hbox (badness 10000) in paragraph at lines 42--43
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 44--45
-
- []
-
-[8]
-Underfull \hbox (badness 10000) in paragraph at lines 46--47
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 48--49
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 50--51
-
- []
-
-[9] <img/./URI.jpg, id=393, 958.58125pt x 157.58875pt>
+<use img/mensajeHTTP.png>
+Package pdftex.def Info: img/mensajeHTTP.png used on input line 36.
+(pdftex.def)             Requested size: 216.81pt x 163.84137pt.
+ [13 <./img/HTTP.png>] [14 <./img/mensajeHTTP.png>]
+<img/./URI.jpg, id=604, 771.88374pt x 150.5625pt>
 File: img/./URI.jpg Graphic file (type jpg)
  <use img/./URI.jpg>
-Package pdftex.def Info: img/./URI.jpg used on input line 91.
-(pdftex.def)             Requested size: 417.47307pt x 68.6323pt.
+Package pdftex.def Info: img/./URI.jpg used on input line 69.
+(pdftex.def)             Requested size: 289.07999pt x 56.38727pt.
+ [15 <./img/./URI.jpg>] [16] <img/automata.png, id=617, 331.2375pt x 129.48375p
+t>
+File: img/automata.png Graphic file (type png)
 
-[10]
-Underfull \hbox (badness 10000) in paragraph at lines 109--110
+<use img/automata.png>
+Package pdftex.def Info: img/automata.png used on input line 126.
+(pdftex.def)             Requested size: 216.81pt x 84.7522pt.
+ [17] [18 <./img/automata.png>]
+<img/NFA.png, id=638, 325.215pt x 217.81375pt>
+File: img/NFA.png Graphic file (type png)
+ <use img/NFA.png>
+Package pdftex.def Info: img/NFA.png used on input line 176.
+(pdftex.def)             Requested size: 216.81pt x 145.21323pt.
 
- []
+<img/DFA.png, id=642, 342.27875pt x 125.46875pt>
+File: img/DFA.png Graphic file (type png)
+ <use img/DFA.png>
+Package pdftex.def Info: img/DFA.png used on input line 186.
+(pdftex.def)             Requested size: 216.81pt x 79.4784pt.
+ [19 <./img/NFA.png>] [20 <./img/DFA.png>]
+<img/ejemploMarkov.jpeg, id=660, 415.5525pt x 210.7875pt>
+File: img/ejemploMarkov.jpeg Graphic file (type jpg)
 
-[11 <./img/./URI.jpg>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 129.
+<use img/ejemploMarkov.jpeg>
+Package pdftex.def Info: img/ejemploMarkov.jpeg used on input line 257.
+(pdftex.def)             Requested size: 216.81pt x 109.97679pt.
+ [21]
+<img/ssm.jpeg, id=673, 639.38875pt x 343.2825pt>
+File: img/ssm.jpeg Graphic file (type jpg)
+ <use img/ssm.jpeg>
+Package pdftex.def Info: img/ssm.jpeg used on input line 274.
+(pdftex.def)             Requested size: 417.47307pt x 224.1419pt.
+ [22 <./img/ejemploMarkov.jpeg>] [23 <./img/ssm.jpeg>] [24] [25] [26] [27] [28]
+)
+(./partes/marcoTecnologico.tex [29]
+Cap\'{\i }tulo 4.
+------------------------------------------------------------------------------
+ 4 MARCO T\IeC {\'E}CNOLOGICO
+------------------------------------------------------------------------------
+[30
 
+] [31] [32] [33]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 63.
  (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 129.
-<img/./automata.jpeg, id=405, 415.5525pt x 159.59625pt>
-File: img/./automata.jpeg Graphic file (type jpg)
-
-<use img/./automata.jpeg>
-Package pdftex.def Info: img/./automata.jpeg used on input line 134.
-(pdftex.def)             Requested size: 417.47307pt x 160.34102pt.
- [12 <./img/./automata.jpeg>]
-Underfull \hbox (badness 10000) in paragraph at lines 149--150
-
- []
-
-[13] <img/ssm.jpeg, id=416, 639.38875pt x 343.2825pt>
-File: img/ssm.jpeg Graphic file (type jpg)
- <use img/ssm.jpeg>
-Package pdftex.def Info: img/ssm.jpeg used on input line 177.
-(pdftex.def)             Requested size: 417.47307pt x 224.1419pt.
-
-[14 <./img/ssm.jpeg>] [15]) (./partes/capitulo3.tex [16]
-Cap\'{\i }tulo 3.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 63.
+)
+(./partes/capitulo3.tex [34]
+Cap\'{\i }tulo 5.
 ------------------------------------------------------------------------------
- 3 Arquitectura del IDS
+ 5 DESARROLLO DE PASANT\IeC {\'I}AS
 ------------------------------------------------------------------------------
-[17
+[35
 
-] [18] [19] [20] [21] [22] [23] [24]) (./partes/capitulo4.tex [25]
-Cap\'{\i }tulo 4.
-------------------------------------------------------------------------------
- 4 Detalles de implementaci\IeC {\'o}n
-------------------------------------------------------------------------------
+] <img/arquitectura.png, id=773, 609.27625pt x 258.9675pt>
+File: img/arquitectura.png Graphic file (type png)
 
-Overfull \hbox (5.48114pt too wide) in paragraph at lines 5--6
-[]\OT1/cmr/m/n/12 A con-ti-nua-ci^^Son se ex-pli-car^^Sa las es-truc-tu-ras de 
-da-tos uti-li-za-das y co-mo se realiz^^So la
- []
+<use img/arquitectura.png>
+Package pdftex.def Info: img/arquitectura.png used on input line 35.
+(pdftex.def)             Requested size: 216.81pt x 92.1534pt.
+ [36]
+<img/modoOperacion.jpeg, id=781, 1645.14626pt x 811.03pt>
+File: img/modoOperacion.jpeg Graphic file (type jpg)
 
-[26
+<use img/modoOperacion.jpeg>
+Package pdftex.def Info: img/modoOperacion.jpeg used on input line 54.
+(pdftex.def)             Requested size: 417.47307pt x 205.80132pt.
+ [37 <./img/arquitectura.png>] [38 <./img/modoOperacion.jpeg>] <img/segArquiCom
+pleta.jpeg, id=796, 473.77pt x 469.755pt>
+File: img/segArquiCompleta.jpeg Graphic file (type jpg)
 
-] [27]
-Overfull \hbox (20.95215pt too wide) in paragraph at lines 29--29
-[]\OT1/cmtt/m/n/12 global encoding : table[string] of string = {    ["%21"] =  
-  "!"     ,[] 
- []
+<use img/segArquiCompleta.jpeg>
+Package pdftex.def Info: img/segArquiCompleta.jpeg used on input line 81.
+(pdftex.def)             Requested size: 216.81pt x 214.97174pt.
+ [39] [40 <./img/segArquiCompleta.jpeg>]
+<img/evalArqui.jpeg, id=820, 551.05875pt x 1012.78375pt>
+File: img/evalArqui.jpeg Graphic file (type jpg)
 
+<use img/evalArqui.jpeg>
+Package pdftex.def Info: img/evalArqui.jpeg used on input line 104.
+(pdftex.def)             Requested size: 216.81pt x 398.47664pt.
+ [41] [42 <./img/evalArqui.jpeg>]
+<img/entrenamArqui.jpeg, id=831, 1291.82625pt x 988.69376pt>
+File: img/entrenamArqui.jpeg Graphic file (type jpg)
 
-Overfull \hbox (8.60214pt too wide) in paragraph at lines 30--30
-[]                                                \OT1/cmtt/m/n/12 ["%22"] =   
- """    ,[] 
- []
-
-
-Overfull \hbox (8.60214pt too wide) in paragraph at lines 31--31
-[]                                                \OT1/cmtt/m/n/12 ["%23"] =   
- "#"    ,[] 
- []
-
-
-Overfull \hbox (8.60214pt too wide) in paragraph at lines 32--32
-[]                                                \OT1/cmtt/m/n/12 ["%24"] =   
- "$"    }[] 
- []
-
-[28] [29]
-Overfull \hbox (2.67519pt too wide) in paragraph at lines 65--66
+<use img/entrenamArqui.jpeg>
+Package pdftex.def Info: img/entrenamArqui.jpeg used on input line 126.
+(pdftex.def)             Requested size: 289.07999pt x 221.2396pt.
+ [43] [44 <./img/entrenamArqui.jpeg>] [45] [46]
+Overfull \hbox (2.67519pt too wide) in paragraph at lines 186--187
 []\OT1/cmr/m/n/12 uri co-rrec-to: es una va-ria-ble de ti-po boo-leano que in-d
 i-ca si el URI est^^Sa sint^^Sacti-
  []
 
+<img/UriSegmentado.jpg, id=854, 537.00626pt x 607.26875pt>
+File: img/UriSegmentado.jpg Graphic file (type jpg)
 
-Overfull \hbox (4.31664pt too wide) in paragraph at lines 82--82
-[]\OT1/cmr/bx/n/17.28 Implementaci^^Son del mo-du-lo de en-tre-na-mien-
+<use img/UriSegmentado.jpg>
+Package pdftex.def Info: img/UriSegmentado.jpg used on input line 193.
+(pdftex.def)             Requested size: 289.07999pt x 326.90097pt.
+ [47 <./img/UriSegmentado.jpg>]
+<img/URIstruct.jpg, id=861, 530.98375pt x 669.50125pt>
+File: img/URIstruct.jpg Graphic file (type jpg)
+ <use img/URIstruct.jpg>
+Package pdftex.def Info: img/URIstruct.jpg used on input line 223.
+(pdftex.def)             Requested size: 289.07999pt x 364.49808pt.
+
+[48]
+Overfull \hbox (33.59169pt too wide) in paragraph at lines 246--247
+\OT1/cmr/m/n/12 ((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)[])3(25[0-5]|2[0-4][0-9]
+|[01]?[0-9][0-9]?)(:([0-
  []
 
-) (./partes/capitulo5.tex [30] [31]
-Cap\'{\i }tulo 5.
-------------------------------------------------------------------------------
- 5 Evaluaci\IeC {\'o}n y pruebas
-------------------------------------------------------------------------------
-) (./partes/conclusiones.tex [32
+[49 <./img/URIstruct.jpg>]
 
-]
+LaTeX Warning: Command \textquotedblleft invalid in math mode on input line 257
+.
+
+
+LaTeX Warning: Command \textquotedblright invalid in math mode on input line 25
+7.
+
+
+LaTeX Warning: Command \textquotedblleft invalid in math mode on input line 258
+.
+
+
+LaTeX Warning: Command \textquotedblright invalid in math mode on input line 25
+8.
+
+
+LaTeX Warning: Command \textquoteright invalid in math mode on input line 259.
+
+
+LaTeX Warning: Command \textquotedblleft invalid in math mode on input line 259
+.
+
+
+LaTeX Warning: Command \textquotedblright invalid in math mode on input line 25
+9.
+
+
+LaTeX Warning: Command \textquoteright invalid in math mode on input line 259.
+
+
+LaTeX Warning: Command \textquotedblleft invalid in math mode on input line 259
+.
+
+
+LaTeX Warning: Command \textquotedblright invalid in math mode on input line 25
+9.
+
+
+LaTeX Warning: Command \textquoteright invalid in math mode on input line 259.
+
+
+LaTeX Warning: Command \textquoteright invalid in math mode on input line 260.
+
+
+LaTeX Warning: Command \textquotedblleft invalid in math mode on input line 260
+.
+
+
+LaTeX Warning: Command \textquotedblleft invalid in math mode on input line 260
+.
+
+
+LaTeX Warning: Command \textquoteright invalid in math mode on input line 260.
+
+
+LaTeX Warning: Command \textquoteright invalid in math mode on input line 262.
+
+
+LaTeX Warning: Command \textquoteright invalid in math mode on input line 263.
+
+
+LaTeX Warning: Command \textquoteright invalid in math mode on input line 264.
+
+
+LaTeX Warning: Command \textquotedblleft invalid in math mode on input line 264
+.
+
+
+LaTeX Warning: Command \textquotedblright invalid in math mode on input line 26
+4.
+
+
+LaTeX Warning: Command \textquoteright invalid in math mode on input line 264.
+
+
+LaTeX Warning: Command \textquoteright invalid in math mode on input line 265.
+
+
+LaTeX Warning: Command \textquotedblleft invalid in math mode on input line 265
+.
+
+
+LaTeX Warning: Command \textquotedblright invalid in math mode on input line 26
+5.
+
+
+LaTeX Warning: Command \textquoteright invalid in math mode on input line 266.
+
+
+LaTeX Warning: Command \textquotedblleft invalid in math mode on input line 266
+.
+
+
+LaTeX Warning: Command \textquotedblright invalid in math mode on input line 26
+6.
+
+
+LaTeX Warning: Command \textquotedblleft invalid in math mode on input line 266
+.
+
+
+LaTeX Warning: Command \textquotedblright invalid in math mode on input line 26
+6.
+
+
+LaTeX Warning: Command \textquoteright invalid in math mode on input line 266.
+
+
+LaTeX Warning: Command \textquotedblleft invalid in math mode on input line 276
+.
+
+
+LaTeX Warning: Command \textquotedblright invalid in math mode on input line 27
+6.
+
+
+LaTeX Warning: Command \textquotedblleft invalid in math mode on input line 277
+.
+
+
+LaTeX Warning: Command \textquotedblright invalid in math mode on input line 27
+7.
+
+
+LaTeX Warning: Command \textquoteright invalid in math mode on input line 278.
+
+
+LaTeX Warning: Command \textquotedblleft invalid in math mode on input line 278
+.
+
+
+LaTeX Warning: Command \textquotedblright invalid in math mode on input line 27
+8.
+
+
+LaTeX Warning: Command \textquoteright invalid in math mode on input line 278.
+
+
+LaTeX Warning: Command \textquotedblleft invalid in math mode on input line 278
+.
+
+
+LaTeX Warning: Command \textquotedblright invalid in math mode on input line 27
+8.
+
+
+LaTeX Warning: Command \textquoteright invalid in math mode on input line 278.
+
+
+LaTeX Warning: Command \textquoteright invalid in math mode on input line 279.
+
+
+LaTeX Warning: Command \textquotedblleft invalid in math mode on input line 279
+.
+
+
+LaTeX Warning: Command \textquotedblleft invalid in math mode on input line 279
+.
+
+
+LaTeX Warning: Command \textquoteright invalid in math mode on input line 279.
+
+
+LaTeX Warning: Command \textquoteright invalid in math mode on input line 281.
+
+
+LaTeX Warning: Command \textquotedblleft invalid in math mode on input line 281
+.
+
+
+LaTeX Warning: Command \textquotedblright invalid in math mode on input line 28
+1.
+
+
+LaTeX Warning: Command \textquoteright invalid in math mode on input line 282.
+
+
+LaTeX Warning: Command \textquoteright invalid in math mode on input line 283.
+
+
+LaTeX Warning: Command \textquotedblleft invalid in math mode on input line 283
+.
+
+
+LaTeX Warning: Command \textquotedblright invalid in math mode on input line 28
+3.
+
+
+LaTeX Warning: Command \textquoteright invalid in math mode on input line 283.
+
+
+LaTeX Warning: Command \textquoteright invalid in math mode on input line 284.
+
+
+LaTeX Warning: Command \textquotedblleft invalid in math mode on input line 284
+.
+
+
+LaTeX Warning: Command \textquotedblright invalid in math mode on input line 28
+4.
+
+
+LaTeX Warning: Command \textquoteright invalid in math mode on input line 285.
+
+
+LaTeX Warning: Command \textquotedblleft invalid in math mode on input line 285
+.
+
+
+LaTeX Warning: Command \textquotedblright invalid in math mode on input line 28
+5.
+
+
+LaTeX Warning: Command \textquotedblleft invalid in math mode on input line 285
+.
+
+
+LaTeX Warning: Command \textquotedblright invalid in math mode on input line 28
+5.
+
+
+LaTeX Warning: Command \textquoteright invalid in math mode on input line 285.
+
+[50] [51] [52] [53] <img/Word.jpg, id=901, 521.95pt x 273.02pt>
+File: img/Word.jpg Graphic file (type jpg)
+
+<use img/Word.jpg>
+Package pdftex.def Info: img/Word.jpg used on input line 383.
+(pdftex.def)             Requested size: 289.07999pt x 151.21127pt.
+ <img/Probability.jpg, id=903, 554.07pt x 230.8625pt>
+File: img/Probability.jpg Graphic file (type jpg)
+
+<use img/Probability.jpg>
+Package pdftex.def Info: img/Probability.jpg used on input line 398.
+(pdftex.def)             Requested size: 289.07999pt x 120.45076pt.
+ [54 <./img/Word.jpg>]
+<img/TableDescription.jpg, id=910, 549.05125pt x 475.7775pt>
+File: img/TableDescription.jpg Graphic file (type jpg)
+
+<use img/TableDescription.jpg>
+Package pdftex.def Info: img/TableDescription.jpg used on input line 423.
+(pdftex.def)             Requested size: 289.07999pt x 250.50563pt.
+ [55 <./img/Probability.jpg>] [56 <./img/TableDescription.jpg>] <img/InfoAtaque
+.jpg, id=922, 553.06625pt x 342.27875pt>
+File: img/InfoAtaque.jpg Graphic file (type jpg)
+
+<use img/InfoAtaque.jpg>
+Package pdftex.def Info: img/InfoAtaque.jpg used on input line 458.
+(pdftex.def)             Requested size: 289.07999pt x 178.89993pt.
+ [57]
+<img/config.png, id=932, 346.29375pt x 254.9525pt>
+File: img/config.png Graphic file (type png)
+ <use img/config.png>
+Package pdftex.def Info: img/config.png used on input line 488.
+(pdftex.def)             Requested size: 289.07999pt x 212.83594pt.
+
+[58 <./img/InfoAtaque.jpg>]
+<img/modeloBro.png, id=939, 398.48875pt x 305.14pt>
+File: img/modeloBro.png Graphic file (type png)
+ <use img/modeloBro.png>
+Package pdftex.def Info: img/modeloBro.png used on input line 500.
+(pdftex.def)             Requested size: 289.07999pt x 221.36748pt.
+
+
+LaTeX Warning: Reference `sec:entrenamientoOffline' on page 59 undefined on inp
+ut line 508.
+
+[59 <./img/config.png>] [60 <./img/modeloBro.png>]
+Overfull \hbox (11.80861pt too wide) in paragraph at lines 529--533
+[]\OT1/cmr/bx/sc/12 evaluacion\OT1/cmr/m/n/12 (uriParsed: \OT1/cmr/bx/sc/12 Uri
+-Seg-men-ta-do\OT1/cmr/m/n/12 , Bvec-tor: \OT1/cmr/bx/sc/12 ta-ble[string,strin
+g] of Pro-
+ []
+
+
+Overfull \hbox (5.0794pt too wide) in paragraph at lines 546--549
+[]\OT1/cmr/bx/sc/12 epsiloSumatoria\OT1/cmr/m/n/12 (segmentos: \OT1/cmr/bx/sc/1
+2 Uri-Seg-men-ta-do\OT1/cmr/m/n/12 , Bvec-tor: \OT1/cmr/bx/sc/12 ta-ble[string,
+string]
+ []
+
+[61]
+Overfull \hbox (18.64714pt too wide) in paragraph at lines 556--558
+[]\OT1/cmr/m/n/12 estado: es-ta-do del aut^^Soma-ta que se es-ta eva-luan-do (`
+`host'',``path'',``argumentos'',
+ []
+
+
+Overfull \hbox (0.59288pt too wide) in paragraph at lines 566--567
+[]\OT1/cmr/bx/sc/12 calcularIndiceAnormalidad\OT1/cmr/m/n/12 (epsilon0: \OT1/cm
+r/bx/sc/12 dou-ble\OT1/cmr/m/n/12 , N: \OT1/cmr/bx/sc/12 dou-ble\OT1/cmr/m/n/12
+ , su-ma-Lo-ga-rit-mos:
+ []
+
+[62] [63] [64]
+<img/EntrenamientoRegister.jpg, id=980, 533.995pt x 302.12875pt>
+File: img/EntrenamientoRegister.jpg Graphic file (type jpg)
+
+<use img/EntrenamientoRegister.jpg>
+Package pdftex.def Info: img/EntrenamientoRegister.jpg used on input line 660.
+(pdftex.def)             Requested size: 289.07999pt x 163.562pt.
+
+<img/Info.jpg, id=982, 552.0625pt x 356.33125pt>
+File: img/Info.jpg Graphic file (type jpg)
+ <use img/Info.jpg>
+Package pdftex.def Info: img/Info.jpg used on input line 678.
+(pdftex.def)             Requested size: 289.07999pt x 186.59279pt.
+ [65 <./img/EntrenamientoRegister.jpg>]
+Overfull \hbox (16.143pt too wide) in paragraph at lines 710--713
+[]\OT1/cmr/bx/sc/12 entrenamientoOffline\OT1/cmr/m/n/12 (segmentos: \OT1/cmr/bx
+/sc/12 Uri-Seg-men-ta-do\OT1/cmr/m/n/12 , vo-ca-bu-la-rio: \OT1/cmr/bx/sc/12 ta
+-ble[string]
+ []
+
+[66 <./img/Info.jpg>] [67]
+Overfull \hbox (31.7877pt too wide) in paragraph at lines 767--771
+[]\OT1/cmr/bx/sc/12 entrenamientoOnline\OT1/cmr/m/n/12 (segmentos: \OT1/cmr/bx/
+sc/12 Uri-Seg-men-ta-do\OT1/cmr/m/n/12 , mo-de-lo: \OT1/cmr/bx/sc/12 ta-ble[str
+ing,string]
+ []
+
+[68] [69] <img/filtroHTTP.png, id=1019, 232.87pt x 199.74625pt>
+File: img/filtroHTTP.png Graphic file (type png)
+
+<use img/filtroHTTP.png>
+Package pdftex.def Info: img/filtroHTTP.png used on input line 833.
+(pdftex.def)             Requested size: 144.54pt x 123.98463pt.
+ [70 <./img/filtroHTTP.png>]
+<img/configFile.jpg, id=1028, 798.985pt x 298.11375pt>
+File: img/configFile.jpg Graphic file (type jpg)
+
+<use img/configFile.jpg>
+Package pdftex.def Info: img/configFile.jpg used on input line 850.
+(pdftex.def)             Requested size: 216.81pt x 80.89207pt.
+ <img/tablaConfig.png, id=1029, 264.99pt x 124.465pt>
+File: img/tablaConfig.png Graphic file (type png)
+
+<use img/tablaConfig.png>
+Package pdftex.def Info: img/tablaConfig.png used on input line 858.
+(pdftex.def)             Requested size: 216.81pt x 101.83595pt.
+
+<img/modeloOffline.jpg, id=1030, 780.9175pt x 425.59pt>
+File: img/modeloOffline.jpg Graphic file (type jpg)
+
+<use img/modeloOffline.jpg>
+Package pdftex.def Info: img/modeloOffline.jpg used on input line 866.
+(pdftex.def)             Requested size: 216.81pt x 118.1578pt.
+
+<img/tablaModeloBro.png, id=1031, 406.51875pt x 180.675pt>
+File: img/tablaModeloBro.png Graphic file (type png)
+
+<use img/tablaModeloBro.png>
+Package pdftex.def Info: img/tablaModeloBro.png used on input line 874.
+(pdftex.def)             Requested size: 216.81pt x 96.35828pt.
+ [71 <./img/configFile.jpg> <./img/tablaConfig.png> <./img/modeloOffline.jpg>]
+<img/uriSinNorm.png, id=1038, 574.145pt x 78.2925pt>
+File: img/uriSinNorm.png Graphic file (type png)
+ <use img/uriSinNorm.png>
+Package pdftex.def Info: img/uriSinNorm.png used on input line 894.
+(pdftex.def)             Requested size: 216.81pt x 29.56508pt.
+
+<img/uriNorm.png, id=1039, 576.1525pt x 73.27374pt>
+File: img/uriNorm.png Graphic file (type png)
+ <use img/uriNorm.png>
+Package pdftex.def Info: img/uriNorm.png used on input line 902.
+(pdftex.def)             Requested size: 216.81pt x 27.57373pt.
+
+[72 <./img/tablaModeloBro.png> <./img/uriSinNorm.png> <./img/uriNorm.png>]
+[73]
+File: img/modeloOffline.jpg Graphic file (type jpg)
+ <use img/modeloOffline.jpg>
+Package pdftex.def Info: img/modeloOffline.jpg used on input line 963.
+(pdftex.def)             Requested size: 289.07999pt x 157.54375pt.
+ [74]
+Overfull \hbox (3.79552pt too wide) in paragraph at lines 971--972
+[]\OT1/cmr/m/n/12 El mo-do ``On-li-ne'' del sis-te-ma fue pro-ba-do in-gre-san-
+do la ba-se de da-tos \OT1/cmr/bx/sc/12 db4.pcap
+ []
+
+<img/modeloOnline.jpg, id=1063, 786.94pt x 653.44125pt>
+File: img/modeloOnline.jpg Graphic file (type jpg)
+
+<use img/modeloOnline.jpg>
+Package pdftex.def Info: img/modeloOnline.jpg used on input line 975.
+(pdftex.def)             Requested size: 289.07999pt x 240.03458pt.
+ [75]
+<img/indicesMalos.png, id=1073, 792.9625pt x 241.90375pt>
+File: img/indicesMalos.png Graphic file (type png)
+
+<use img/indicesMalos.png>
+Package pdftex.def Info: img/indicesMalos.png used on input line 997.
+(pdftex.def)             Requested size: 289.07999pt x 88.18893pt.
+
+<img/indicesBuenos.jpg, id=1074, 794.97pt x 550.055pt>
+File: img/indicesBuenos.jpg Graphic file (type jpg)
+
+<use img/indicesBuenos.jpg>
+Package pdftex.def Info: img/indicesBuenos.jpg used on input line 1005.
+(pdftex.def)             Requested size: 289.07999pt x 200.0256pt.
+) (./partes/conclusiones.tex [76 <./img/modeloOnline.jpg> <./img/indicesMalos.p
+ng>] [77 <./img/indicesBuenos.jpg>]
 Cap\'{\i }tulo 6.
 ------------------------------------------------------------------------------
- 6 Conclusiones y Recomendaciones
+ 6 CONCLUSIONES Y RECOMENDACIONES
 ------------------------------------------------------------------------------
+[78
+
+]) (./partes/referencias.tex [79]
+Underfull \hbox (badness 10000) in paragraph at lines 9--11
+[]$\OT1/cmtt/m/n/12 https : / / www . pwc . com / gx / en / services / advisory
+ / forensics /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 13--14
+[]\OT1/cmr/m/n/12 Walters R. (2017), \OT1/cmr/m/it/12 Sa-lary Sur-vey\OT1/cmr/m
+/n/12 , dis-po-ni-ble en: []$\OT1/cmtt/m/n/12 https : / / www .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 13--14
+\OT1/cmtt/m/n/12 robertwalters . co . uk / content / dam / salary-[]survey-[]20
+17 . pdf ?
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 13--14
+\OT1/cmtt/m/n/12 webSyncID = 6d3bc948-[]9837-[]8e7b-[]91d2-[]a51713c993b7 & ses
+sionGUID =
+ []
+
+
+Underfull \hbox (badness 2990) in paragraph at lines 15--16
+\OT1/cmr/m/it/12 tru-sion De-tec-tion Sys-tems \OT1/cmr/m/n/12 . Dis-po-ni-ble 
+en: []$\OT1/cmtt/m/n/12 http : / / www . idt . mdh . se /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 15--16
+\OT1/cmtt/m/n/12 kurser / ct3340 / ht09 / ADMINISTRATION / IRCSE09-[]submission
+s / ircse09 _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 20--21
+[]\OT1/cmr/m/n/12 Granada y la Uni-ver-si-dad. Dis-po-ni-ble en: []$\OT1/cmtt/m
+/n/12 https : / / www . ugr . es /
+ []
+
+[80
+
+]
+Underfull \hbox (badness 1655) in paragraph at lines 58--59
+[]\OT1/cmr/m/it/12 GitHub Glos-sary\OT1/cmr/m/n/12 . Dis-po-ni-ble en: []$\OT1/
+cmtt/m/n/12 https : / / help . github . com / articles /
+ []
+
+[81]
+Underfull \hbox (badness 10000) in paragraph at lines 72--74
+[]\OT1/cmr/m/n/12 Capturas de ejem-plo de \Wi-res-hark". Dis-po-ni-ble en: []$\
+OT1/cmtt/m/n/12 https :
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 72--74
+\OT1/cmtt/m/n/12 / / wiki . wireshark . org / SampleCaptures ? action = AttachF
+ile & do = view &
+ []
+
 )
-No file tesis.bbl.
-(./partes/apendiceA.tex [33
-
-]
-Ap\'{e}ndice A.
-------------------------------------------------------------------------------
- A @nombreApendice
-------------------------------------------------------------------------------
-) (./partes/apendiceB.tex [34
-
-]
-Ap\'{e}ndice B.
-------------------------------------------------------------------------------
- B @nombreApendice
-------------------------------------------------------------------------------
-) [35
-
-]
-------------------------------------------------------------------------------
- Bibliograf\'{\i }a
-------------------------------------------------------------------------------
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 202.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 202.
-(./tesis.aux
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 230.
+ [82]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 230.
+ (./tesis.aux
 LaTeX Info: Redefining \. on input line 24.
 LaTeX Info: Redefining \% on input line 24.
 )
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 202.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 202.
-Package rerunfilecheck Info: File `tesis.out' has not changed.
-(rerunfilecheck)             Checksum: 5C093CFE933A22A9C2BBC0341A4DEB31;10559.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 230.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 230.
 
+
+Package rerunfilecheck Warning: File `tesis.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `tesis.out':
+(rerunfilecheck)             Before: AC1A05C2C08703FE06E362D71121091E;13292
+(rerunfilecheck)             After:  FAE01AAD7A57311B4F1DC96DAAAEA52C;13269.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 
+LaTeX Warning: There were undefined references.
+
+
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 202.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 230.
  )
 (\end occurred inside a group at level 1)
 
-### simple group (level 1) entered at line 90 ({)
+### simple group (level 1) entered at line 96 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 29508 strings out of 494368
- 502994 string characters out of 6163630
- 572681 words of memory out of 5000000
- 32091 multiletter control sequences out of 15000+600000
- 16056 words of font info for 60 fonts, out of 8000000 for 9000
- 398 hyphenation exceptions out of 8191
- 56i,13n,55p,10419b,717s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 29959 strings out of 494925
+ 511622 string characters out of 6178544
+ 579308 words of memory out of 5000000
+ 32326 multiletter control sequences out of 15000+600000
+ 15345 words of font info for 58 fonts, out of 8000000 for 9000
+ 62 hyphenation exceptions out of 8191
+ 56i,13n,55p,10419b,830s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.
 pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></u
-sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxsl10.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.
-pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></
-usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on tesis.pdf (45 pages, 397355 bytes).
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on tesis.pdf (92 pages, 1396779 bytes).
 PDF statistics:
- 624 PDF objects out of 1000 (max. 8388607)
- 547 compressed objects within 6 object streams
- 131 named destinations out of 1000 (max. 500000)
- 470 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1273 PDF objects out of 1440 (max. 8388607)
+ 1104 compressed objects within 12 object streams
+ 294 named destinations out of 1000 (max. 500000)
+ 745 words of extra memory for PDF output out of 10000 (max. 10000000)
 
