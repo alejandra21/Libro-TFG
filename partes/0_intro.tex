@@ -1,0 +1,80 @@
+\chapter*{Introducción} \label{sec:Introduccion}
+%\pdfbookmark[0]{Introducción}{introduccion} % Sets a PDF bookmark for the dedication
+\vspace{5 mm}
+
+El grupo industrial europeo Airbus produce la más moderna y completa familia de aviones del mercado \cite{INTRO-AIRBUS-ACERCA}. Para garantizar la calidad, el funcionamiento y la conformidad de acuerdo con los estándares internacionales de estas aeronaves, este consorcio trabaja con diversas compañías que proponen sus servicios como subcontratistas. Entre sus principales colaboradores, se encuentra la empresa SOGETI High Tech, filial dedicada a los clientes industriales del grupo francés Capgemini, líder mundial en servicios de consultoría, tecnología y subcontratación. \cite{EE-CAPGEMINI-SECTOR} \cite{INTRO-CAPGEMINI-ACERCA} 
+
+Entre los servicios propuestos por SOGETI High Tech, se encuentra la validación de los sistemas de comunicación aeronáuticos en bancos de pruebas. Esta actividad es realizada por el equipo de pruebas COM/ATM, organización donde el proyecto fue desarrollado en la ciudad .  
+Bajo la perspectiva de la automatización de tareas, el equipo concibió dos herramientas de escritorio para el análisis y comparación de los mensajes intercambiados entre un avión y las centrales de control aéreo en tierra.
+
+La primera de ellas, denominada LVIS, se encarga de realizar diversos análisis acerca de los mensajes intercambiados durante las pruebas. Esta herramienta fue desarrollada en el año 2015 y requería de correcciones, ya que la misma sufría de problemas de compatibilidad tras el cambio de formato de sus archivos de entrada. Esto se realiza durante la fase inicial del proyecto.
+
+La segunda, de nombre clave DALI, se diseña e implementa durante la pasantía, y tiene por objetivo automatizar la validación de la funcionalidad de respaldo de mensajes en los registradores de vuelo de los aviones. 
+
+Ambas aplicaciones son utilizadas durante las jornadas de pruebas que realiza el equipo, y son de vital importancia ya que las mismas certifican que los aviones Airbus puedan salir al mercado.
+
+\section*{Antecedentes}
+
+Con respecto a la existencia de herramientas previas a DALI, no se tiene registro de implementaciones con este propósito dentro de los recursos del equipo. Las jornadas de validación anteriores al desarrollo de la misma eran realizadas a mano. Es decir, era necesario comparar uno a uno el contenido de los mensajes almacenados en los registradores de vuelo con respecto a la información recibida por las centrales de control de tráfico aéreo en tierra. 
+
+Esta tarea se ejecutaba de la siguiente manera. Los mensajes correspondientes al registrador de vuelo se replicaban en un archivo de tipo Excel. Para validar que cada uno de ellos fue correctamente almacenado, se debían realizar los siguientes pasos de pareo:
+
+\begin{enumerate}[noitemsep,nolistsep]
+\item Buscar en el directorio correspondiente a las centrales de control de tráfico aéreo, aquella que coincida con la del mensaje actual.
+\item Buscar en este directorio, el archivo correspondiente al protocolo del mensaje actual. Abrirlo.
+\item Buscar en ese archivo, el mensaje que corresponda con el actual, y comparar todos sus contenidos.
+\item Determinar si el mensaje del registrador se encontró o no.
+\end{enumerate}
+
+Este procedimiento traía como consecuencia retrasos en los tiempos de validación y la posibilidad de errores humanos.
+
+No obstante, la herramienta LVIS puede ser considerada como una implementación pionera de la lectura y tratamiento de los mensajes concernientes a DALI dado que las entradas de ambos productos presentan formatos similares. 
+
+\section*{Justificación e Importancia}
+
+Los registradores de vuelo son utilizados para almacenar la información de los instrumentos del avión. Son de gran utilidad al momento de establecer las posibles causas de un incidente o accidente aéreo. Cuando se habla de este aparato, en realidad se habla de dos equipos.
+
+El primero es el Registrador de Datos de Vuelo y el segundo, es el Registrador de Voces en Cabina de Mando \cite{INTRO-REGISTRADOR-VUELO}. Ambos deben pasar por distintas y rigurosas etapas de validación antes de poder ser homologados para su uso en los aviones Airbus. 
+En la primera de ellas, se valida el funcionamiento de este aparato en un ambiente simulado, denominado banco de pruebas. El equipo de pruebas COM/ATM es el encargado de realizar esta actividad.
+
+En particular, el interés del proyecto se centra sobre el Registrador de Datos de Vuelo para validar la funcionalidad de respaldo de los mensajes intercambiados entre el avión y las centrales de control de tráfico aéreo en tierra. 
+
+Con los objetivos de automatizar las tareas de validación, reducir el tiempo de las jornadas de pruebas y evitar los posibles errores humanos surge la idea de desarrollar una aplicación de escritorio que implemente el flujo de trabajo de esta actividad. 
+
+\section*{Planteamiento del problema}
+
+La automatización del proceso de validación de la funcionalidad de respaldo de mensajes en los registradores de vuelo de los aviones a través de la creación de una herramienta de escritorio implica que se diseñe e implemente un producto eficiente en términos de tiempo de ejecución, que sea a su vez mantenible y escalable dada la problemática del posible cambio en el formato de las entradas y de la incorporación de nuevos protocolos para los mensajes. 
+
+\section*{Objetivo general}
+
+Implementar una aplicación de escritorio que permita validar de forma automática la funcionalidad de respaldo de mensajes en los registradores de vuelo de los aviones Airbus durante la etapa de validación de los sistemas de comunicación aeronáuticos en bancos de pruebas.
+
+\section*{Objetivos específicos}
+
+\begin{itemize}[noitemsep,nolistsep]
+	\item Resolver los errores existentes por problemas de compatibilidad en la aplicación de escritorio LVIS tras la evolución del formato de sus archivos de entrada.
+    \item Optimizar el tiempo de ejecución de LVIS.
+    \item Diseñar la arquitectura de la aplicación DALI. 
+    \item Implementar las funcionalidades de lectura y comparación automática de los mensajes almacenados en los registradores de vuelo y en los controladores de tráfico aéreo en tierra.
+    \item Validar el correcto funcionamiento de la aplicación desarrollada a través del diseño y ejecución de pruebas de software.
+    \item Redactar la documentación técnica y de usuario asociada a la aplicación DALI. 
+\end{itemize}
+
+\section*{Beneficios}
+
+\begin{itemize}[noitemsep,nolistsep]
+	\item Automatizar la comparación de los mensajes almacenados en los registradores de vuelo con respecto a aquellos recibidos por los controladores de tráfico aéreo en tierra. 
+    \item Evitar los posibles errores humanos al realizar la comparación de mensajes de forma manual. 
+    \item Reducir el tiempo de las jornadas de validación de la funcionalidad de respaldo de mensajes en los registradores de vuelo. 
+\end{itemize}
+ 
+\section*{Alcance}
+
+DALI pretende realizar la comparación de los mensajes de tipo aplicativo que son almacenados en el registrador de vuelo de un avión con respecto a aquellos recibidos en los controladores de tráfico aéreo en tierra. Con respecto al tipo de mensajes considerados, sólo se toman en cuenta aquellos que son enviados y recibidos entre ambos extremos. Las impresiones por pantalla en los distintos aparatos de la aeronave no son tomadas en cuenta al momento de la comparación. 
+
+\section*{Organización del informe}
+
+Este documento está organizado en seis capítulos. El primer capítulo, \textit{Entorno Empresarial}, describe de forma general la empresa SOGETI High Tech y el equipo de pruebas COM/ATM. El segundo capítulo, \textit{Marco Teórico}, presenta todos los conceptos teóricos necesarios para permitir la comprensión del proyecto. El tercer capítulo, \textit{Marco Tecnológico}, explica las aplicaciones y herramientas de software utilizadas durante el proyecto y la interacción existente entre ellas. El cuarto capítulo, \textit{Marco Metodológico}, detalla la organización de la metodología de trabajo utilizada. El quinto capítulo, \textit{Desarrollo y Resultados}, muestra la evolución del producto. Por último, el sexto capítulo presenta las conclusiones y recomendaciones. 
+
+
+

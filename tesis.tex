@@ -1,224 +1,324 @@
-\documentclass[letterpaper, 12pt, oneside]{tesis}
+% Archivo thesis.tex
+% Documento maestro que incluye todos los paquetes necesarios para el documento principal.
 
-\usepackage{amsmath}
+% Documento obtenido por un sinfin de iteraciones de administradores del LDC
+% Estructura actual hecha por:
+% Jairo Lopez <jairo@ldc.usb.ve>
+% Actualizado ligeramente por:
+% Alexander Tough 
+
+% Definición del documento
+\documentclass[oneside,12pt,letterpaper]{report}
+\tolerance=1000  
+\hbadness=10000  
+\raggedbottom
+
+% -- Inicio de la definición de paquetes -- %
+
+% Para escribir algoritmos
+\usepackage{listings}
+\usepackage{longtable}
+\usepackage{pdflscape}
+
+% Paquetes para manejar gráficos
+\usepackage{epsf}
+\usepackage[pdftex]{graphicx}
+\usepackage{epsfig}
+
+% Símbolos matemáticos
+\usepackage{latexsym,amssymb}
+
+% Paquetes para presentar una tesis decente.
+\usepackage{setspace,cite} % Doble espacio para texto, espacio singular para
+                           % los caption y pie de pagina
+                           
+\usepackage{rotating}
+\usepackage{epstopdf}
+
+\usepackage[table]{xcolor}
+\usepackage{tikz}
+\usepackage{helvet}
+\usepackage{float}
+%\usepackage{floatrow}
+\floatstyle{plaintop}
+\restylefloat{table}
+
+%\usepackage{titlesec}
+\usetikzlibrary{shapes.geometric,arrows}
+
+\usetikzlibrary{arrows,shapes}
+\usepackage{verbatim}
+
+\usepackage{comment}
+
+% Paquetes no utilizados para citas
+%\usepackage{mcite} 
+%\usepackage{draft} 
+
+\usepackage{wrapfig}
+\usepackage{alltt}
 
 % Paquetes para idioma
 \usepackage[spanish]{babel}
-\usepackage[utf8]{inputenc}
 \usepackage[fixlanguage]{babelbib}
+\usepackage[spanish]{translator}
+\usepackage[utf8]{inputenc}
+\usepackage{color, xcolor, colortbl}
+\usepackage{multirow}
+\usepackage{subfig}
+\usepackage[OT1]{fontenc}
+\usepackage{tocbibind}
+\usepackage{anysize}
+\usepackage{listings} 
 
-% Otros paquetes instalados
-% Básicos
-%\usepackage{natbib}
-\usepackage{enumerate}
-\usepackage{enumitem}
+% Para poder tener texto asiático
+%\usepackage{CJK}
+\usepackage{pdfpages}
 
-% Para dibujar figuras
-\usepackage{tikz}
-
-% Para cambiar el color de las letras
-\usepackage{color}
-
-% Para incluir código (básico)
-\usepackage{verbatim}
+% Opciones para los glosarios
+\usepackage[style=altlist,toc,nonumberlist,acronym]{glossaries}
+\usepackage{url}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{fancyhdr} % Necesario para los encabezados
 \usepackage{fancyvrb}
+\usepackage{makeidx} % En caso de necesitar indices.
+\makeindex  % Necesitado para los indices
 
-% Para incluir hipervínculos
+% Definiciones para definiciones, teoremas y lemas
+\theoremstyle{definition} \newtheorem{definicion}{Definici\'{o}n}
+\theoremstyle{plain} \newtheorem{teorema}{Teorema}
+\theoremstyle{plain} \newtheorem{lema}{Lema}
+
+% Para la creación de los pdfs
 \usepackage{hyperref}
 \hypersetup{urlcolor=blue, colorlinks=false}
 
-% Para más símbolos matemáticos
-\usepackage{amsmath}
-\usepackage{amsthm}
-\usepackage{amssymb}
+% Para resolver el lió del Unicode para la informacion de los PDFs
+% En pdftitle coloca el nombre de su proyecto de grado/pasantia.
+% En pdfauthor coloca su nombre.
+\hypersetup{
+    pdftitle = {MÓDULO PARA LA DETECCIÓN DE ATAQUE MEDIANTE BRO},
+    pdfauthor={Alejandra Cordero García},
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black,
+}
 
-% Para colocar teoremas en cajas
-\usepackage{mdframed}
 
-% Para texto Lorem Ipsum
-\usepackage{blindtext}
+\makeatletter
+\newcount\dirtree@lvl
+\newcount\dirtree@plvl
+\newcount\dirtree@clvl
+\def\dirtree@growth{%
+  \ifnum\tikznumberofcurrentchild=1\relax
+  \global\advance\dirtree@plvl by 1
+  \expandafter\xdef\csname dirtree@p@\the\dirtree@plvl\endcsname{\the\dirtree@lvl}
+  \fi
+  \global\advance\dirtree@lvl by 1\relax
+  \dirtree@clvl=\dirtree@lvl
+  \advance\dirtree@clvl by -\csname dirtree@p@\the\dirtree@plvl\endcsname
+  \pgf@xa=1cm\relax
+  \pgf@ya=-1cm\relax
+  \pgf@ya=\dirtree@clvl\pgf@ya
+  \pgftransformshift{\pgfqpoint{\the\pgf@xa}{\the\pgf@ya}}%
+  \ifnum\tikznumberofcurrentchild=\tikznumberofchildren
+  \global\advance\dirtree@plvl by -1
+  \fi
+}
 
-% Para URLs
+\tikzset{
+  dirtree/.style={
+    growth function=\dirtree@growth,
+    every node/.style={anchor=north},
+    every child node/.style={anchor=west},
+    edge from parent path={(\tikzparentnode\tikzparentanchor) |- (\tikzchildnode\tikzchildanchor)}
+  }
+}
+\makeatother
+
+\definecolor{brown}{rgb}{0.7,0.2,0}
+\definecolor{darkgreen}{rgb}{0,0.6,0.1}
+\definecolor{darkgrey}{rgb}{0.4,0.4,0.4}
+\definecolor{lightgrey}{rgb}{0.95,0.95,0.95}
+
+\usepackage{listings}
+\lstnewenvironment{code}{\lstset{basicstyle=\small}}{}
+
+\lstset{escapeinside=~~}
+\lstset{
+   frame=single,
+   framerule=1pt,
+   showstringspaces=false,
+   basicstyle=\footnotesize\ttfamily,
+   keywordstyle=\textbf,
+   backgroundcolor=\color{lightgrey}
+}
+
+% Crea el glosario
+\makeglossaries
+
+% Incluye el glosario
+%\input{apendices/glosario.tex}
+
+% Para crear la hoja escaneada de las firmas
+\usepackage[absolute]{textpos}
+
+% Para que no hayan espacios entre items de listas
+\usepackage{enumitem} 
+
+% Pone los nombres y las opciones para mostrar los codigos fuentes
+\lstset{language=C, breaklines=true, frame=single, showstringspaces=false,
+        showtabs=false, numbers=left, keywordstyle=\color{black},
+        basicstyle=\footnotesize, captionpos=b }
+\renewcommand{\lstlistingname}{C\'{o}digo fuente}
+\renewcommand{\lstlistlistingname}{\'{I}ndice de c\'{o}digos fuentes}
+
+\newcommand{\todo}{ TODO: }
+
+% Dimensiones de la pagina
+\setlength{\headheight}{15pt}
+
+% Margenes del informe 
+\marginsize{3cm}{2cm}{2cm}{2cm}
+
+% Glosario y lista de abreviaturas
+\usepackage{longtable}
+\usepackage[acronym]{glossaries}
+\makeglossaries 
+\loadglsentries{./partes/0_abreviaturas.tex}
+
 \usepackage{hyperref}
+\usepackage{bookmark}
 
-% Paquetes locales
-% Puedes agregar paquetes locales (archivos .sty) en un subdirectorio % 'paquetes'.
-% Utiliza la sintaxis \usepackage{paquetes/nombrePaquete}
+% Centrar el titulo de los capítulos
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\centering\bfseries}
+  {\large\MakeUppercase{\chaptertitlename}~\thechapter}
+  {.5em}
+  {\MakeUppercase}
+  
+% Reducir el tamaño de las secciones
+\titleformat*{\section}{\normalsize\bfseries}
+\titleformat*{\subsection}{\normalsize\bfseries}
+\titleformat*{\subsubsection}{\normalsize\bfseries}
+\titleformat*{\paragraph}{\normalsize\bfseries}
+\titleformat*{\subparagraph}{\normalsize\bfseries}
 
-% Todas las imágenes se cargan del subdirectorio 'img' por defecto.
-\graphicspath{{img/}}
-
-% Sangrías de 3 espacios (3 veces el espacio de la x)
-\parindent 3ex 
-
-% Interlineado
-\setlength{\baselineskip}{1.5pt}
-
-% Interpárrafo
-\setlength{\parskip}{16.5pt}
-
-\topmargin 2cm
-
-\renewcommand{\tablename}{Tabla}
-\newcommand\listsymbolname{Acrónimos y Símbolos}
-
-\begin{titlepage}
-    \title{\vspace{-2cm} \includegraphics[width=1.2in]{./usb.png} \\[.2cm]
-        \large Universidad Simón Bolívar \\
-        Decanato de Estudios Profesionales \\
-        Coordinación de Ingeniería de la Computación
-        \vfill \LARGE MÓDULO PARA LA DETECCIÓN DE
-ATAQUE MEDIANTE BRO \vfill}
-    \author{Por: \\
-        Cordero García Alejandra \\
-        Tutor académico: \\
-        Álvarez Kity \\[1.2cm]
-        Tutor industrial: \\
-        Díaz Verdejo Jesús \\[1.2cm]
-        PASANTÍA LARGA \\
-Presentado ante la Ilustre Universidad Simón Bolívar \\
-como requisito parcial para optar al título de \\
-Ingeniero de Computación}
-    \date{Sartenejas, Octubre de 2017}
-\end{titlepage}
+% -- Inicio del documento 
 
 \begin{document}
-\frontmatter
-\maketitle
-\setstretch{1.3}
 
-% Se incluye el acta de evaluación, verificar que se corresponda
-% con el formato aceptado actualmente por el Decanato.
-\input{./partes/acta} 
+% Pagina de titulo
+\input{./partes/0_portada_main.tex}
+\input{./partes/0_portada.tex}
 
-% El resumen debe ser de una sola página
-\addtotoc{Resumen}
-\abstract{
-\addtocontents{toc}{\vspace{1em}}
+% Pagina de acta 1
+\includepdf[pages={1}]{actas/acta1.pdf}
 
-Esta pasantía larga consistió en desarrollar e implementar los
-módulos necesarios para implementar un detector de intrusiones para servicios
-web, basado en SSM (por el ingles,“Segmented Stochastic Modelling”)[11],
-que se pueda utilizar en redes de explotación. El detector fué implementado
-haciendo uso del lenguaje de “scripting” de un sistema de monitorización
-llamado Bro. Este sistema, se encargará de tomar peticiones HTTP de tipo
-GET, extraer sus URIs y analizar si los mismas poseen anomalías de una
-manera probabilística, utilizando modelos de normalidad. En el caso en el
-que se perciba alguna anormalidad, el sistema se encargará de emitir una
-alarma.
-El proyecto estuvo dividido en varias fases: La primera fase consistió en
-estudiar SSM y sus conceptos relacionados, así como familiarizarse con la
-herramienta Bro; la segunda fase se basó en diseñar y dividir las tareas del
-sistema en tres módulos principales: un modulo de segmentación, un módulo
-de evaluación y un modulo de entrenamiento; en la tercera fase se realizó la
-implementación y las pruebas funcionales del detector de intrusiones; en la
-cuarta fase se realizaron las pruebas operativas al sistema completo haciendo
-uso de bases de datos con trazas normales y bases de datos con trazas
-anómalas; y finalmente,en la sexta fase, se estructuró y se redactó la memoria
-del proyecto.
+% Pagina de acta 2
+\includepdf[pages={1}]{actas/acta1.pdf}
 
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{4}
 
-% Las palabras clave son generalmente los nombres de áreas de investigación a
-% los cuales está asociado el trabajo. Generalmente son tres o cuatro.
-\noindent \begin{small} \textbf{Palabras clave}: SSM, HTTP, GET, URI, Bro.
-\end{small}
+% Define encabezado números romanos y como se separan los capítulos y las
+% secciones
+\addtolength{\headheight}{3pt}
+\pagenumbering{roman}
+\pagestyle{fancyplain}
 
-% Iniciar nueva página luego del resumen
-\clearpage
-\setstretch{1.3}
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter:\,\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\,\ #1}}
 
-% Agradecimientos
-\acknowledgements{
-\addtocontents{toc}{\vspace{1em}}
-Agradezco en primer lugar a mis padres por darme su apoyo incondicional
-siempre. También debo darle las gracias a mis amigos por brindarme su
-ayuda y al Dr. Díaz Verdejo por su paciencia y dedicación.
-}
-\clearpage
+\onehalfspacing
 
-\pagestyle{fancy}
+\lhead{}
+\chead{}
+\rhead{}
+\renewcommand{\headrulewidth}{0.0pt}
+\lfoot{}
+\cfoot{\fancyplain{}{\thepage}}
+\rfoot{}
 
-% Tabla de contenidos o índice
-\lhead{\emph{Índice General}}
+% Cambios de titulos de indices
+\renewcommand{\listfigurename}{Índice de Figuras}
+\renewcommand{\listtablename}{Índice de Tablas}
+\renewcommand{\tablename}{Tabla}
+\renewcommand{\contentsname}{Índice General}
+\renewcommand\bibname{Referencias}
+
+% Pagina de resumen
+\input{./partes/0_resumen.tex}
+
+% Crea la tabla de contenidos
 \tableofcontents
 
-% Estos índices solamente se usan si el libro contiene figuras, tablas y
-% algoritmos. Si alguno de estos no se utiliza, comentar o eliminar las líneas
-% pertinentes.
-\lhead{\emph{Índice de Figuras}}
+% Pagina de dedicatoria (opcional)
+\input{./partes/0_dedicatoria.tex}
+
+% Pagina de agradecimientos (opcional)
+\input{./partes/0_agradecimientos.tex}
+
+
+% Crea la lista de cuadros
+\listoftables
+
+% Crea la lista de figuras
 \listoffigures
+\newpage
+\phantomsection
 
-\lhead{\emph{Índice de Tablas}}
-\renewcommand*\listtablename{Índice de Tablas}
-%\listoftables
+% Crea la lista de símbolos
 
-%\lhead{\emph{Índice de Algoritmos}}
-%\renewcommand*\listalgorithmname{Índice de algoritmos}
-%\listofalgorithms
+% Crea la lista de códigos fuentes
+\lstlistoflistings
 
-%\setstretch{1.5}
-%\clearpage
-%\lhead{\emph{Acrónimos y símbolos}}
-%\listofsymbols{ll}
-%{
+% Crea la lista de abreviaturas
+\printglossary[style=list,type=\acronymtype,title=Lista de abreviaturas]
 
-    % Aquí van las siglas
-%    \textbf{SIGLAS} & \textbf{S}iglas \textbf{I}sla \textbf{G}rafo 
-                      \textbf{L}aos \textbf{A}ve \textbf{S}erpiente\\
-%    \textbf{ACM} & \textbf{A}ssociation for \textbf{C}omputing \textbf{M}achinery\\
-%    &\\
-%    \hline
-%    &\\
 
-    % Aquí van los símbolos
-%    $\iff$ & doble implicación, si y sólo si\\
-%    $\Rightarrow$ & implicación lógica\\
-%    $[u:=v]$ & sustitución textual de $u$ por $v$
-%}
+\clearpage
 
-%% ----------------------------------------------------------------
-% End of the pre-able, contents and lists of things
-% Begin the Dedication page
+% Define encabezado en números arabicos  
+\pagenumbering{arabic}
 
-%\setstretch{1.3}  % Return the line spacing back to 1.3
+\fancyhf{} % Redefine el encabezado 
+\lhead{}
+\chead{}
+\rhead{\fancyplain{}{\thepage}}
+\renewcommand{\headrulewidth}{0.0pt}
+\lfoot{}
+\cfoot{}
+\rfoot{}
 
-%\pagestyle{empty}  % Page style needs to be empty for this page
+\spacing{1.5}
 
-%\dedicatory{
-%    \textbf{Dedicatoria} \bigskip
+% Incluye los archivos deseados - El contenido de su proyecto de grado/pasantia larga.
+\phantomsection
+\addcontentsline{toc}{chapter}{Introducción}
 
-%    A @personasImportantes, por @razonesDedicatoria.
-%}
-
-\addtocontents{toc}{\vspace{2em}}
-
-\mainmatter
-\pagestyle{fancy}
-
-% Se incluye el cuerpo de la tesis en este documento.
-
-\input{./partes/introduccion}
-
-% El número de capítulos varía. En mi libro fueron cuatro (sin contar
-% introducción y conclusión).
+ 
 \input{./partes/capitulo1}
 \input{./partes/capituloEmpresa}
 \input{./partes/capitulo2}
 \input{./partes/marcoTecnologico}
 \input{./partes/capitulo3}
-%\input{./partes/capitulo4}
-%\input{./partes/capitulo5}
-
 \input{./partes/conclusiones}
-
 % El estilo de la bibliografía es AAAI, definido en el archivo aaai.bst.
 \input{./partes/referencias}
 
 %\label{Bibliography}
 %\bibliography{bibliografia}
 %\lhead{\emph{Bibliografía}}
-%\bibliographystyle{aaai}
+%\bibliographystyle{ieeetr}
 %\addtocontents{toc}{\vspace{2em}}
+
+\glsaddall
+\printglossary
 
 % Apéndices
 %\appendix
