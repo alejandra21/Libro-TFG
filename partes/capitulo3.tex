@@ -1,4 +1,4 @@
-\chapter{DESARROLLO DE PASANTÍAS}
+\chapter{Desarrollo de Pasantías}
 \label{capitulo3}
 \lhead{Capítulo 3. \emph{Diseño del sistema}}
 
@@ -30,9 +30,9 @@ Tanto el modulo de evaluación, como el modulo de entrenamiento son dependientes
 
 La arquitectura del sistema queda detallada en la figura \ref{fig:arquitectura}.
 
-\begin{figure}[tb]
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=3in]{arquitectura.png}
+\includegraphics[width=3in]{./img/arquitectura.png}
 \caption{Arquitectura del sistema.}
 \label{fig:arquitectura}
 \end{center}
@@ -49,9 +49,9 @@ detallado en la figura \ref{fig:modoSistema}.
 \item Modo entrenamiento ``Offline'': Esta modalidad del sistema en análoga al modo de entrenamiento ``Online''. El único aspecto que diferencia a ambas modalidades es que cuando el sistema funciona en modo ``Offline'' no se toma en cuenta, ni se modifica un modelo de normalidad previamente construido. La salida de este modo de entrenamiento sera un modelo de normalidad construido desde cero.El funcionamiento de esta modalidad queda detallado en la figura \ref{fig:modoSistema}.
 \end{itemize}
 
-\begin{figure}[tb]
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=\linewidth]{modoOperacion.jpeg}
+\includegraphics[width=\linewidth]{./img/modoOperacion.jpeg}
 \caption{Modo evaluación (a), modo entrenamiento ``Online'' (b), modo entrenamiento ``Offline'' (c).}
 \label{fig:modoSistema}
 \end{center}
@@ -76,9 +76,9 @@ Es evidente entonces, que este modulo consta de dos funcionalidades fundamentale
 
 En la figura \ref{fig:arquiSegmentacion} se puede apreciar el diagrama de bloques que refleja el funcionamiento del módulo de segmentación.
 
-\begin{figure}[tb]
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=3in]{segArquiCompleta.jpeg}
+\includegraphics[width=3in]{./img/segArquiCompleta.jpeg}
 \caption{Diagrama de bloques del módulo de segmentación.}
 \label{fig:arquiSegmentacion}
 \end{center}
@@ -99,9 +99,9 @@ Una vez leídos los parámetros necesarios para que el sistema funcione, estos s
 
 El diagrama de bloques presente en la figura \ref{fig:arquiEvaluacion} representa el funcionamiento del módulo de evaluación.
 
-\begin{figure}[tb]
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=3in]{evalArqui.jpeg}
+\includegraphics[width=3in]{./img/evalArqui.jpeg}
 \caption{Diagrama de bloques del módulo de evaluación.}
 \label{fig:arquiEvaluacion}
 \end{center}
@@ -121,9 +121,9 @@ Por otra parte, las tareas a realizar por el modo de entrenamiento ``Online'' fu
 
 En la figura \ref{fig:arquiEntrenamiento} se puede apreciar el diagrama de bloques que describe el funcionamiento del módulo de entrenamiento.
 
-\begin{figure}[tb]
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=4in]{entrenamArqui.jpeg}
+\includegraphics[width=4in]{./img/entrenamArqui.jpeg}
 \caption{Diagrama de bloques del módulo de entrenamiento.}
 \label{fig:arquiEntrenamiento}
 \end{center}
@@ -188,9 +188,9 @@ El registro creado esta conformado por los siguientes campos:
 
 El nombre que recibirá este tipo de estructura es ``UriSegmentado''. La misma se puede apreciar gráficamente en la figura \ref{fig:uriSegmentado}.
 
-\begin{figure}[tb]
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=4in]{UriSegmentado.jpg}
+\includegraphics[width=4in]{./img/UriSegmentado.jpg}
 \caption{Ejemplo gráfico de la estructura ``UriSegmentado''.}
 \label{fig:uriSegmentado}
 \end{center}
@@ -218,9 +218,9 @@ Además de utilizar el tipo de dato ``UriSegmentado'', el módulo de segmentaci�
 
 La estructura ``URI'' se puede apreciar gráficamente en la figura \ref{fig:URI}.
 
-\begin{figure}[tb]
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=4in]{URIstruct.jpg}
+\includegraphics[width=4in]{./img/URIstruct.jpg}
 \caption{Ejemplo gráfico de la estructura ``URI''.}
 \label{fig:URI}
 \end{center}
@@ -356,6 +356,7 @@ sustituida.
 \item To: Cadena de caracteres que pasará a sustituir a ``From''.
 \end{itemize}
 
+
 \subsection{Implementación del módulo de evaluación}
 
 En esta sección se explicará de manera detallada las estructuras de datos utilizadas y la manera en la que se implementó el módulo de evaluación explicado en la sección \ref{sec:evaluacion}  haciendo uso del lenguaje de ``scripting'' de Bro.
@@ -378,9 +379,9 @@ La primera, cuyo nombre es ``Word'' posee los siguientes campo:
 
 Esta estructura se puede observar de manera gráfica en la figura \ref{fig:WORD}.
 
-\begin{figure}[tb]
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=4in]{Word.jpg}
+\includegraphics[width=4in]{./img/Word.jpg}
 \caption{Ejemplo gráfico de la estructura ``Word''.}
 \label{fig:WORD}
 \end{center}
@@ -393,9 +394,9 @@ La segunda estructura llamada ``Probability'' solo posee un campo llamado ``prob
 
 Se puede observar un ejemplo gráfico de la estructura en la figura \ref{fig:Probability}.
 
-\begin{figure}[tb]
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=4in]{Probability.jpg}
+\includegraphics[width=4in]{./img/Probability.jpg}
 \caption{Ejemplo gráfico de la estructura ``Probability''.}
 \label{fig:Probability}
 \end{center}
@@ -418,9 +419,9 @@ entrada.
 
 En la figura \ref{fig:TableDescription} se muestra un ejemplo gráfico de ``TableDescription''.
 
-\begin{figure}[tb]
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=4in]{TableDescription.jpg}
+\includegraphics[width=4in]{./img/TableDescription.jpg}
 \caption{Ejemplo gráfico de la estructura ``TableDescription''.}
 \label{fig:TableDescription}
 \end{center}
@@ -453,9 +454,9 @@ Todos los campos anteriormente descritos poseen la cualidad de ser de tipo ``log
 
     El registro ``InfoAtaque'' se puede observar de manera gráfica en la figura \ref{fig:InfoAtaque}. 
     
-\begin{figure}[tb]
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=4in]{InfoAtaque.jpg}
+\includegraphics[width=4in]{./img/InfoAtaque.jpg}
 \caption{Ejemplo gráfico de la estructura ``InfoAtaque''.}
 \label{fig:InfoAtaque}
 \end{center}
@@ -483,9 +484,9 @@ El formato que establece Bro para los archivos de entrada define que la informac
 
 Por lo tanto, el formato del archivo ``config'' sería como el que se muestra en la figura \ref{fig:archivoConfig}.
 
-\begin{figure}[tb]
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=4in]{config.png}
+\includegraphics[width=4in]{./img/config.png}
 \caption{Formato de archivo ``config''.}
 \label{fig:archivoConfig}
 \end{center}
@@ -495,9 +496,9 @@ La primera columna corresponde a las etiquetas que identifican los valores que s
 
 Por otro lado, el formato del archivo ``modeloBro.log'' es el que se muestra en la figura \ref{fig:archivoModeloBro}.
 
-\begin{figure}[tb]
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=4in]{modeloBro.png}
+\includegraphics[width=4in]{./img/modeloBro.png}
 \caption{Formato de archivo ``modeloBro.log''.}
 \label{fig:archivoModeloBro}
 \end{center}
@@ -631,6 +632,7 @@ archivo.
 El parámetro de salida de esta función sera ``verdadero'' si se puedo crear el
 archivo y ``falso'' si es posible.
 
+
 \subsection{Implementación del módulo de entrenamiento}
 
 Como se pudo apreciar en la sección \ref{sec:entrenamiento} el modo de entrenamiento cuenta con dos modos: el modo ``Online'' y el modo ``Offline''. En esta se sección, se explicarán las estructuras de datos utilizadas por ambos modos y las funciones implementadas en cada uno de ellos.
@@ -655,9 +657,9 @@ La otra estructura de tipo ``record'' es ``Info''. ``Info'' se encargará de
 almacenar la información que será escrita en el archivo de texto que representará el modelo de normalidad. Los campos de esta estructura de datos
 son los siguientes:
 
-\begin{figure}[tb]
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=4in]{EntrenamientoRegister.jpg}
+\includegraphics[width=4in]{./img/EntrenamientoRegister.jpg}
 \caption{Ejemplo gráfico de la estructura ``Entrenamiento''.}
 \label{fig:figEntrenamiento}
 \end{center}
@@ -673,9 +675,9 @@ estado al que pertenece la palabra y su probabilidad de observación.
 La estructura ``Info'' se puede observar de manera gráfica en la figura
 \ref{fig:figInfo}.
 
-\begin{figure}[tb]
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=4in]{Info.jpg}
+\includegraphics[width=4in]{./img/Info.jpg}
 \caption{Ejemplo gráfico de la estructura ``Entrenamiento''.}
 \label{fig:figInfo}
 \end{center}
@@ -787,6 +789,7 @@ donde:
 miento.
 \end{itemize}
 
+
 \section{Evaluación y pruebas}
 
 En el presente capítulo se explicará las pruebas funcionales y operativas
@@ -828,13 +831,14 @@ Para probar el filtro de tipo HTTP/GET se tomó la base de datos,
 \textbf{db1.pcap}, que contiene tanto paquetes HTTP/GET, como paquetes correspondientes a la sesión HTTP. La prueba consistió en pasarle a la función construida la base de datos de paquetes para que esta imprimiera los URIs de las peticiones HTTP/GET que estuviesen contenidas en la misma. En la
 figura \ref{fig:filtroHTTP} se muestra un esquema de la prueba que se realizó.
 
-\begin{figure}[tb]
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=2in]{filtroHTTP.png}
+\includegraphics[width=2in]{./img/filtroHTTP.png}
 \caption{Esquema de pruebas realizadas al filtro HTTP/GET.}
 \label{fig:filtroHTTP}
 \end{center}
 \end{figure}
+
 
 \subsubsection{Lectura de archivos}
 
@@ -845,33 +849,33 @@ En la figura \ref{fig:configFile}, se puede observar el archivo ``config'' que l
 que la misma almacenó los datos en la tabla correspondiente.
 Por otra parte, en la figura \ref{fig:modelFile}, está el archivo ``modeloBro.log'' que fué utilizado en la prueba realizada, mientras que en la figura \ref{fig:modelResult} se muestra el resultado arrojado por la misma.
 
-\begin{figure}[tb]
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=3in]{configFile.jpg}
+\includegraphics[width=3in]{./img/configFile.jpg}
 \caption{Archivo ``config''.}
 \label{fig:configFile}
 \end{center}
 \end{figure}
 
-\begin{figure}[tb]
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=3in]{tablaConfig.png}
+\includegraphics[width=3in]{./img/tablaConfig.png}
 \caption{Tabla que contiene información del archivo ``config''.}
 \label{fig:configResult}
 \end{center}
 \end{figure}
 
-\begin{figure}[tb]
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=3in]{modeloOffline.jpg}
+\includegraphics[width=3in]{./img/modeloOffline.jpg}
 \caption{Archivo ``modeloBro.log''.}
 \label{fig:modelFile}
 \end{center}
 \end{figure}
 
-\begin{figure}[tb]
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=3in]{tablaModeloBro.png}
+\includegraphics[width=3in]{./img/tablaModeloBro.png}
 \caption{Tabla que contiene información del archivo ``modeloBro.log''.}
 \label{fig:modelResult}
 \end{center}
@@ -889,21 +893,22 @@ Las pruebas realizadas a la función de normalización consistió en realizar un
 La lista de URIs utilizados en esta prueba se pueden observar en la figura \ref{fig:uriSinNorm}. Por otra parte, los resultados arrojados por la misma se muestran en la
 figura \ref{fig:uriNorm}.
 
-\begin{figure}[tb]
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=3in]{uriSinNorm.png}
+\includegraphics[width=3in]{./img/uriSinNorm.png}
 \caption{URIs sin normalizar.}
 \label{fig:uriSinNorm}
 \end{center}
 \end{figure}
 
-\begin{figure}[tb]
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=3in]{uriNorm.png}
+\includegraphics[width=3in]{./img/uriNorm.png}
 \caption{URIs normalizados.}
 \label{fig:uriNorm}
 \end{center}
 \end{figure}
+
 
 \subsubsection*{Función de segmentación}
 
@@ -958,9 +963,9 @@ normalidad arrojado por dicha modalidad.
 En la figura \ref{fig:modeloOffline} se puede apreciar el modelo de normalidad obtenido
 por la misma.
 
-\begin{figure}[tb]
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=4in]{modeloOffline.jpg}
+\includegraphics[width=4in]{./img/modeloOffline.jpg}
 \caption{Modelo de normalidad obtenido en el modo ``Offline''.}
 \label{fig:modeloOffline}
 \end{center}
@@ -970,9 +975,9 @@ por la misma.
 
 El modo ``Online'' del sistema fue probado ingresando la base de datos \textbf{db4.pcap} explicada en la sección \ref{ssec:DB} al sistema junto con el modelo mostrado en la figura \ref{fig:modeloOffline}. Una vez realizado esto, se observo la salida y se pudo verificar que, en efecto el modelo antiguo fue modificado. En la figura \ref{fig:modeloOnline} se puede apreciar la salida de esta modalidad tras la prueba realizada.
 
-\begin{figure}[tb]
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=4in]{modeloOnline.jpg}
+\includegraphics[width=4in]{./img/modeloOnline.jpg}
 \caption{Modelo de normalidad obtenido en el modo ``Online''.}
 \label{fig:modeloOnline}
 \end{center}
@@ -992,17 +997,17 @@ Por otra parte, en la figura \ref{fig:indicesBuenos} se pueden detallar los índ
 Un parámetro $\theta$, óptimo para esta prueba en particular, debería ser un
 valor que sea menor que 25 y mayor que 18.
 
-\begin{figure}[tb]
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=4in]{indicesMalos.png}
+\includegraphics[width=4in]{./img/indicesMalos.png}
 \caption{Índices de anormalidad obtenidos de db3.pcap.}
 \label{fig:indicesMalos}
 \end{center}
 \end{figure}
 
-\begin{figure}[tb]
+\begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=4in]{indicesBuenos.jpg}
+\includegraphics[width=4in]{./img/indicesBuenos.jpg}
 \caption{Índices de anormalidad obtenidos de db2.pcap.}
 \label{fig:indicesBuenos}
 \end{center}
