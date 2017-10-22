@@ -1,11 +1,12 @@
-\chapter{Conclusiones y Recomendaciones}
+\chapter*{Conclusiones y Recomendaciones}
 \label{conclusiones}
 \lhead{\emph{Conclusiones y Recomendaciones}}
 % Incluir recomendaciones para trabajos futuros
+\addcontentsline{toc}{chapter}{Conclusiones}
 
 En este capítulo se presentarán las conclusiones y los aportes realizados por este proyecto. Así mismo, se mostrará una lista de recomendaciones, que expone un conjunto de ideas de futuras mejoras que se pueden aplicar al proyecto.
 
-\section{Conclusiones}
+\section*{Conclusiones}
 
 En el presente proyecto se realizaron todos los objetivos planteados de manera satisfactoria. En primer lugar, se realizó un estudio de SSM (``Stochastic Structural Model'') \cite{ssm} y todos sus conceptos asociados. Una vez realizado este investigación, se diseñó una arquitectura modular del sistema, en la cual se propuso la construcción de tres módulos: uno para capturar, filtrar y segmentar los paquetes de tipo \textit{GET} del protocolo \textit{HTTP}; otro módulo que permite evaluar el índice de anormalidad de los URI y un tercer módulo para estimar los modelos de normalidad. Luego de modelar la arquitectura del sistema, se implementó cada una de las funciones del mismo haciendo uso de la herramientas y del lenguaje de ``scripting'' de Bro, con la intención de obtener un IDS basado en SSM que puede ser utilizado por servicios web en producción. Por último, se realizaron pruebas tanto funcionales como operativas. 
 
@@ -17,7 +18,7 @@ Los aportes realizados por este proyecto son los siguientes:
 \item Se han construido modelos de normalidad de servicios web que podrían ser utilizados para la detección de intrusiones.
 \end{enumerate}
 
-\section{Recomendaciones}
+\section*{Recomendaciones}
 
 \begin{enumerate}
 \item Calcular de manera experimental los valores óptimos de $\theta$ y los de probabilidad fuera de vocabulario que generen la menor cantidad posible de falsos positivos, haciendo uso de bases de datos mas extensas.

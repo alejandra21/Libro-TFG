@@ -1,12 +1,37 @@
 \setcounter{page}{5}
 \begin{center}
 
-{\bfseries IMPLEMENTACIÓN DE UNA APLICACIÓN QUE VALIDA EL RESPALDO DE MENSAJES EN CAJAS NEGRAS DE AVIONES AIRBUS\\}
+{\bfseries MÓDULO PARA LA DETECCIÓN DE
+ATAQUE MEDIANTE BRO\\}
 \bigskip
-Por: \\ Pablo Ricardo Maldonado Montilva\\
+Por: \\ Alejandra Del Carmen Cordero García\\
 \bigskip
 \bigskip
 {\bf RESUMEN} \pdfbookmark[0]{Resumen}{resumen} % Sets a PDF bookmark for the dedication
 \end{center}	
 
-El proyecto consistió en la implementación de una aplicación de escritorio que valida el respaldo de mensajes en los registradores de vuelo\footnote{mejor conocidos como ``las cajas negras"} de los aviones del grupo industrial europeo Airbus en Toulouse, Francia. Para ejecutar esta tarea, es necesario realizar la comparación de los datos respaldados con aquellos recibidos por los controladores aéreos en tierra. Este producto fue concebido por el equipo de pruebas COM/ATM (Comunicación y Gestión del Tráfico Aéreo, por sus siglas en inglés) de la empresa SOGETI High Tech que presta servicios como subcontratista de la filial Airbus S.A.S (Sociedad por Acciones Simplificada, por sus siglas en francés). Los objetivos de la herramienta son reducir el tiempo de validación de los sistemas de comunicación durante las jornadas de pruebas, y evitar los posibles errores humanos al realizar esta actividad de forma manual. La metodología utilizada fue una adaptación del método de desarrollo ágil Scrum. Durante el proyecto, se realizaron las siguientes actividades: familiarización con el contexto de los sistemas de comunicación aeronáuticos, levantamiento de requerimientos, definición de la arquitectura del producto, implementación de funcionalidades y ejecución de pruebas.  
+Esta pasantía larga consistió en desarrollar e implementar los
+módulos necesarios para implementar un detector de intrusiones para servicios
+web, basado en SSM (por el ingles, ``Segmented Stochastic Modelling'')\cite{ssm},
+que se pueda utilizar en redes de explotación. El detector fué implementado
+haciendo uso del lenguaje de ``scripting'' de un sistema de monitorización
+llamado Bro. Este sistema, se encargará de tomar peticiones HTTP de tipo
+GET, extraer sus URIs y analizar si los mismas poseen anomalías de una
+manera probabilística, utilizando modelos de normalidad. En el caso en el
+que se perciba alguna anormalidad, el sistema se encargará de emitir una
+alarma.
+El proyecto estuvo dividido en varias fases: La primera fase consistió en
+estudiar SSM y sus conceptos relacionados, así como familiarizarse con la
+herramienta Bro; la segunda fase se basó en diseñar y dividir las tareas del
+sistema en tres módulos principales: un modulo de segmentación, un módulo
+de evaluación y un modulo de entrenamiento; en la tercera fase se realizó la
+implementación y las pruebas funcionales del detector de intrusiones; en la
+cuarta fase se realizaron las pruebas operativas al sistema completo haciendo
+uso de bases de datos con trazas normales y bases de datos con trazas
+anómalas; y finalmente,en la sexta fase, se estructuró y se redactó la memoria
+del proyecto.
+
+% Las palabras clave son generalmente los nombres de áreas de investigación a
+% los cuales está asociado el trabajo. Generalmente son tres o cuatro.
+\textbf{Palabras clave}: SSM, HTTP, GET, URI, Bro.
+ 

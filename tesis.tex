@@ -248,26 +248,22 @@
 
 % Cambios de titulos de indices
 \renewcommand{\listfigurename}{Índice de Figuras}
-\renewcommand{\listtablename}{Índice de Tablas}
-\renewcommand{\tablename}{Tabla}
+%\renewcommand{\listtablename}{Índice de Tablas}
+%\renewcommand{\tablename}{Tabla}
 \renewcommand{\contentsname}{Índice General}
 \renewcommand\bibname{Referencias}
 
 % Pagina de resumen
 \input{./partes/0_resumen.tex}
 
+% Pagina de agradecimientos (opcional)
+%\input{./partes/0_agradecimientos.tex}
+
+
 % Crea la tabla de contenidos
 \tableofcontents
-
-% Pagina de dedicatoria (opcional)
-\input{./partes/0_dedicatoria.tex}
-
-% Pagina de agradecimientos (opcional)
-\input{./partes/0_agradecimientos.tex}
-
-
 % Crea la lista de cuadros
-\listoftables
+%\listoftables
 
 % Crea la lista de figuras
 \listoffigures
@@ -277,7 +273,7 @@
 % Crea la lista de símbolos
 
 % Crea la lista de códigos fuentes
-\lstlistoflistings
+%\lstlistoflistings
 
 % Crea la lista de abreviaturas
 \printglossary[style=list,type=\acronymtype,title=Lista de abreviaturas]
@@ -300,14 +296,16 @@
 \spacing{1.5}
 
 % Incluye los archivos deseados - El contenido de su proyecto de grado/pasantia larga.
-\phantomsection
-\addcontentsline{toc}{chapter}{Introducción}
+%\phantomsection
+%\addcontentsline{toc}{chapter}{Introducción}
 
- 
-\input{./partes/capitulo1}
+
+\input{./partes/introduccion}
+%\input{./partes/capitulo1}
 \input{./partes/capituloEmpresa}
 \input{./partes/capitulo2}
 \input{./partes/marcoTecnologico}
+\input{./partes/marcoMetodologico}
 \input{./partes/capitulo3}
 \input{./partes/conclusiones}
 % El estilo de la bibliografía es AAAI, definido en el archivo aaai.bst.
@@ -318,6 +316,11 @@
 \lhead{\emph{Bibliografía}}
 %\bibliographystyle{ieeetr}
 \addtocontents{toc}{\vspace{2em}}
+
+\begingroup
+    \setstretch{1}
+    \bibliography{referencias}
+\endgroup
 
 \glsaddall
 \printglossary

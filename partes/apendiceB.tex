@@ -1,13 +1,13 @@
-\chapter{Apéndice B: Pruebas Funcionales Realizadas}
+\chapter{Pruebas Funcionales Realizadas}
 \label{apendiceB}
 \lhead{Apéndice B. \emph{Pruebas Funcionales Realizadas}}
 
-\subsection{Pruebas funcionales}
+\section*{Pruebas funcionales}
 
 En esta sección se explicarán las pruebas funcionales aplicadas a cada
 una de la funciones construidas en el sistema.
 
-\subsubsection{Filtro HTTP/GET}
+\subsection*{Filtro HTTP/GET}
 
 Para probar el filtro de tipo HTTP/GET se tomó la base de datos,
 \textbf{db1.pcap}, que contiene tanto paquetes HTTP/GET, como paquetes correspondientes a la sesión HTTP. La prueba consistió en pasarle a la función construida la base de datos de paquetes para que esta imprimiera los URIs de las peticiones HTTP/GET que estuviesen contenidas en la misma. En la
@@ -21,7 +21,7 @@ figura \ref{fig:filtroHTTP} se muestra un esquema de la prueba que se realizó.
 \end{center}
 \end{figure}
 
-\subsubsection{Lectura de archivos}
+\subsection*{Lectura de archivos}
 
 La lectura de los archivos es de suma importancia, ya que el sistema utiliza un modelo de normalidad y un conjunto de parámetros que se introducen
 al mismo a tráves de archivos.
@@ -62,13 +62,13 @@ Por otra parte, en la figura \ref{fig:modelFile}, está el archivo ``modeloBro.l
 \end{center}
 \end{figure}
 
-\subsubsection{Módulo de segmentación}
+\subsection*{Módulo de segmentación}
 
 Como se mencionó en los secciones anteriores, el modulo de segmentación
 cuenta con dos funciones principales: la función de normalización y la de
 segmentación. A continuación se mostrará la manera en la que se probó cada una de las funciones.
 
-\subsubsection*{Función de normalización}
+\subsection*{Función de normalización}
 
 Las pruebas realizadas a la función de normalización consistió en realizar una lista de URIs sin normalizar, ingresarlos como parámetros a la función y observar los resultados arrojados por la misma.
 La lista de URIs utilizados en esta prueba se pueden observar en la figura \ref{fig:uriSinNorm}. Por otra parte, los resultados arrojados por la misma se muestran en la
@@ -91,12 +91,12 @@ figura \ref{fig:uriNorm}.
 \end{figure}
 
 
-\subsubsection*{Función de segmentación}
+\subsection*{Función de segmentación}
 
 La pruebas realizadas a la función de segmentación, consistieron en ingresarle un conjunto de URIs a la misma y observar la manera en la que
 esta los segmentaba.
 
-\subsubsection{Módulo de entrenamiento}
+\subsection*{Módulo de entrenamiento}
 \subsubsection*{Modo ``Offline''}
 Como se pudo observar en los secciones anteriores, el módulo de entrenamiento esta conformado por una función, ``entrenarOffline'', que que se
 encarga de hacer la llamada a función de: ``entrenamientoOffline'', ``evaluarProbabilidad'', ``escribirArchivoOffline''.
@@ -116,7 +116,7 @@ Las pruebas de ``entrenamientoOnline'' consistieron en darle un modelo de normal
 de tipo ``UriSegmentado'' y observar la salida que arrojaba la misma.
 
 Para probar la función ``escribirArchivoOnline'', se tomó el resultado arrojado por ``entrenamientoOnline'' y se observó el archivo de salida escrito por la misma.
-\subsubsection{Módulo de evaluación}
+\subsubsection*{Módulo de evaluación}
 
 El modulo de evaluación consta de una función general, llamada ``evaluacion'' que se encarga de hacer la llamada a función de: ``epsiloSumatoria'',
 ``calcularIndiceAnormalidad'', ``evaluarIndiceAnormalidad'' y ``escribirReporte'', que a su vez se encargan de realizar el trabajo del módulo de evaluación.

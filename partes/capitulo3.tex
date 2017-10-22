@@ -123,7 +123,7 @@ En la figura \ref{fig:arquiEntrenamiento} se puede apreciar el diagrama de bloqu
 
 \begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=4in]{./img/entrenamArqui.jpeg}
+\includegraphics[width=3in]{./img/entrenamArqui.jpeg}
 \caption{Diagrama de bloques del módulo de entrenamiento.}
 \label{fig:arquiEntrenamiento}
 \end{center}
@@ -155,8 +155,7 @@ En esta sección, se explicará de manera detallada la implementación del módu
 
 \subsubsection{Función de segmentación}
 
-En la función de segmentación, el problema que se quiere resolver es el siguiente:construir un analizador sintáctico que haga uso de una gramática (libre de contexto) de atributos que genera el mismo lenguaje que reconoce el autómata presentado en la figura \ref{fig:ssm}. A nivel de implementación lo que se quiere construir es un analizador sintáctico que verifique que los URIs tengan una estructura sintáctica correcta según los estándares del RFC 3986, y que a la vez vaya almacenando los segmentos, delimitados por los delimitadores presentados en la sección (INSERTAR SECCION), en la estructura de datos de la figura (INSERTAR FIGURA),
-detallada en la sección (INSERTAR SECCION).
+En la función de segmentación, el problema que se quiere resolver es el siguiente:construir un analizador sintáctico que haga uso de una gramática (libre de contexto) de atributos que genera el mismo lenguaje que reconoce el autómata presentado en la figura \ref{fig:ssm}. A nivel de implementación lo que se quiere construir es un analizador sintáctico que verifique que los URIs tengan una estructura sintáctica correcta según los estándares del RFC 3986, y que a la vez vaya almacenando los segmentos, delimitados por los delimitadores presentados en la sección \ref{sec:delimitadores}.
 
 A continuación se presentara la forma en que se modeló y se implementó el problema presentado con anterioridad haciendo uso de las herramientas presentadas por el lenguaje de ``scripting'' de Bro.
 
@@ -164,8 +163,8 @@ Para realizar el analizador sintáctico se requiere construir una gramática lib
 
 Antes de presentar la gramática se mostrarán los tokens que utilizará la misma como elementos terminales.
 
-Estos tokens utilizarán las expresiones regulares que soporta Bro. Estas están basadas en las expresiones regulares empleadas en Lex, la librería para realizar análisis léxicos del lenguaje de programación C. Estos tokens utilizarán las expresiones regulares que soporta Bro. Estas están basadas en
-las expresiones regulares empleadas en Lex, la librería para realizar análisis léxicos del lenguaje de programación C.
+Estos tokens utilizarán las expresiones regulares que soporta Bro. Estas están basadas en las expresiones regulares empleadas en Lex, la librería para realizar análisis léxicos del lenguaje de programación C.
+
 La lista de tokens utiliza es la siguiente:
 
 \begin{itemize}
@@ -196,7 +195,7 @@ Q’ -> atributo “=” valor “\&” Q’ \\
 
 Donde, el elemento de inicio de esta gramática es el símbolo no terminal ``S''
 
-Para almacenar los segmentos en la estructura de datos compuesta de tipo ``UriSegmentado'' que se presenta en la sección ~\ref{ssec:estructuraSegmentacion}, a la gramática \ref{eq:gramatica} se le van a asociar atributos a algunas de las reglas de la misma. A este tipo de gramática se le llama gramática de atributos. Los atributos de dicha gramática serán escritos en el lenguaje de scripting de Bro.
+Para almacenar los segmentos en la estructura de datos compuesta de tipo ``UriSegmentado'' que se presenta en la ápendice ~\ref{ssec:estructuraSegmentacion}, a la gramática \ref{eq:gramatica} se le van a asociar atributos a algunas de las reglas de la misma. A este tipo de gramática se le llama gramática de atributos. Los atributos de dicha gramática serán escritos en el lenguaje de scripting de Bro.
 
 \begin{equation}\label{eq:gramaticaAtributos}
 \begin{aligned}
@@ -251,6 +250,7 @@ Por otra parte, para implementar la gramática ~\ref{eq:gramaticaAtributos} se m
 En conclusión, la función encargada de segmentar y realizar el análisis sintáctico del módulo de segmentación posee la siguiente estructura:
 
 \textbf{segmentar}(uri: \textbf{string}) : \textbf{UriSegmentado}.
+
 La función se encargará, de tomar una cadena de caracteres y segmentarla según delimitados por los delimitadores presentados en la sección \ref{sec:delimitadores} y almacenar los mismo en la estructura ``UriSegmentado''.
 Los parámetros de dicha función son:
 \begin{itemize}
@@ -264,11 +264,11 @@ La normalización de los URI debe realizarse de acuerdo a las especificaciones e
 \textbf{normalizar}(url: \textbf{string}): \textbf{string} Donde:
 
 \begin{itemize}
-\item url: Variable de tipo ``string'' que sera normalizada.
+\item url: Variable de tipo ``string'' que será normalizada.
 \end{itemize}
 
 Esta función tomará el parámetro de entrada y mediante un ``loop for''
-se itera por cada una de las claves de la tabla que se presentó en la sección CAMBIARRRR!!!! \ref{ssec:estructuraNormalizacion}. Si alguno de los elementos de la tabla está contenido en el ``string'' que la función recibe como entrada, entonces se procederá a reemplazar el elemento del párametro de entrada por el valor que posee dicha clave en la ``hash table''. Esta tarea de subsitución se realizará haciendo uso de la función ``subst string'' que proporciona Bro.
+se itera por cada una tabla de hash cuyas claves serían elementos de tipo UTF-8 y los atributos de la misma correspondería a los caracteres sin alguna codificación. Si alguno de los elementos de la tabla está contenido en el ``string'' que la función recibe como entrada, entonces se procederá a reemplazar el elemento del párametro de entrada por el valor que posee dicha clave en la tabla de hash. Esta tarea de subsitución se realizará haciendo uso de la función ``subst string'' que proporciona Bro.
 
 ``subst\_string'' es una función de la forma:
 
@@ -286,7 +286,7 @@ sustituida.
 
 \subsection{Implementación del módulo de evaluación}
 
-En esta sección se explicará de manera detallada las estructuras de datos utilizadas y la manera en la que se implementó el módulo de evaluación explicado en la sección \ref{sec:evaluacion}  haciendo uso del lenguaje de ``scripting'' de Bro.
+En esta sección se explicará de manera detallada la manera en la que se implementó el módulo de evaluación explicado en la sección \ref{sec:evaluacion}  haciendo uso del lenguaje de ``scripting'' de Bro.
     
 \subsubsection{Modelo de normalidad en Bro}
 \label{sec:lecturaModelo}
@@ -312,7 +312,7 @@ Por lo tanto, el formato del archivo ``config'' sería como el que se muestra en
 
 \begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=4in]{./img/config.png}
+\includegraphics[width=2in]{./img/config.png}
 \caption{Formato de archivo ``config''.}
 \label{fig:archivoConfig}
 \end{center}
@@ -324,7 +324,7 @@ Por otro lado, el formato del archivo ``modeloBro.log'' es el que se muestra en 
 
 \begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=4in]{./img/modeloBro.png}
+\includegraphics[width=2in]{./img/modeloBro.png}
 \caption{Formato de archivo ``modeloBro.log''.}
 \label{fig:archivoModeloBro}
 \end{center}
@@ -346,7 +346,7 @@ Para leer dicha informacion se hizo uso del  ``Input Framework'' que otorga Bro 
 \textbf{Input::add\_table}(description: \textbf{Input::TableDescription}) : \textbf{bool} 
 
 Donde ``\textbf{TableDescription}'' es la estructura descrita graficamente en
-la figura ~\ref{fig:TableDescription}.
+la figura ~\ref{fig:TableDescription} que se encuentra en el ápendice A.
 
 \subsubsection{Evaluación de las probabilidades de los URI}
 
@@ -357,7 +357,7 @@ de $\theta$, para luego escribir los resultados de la evaluación en un archivo 
 of Probability}, config: \textbf{table[string] of Valor})
 donde:
 \begin{itemize}
-\item uriParsed: es un parámetro de tipo ``UriSegmentado'' (figura \ref{fig:uriSegmentado}), que
+\item uriParsed: es un parámetro de tipo ``UriSegmentado'' (figura \ref{fig:uriSegmentado}, ápendice A), que
 almacena los segmentos del URI.
 \item Bvector: es una tabla que almacena el conjunto de observaciones de cada estado (O) y el conjunto de vectores de probabilidad de las palabras observadas en cada estado, es decir, $B_{S}, B_{P}, B_{A}, B_{V}$.
 \item config: Es una tabla que almacena los diferentes Poov y el valor de $\theta$.
@@ -376,7 +376,7 @@ Bvector: \textbf{table[string,string] of Probability}, epsilon : \textbf{double}
 
 donde los parámetros de entrada serán:
 \begin{itemize}
-\item segmentos: es un parámetro de tipo ``UriSegmentado'' (figura \ref{fig:uriSegmentado}), que
+\item segmentos: es un parámetro de tipo ``UriSegmentado'' (figura \ref{fig:uriSegmentado}, ápendice A), que
 almacena los segmentos del URI.
 \item Bvector: es una tabla que almacena el conjunto de observaciones de cada estado (O) y el conjunto de vectores de probabilidad de las palabras observadas en cada estado, es decir, $B_{S}, B_{P}, B_{A}, B_{V}$.
 \item epsilon: Valor correspondiente al Poov.
@@ -425,7 +425,7 @@ archivo de salida.
 \end{itemize}
 
 La función anterior fue implementada con la ayuda de las herramientas
-que aporta el ``Logging Framework'' de Bro y la estructura de datos ``InfoAtaque'' (fig. ~\ref{fig:InfoAtaque}). La funciones del ``Framework'' utilizadas fueron: ``write'' para escribir sobre el archivo y ``create\_stream'' para crearlo. Ambas pertenecen al modulo ``LOG''. 
+que aporta el ``Logging Framework'' de Bro y la estructura de datos ``InfoAtaque'' (fig. ~\ref{fig:InfoAtaque}, ápendice A). La funciones del ``Framework'' utilizadas fueron: ``write'' para escribir sobre el archivo y ``create\_stream'' para crearlo. Ambas pertenecen al modulo ``LOG''. 
 
 El formato que sigue la función ``write'' es el siguiente :
 
@@ -461,7 +461,7 @@ archivo y ``falso'' si es posible.
 
 \subsection{Implementación del módulo de entrenamiento}
 
-Como se pudo apreciar en la sección \ref{sec:entrenamiento} el modo de entrenamiento cuenta con dos modos: el modo ``Online'' y el modo ``Offline''. En esta se sección, se explicarán las estructuras de datos utilizadas por ambos modos y las funciones implementadas en cada uno de ellos.
+Como se pudo apreciar en la sección \ref{sec:entrenamiento} el modo de entrenamiento cuenta con dos modos: el modo ``Online'' y el modo ``Offline''. En esta se sección, se explicarán las funciones implementadas en cada uno de ellos.
 
 \subsubsection{Entrenamiento ``Offline''}
 
@@ -477,7 +477,7 @@ formato es el siguiente:
 donde:
 
 \begin{itemize}
-\item segmentos: campo de tipo ``UriSegmentado'' (fig. \ref{fig:uriSegmentado}), que almacena los segmentos de un URI
+\item segmentos: campo de tipo ``UriSegmentado'' (fig. \ref{fig:uriSegmentado}, ápendice A), que almacena los segmentos de un URI
 \end{itemize}
 
 Por otra parte, la función ``entrenamientoOffline'' irá observando los segmentos de los URIs de las peticiones que van llegando y contará el número de veces que cada segmento fue observado durante el entrenamiento. El formato de la misma sigue la siguiente estructura:
@@ -485,11 +485,11 @@ Por otra parte, la función ``entrenamientoOffline'' irá observando los segment
 \textbf{entrenamientoOffline}(segmentos: \textbf{UriSegmentado}, vocabulario: \textbf{table[string] of Entrenamiento}, estado: \textbf{string})
 donde:
 \begin{itemize}
-\item segmentos: campo de tipo ``UriSegmentado'' (fig. ~\ref{fig:uriSegmentado}), que almacena
+\item segmentos: campo de tipo ``UriSegmentado'' (fig. ~\ref{fig:uriSegmentado}, ápendice A), que almacena
 los segmentos de un URI (las observaciones).
 \item vocabulario: Tabla que contiene una lista de palabras y una lista de
-nÚmeros que corresponde al número de apariciones y probabilidad de
-aparición de las misma (fig. ~\ref{fig:figEntrenamiento}).
+números que corresponde al número de apariciones y probabilidad de
+aparición de las misma (fig. ~\ref{fig:figEntrenamiento}, ápendice A).
 \item numPalabras: Número total de apariciones de todas las palabras vistas durante el entrenamiento de un estado en concreto.
 \item estado: estado del autómata que se esta entrenando (``host'', ``path'',
 ``argumentos'',``valores'').
@@ -502,7 +502,7 @@ numPalabras: \textbf{double})
 \begin{itemize}
 \item vocabulario: Tabla que contiene una lista de palabras y una lista de
 números que corresponde al número de apariciones y probabilidad de
-aparición de las misma (fig. ~\ref{fig:figInfo}).
+aparición de las misma (fig. ~\ref{fig:figInfo}, ápendice A).
 \item numPalabras: Número total de apariciones de todas las palabras vistas durante el entrenamiento de un estado en concreto.
 \end{itemize}
 
@@ -515,7 +515,7 @@ donde:
 \begin{itemize}
 \item vocabulario: Tabla que contiene una lista de palabras y una lista de
 números que corresponde al número de apariciones y probabilidad de
-aparición de las misma (fig. ~\ref{fig:figInfo}).
+aparición de las misma (fig. ~\ref{fig:figInfo}, ápendice A).
 \item estado: estado al que pertenece la tabla ``vocabulario''.
 \end{itemize}
 
@@ -533,7 +533,7 @@ La función ``entrenarOnline'', cuya tarea sera llamar al resto de las funciones
 donde:
 
 \begin{itemize}
-\item segmentos: campo de tipo ``UriSegmentado'' (fig. \ref{fig:uriSegmentado}), que almacena
+\item segmentos: campo de tipo ``UriSegmentado'' (fig. \ref{fig:uriSegmentado}, ápendice A), que almacena
 los segmentos de un URI
 \end{itemize}
 
@@ -543,7 +543,7 @@ Por otra parte, ``entrenamientoOnline'', encargada de calcular la probabilidad d
 modelo: \textbf{table[string,string] of Probability}, numPalabras: \textbf{double}, state: \textbf{string})
 donde:
 \begin{itemize}
-\item segmentos: campo de tipo ``UriSegmentado'' (fig. \ref{fig:uriSegmentado}), que almacena los segmentos de un URI.
+\item segmentos: campo de tipo ``UriSegmentado'' (fig. \ref{fig:uriSegmentado}, ápendice A), que almacena los segmentos de un URI.
 \item modelo: tabla que almacena el modelo de normalidad previamente
 leído.
 \item numPalabras:
@@ -565,9 +565,9 @@ miento.
 
 \section{Evaluación y pruebas}
 
-En el presente capítulo se explicará las pruebas funcionales y operativas
+En el presente sección se explicará las pruebas operativas
 realizadas al sistema. Así como las bases de datos utilizadas para realizar
-las mismas.
+las misma.
 
 \subsection{Base de datos}\label{ssec:DB}
 
@@ -595,7 +595,7 @@ B.
 
 \subsection{Pruebas operativas}
 
-En esta sección se explicaran las pruebas operativas que se les aplicaron
+A continuación, se explicaran las pruebas operativas que se les aplicaron
 a las tres modalidades del sistema implementado.
 
 \subsubsection{Modo entrenamiento ``Offline''}
@@ -607,7 +607,7 @@ por la misma.
 
 \begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=4in]{./img/modeloOffline.jpg}
+\includegraphics[width=3in]{./img/modeloOffline.jpg}
 \caption{Modelo de normalidad obtenido en el modo ``Offline''.}
 \label{fig:modeloOffline}
 \end{center}
@@ -619,7 +619,7 @@ El modo ``Online'' del sistema fue probado ingresando la base de datos \textbf{d
 
 \begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=4in]{./img/modeloOnline.jpg}
+\includegraphics[width=3in]{./img/modeloOnline.jpg}
 \caption{Modelo de normalidad obtenido en el modo ``Online''.}
 \label{fig:modeloOnline}
 \end{center}
@@ -641,7 +641,7 @@ valor que sea menor que 25 y mayor que 18.
 
 \begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=4in]{./img/indicesMalos.png}
+\includegraphics[width=3in]{./img/indicesMalos.png}
 \caption{Índices de anormalidad obtenidos de db3.pcap.}
 \label{fig:indicesMalos}
 \end{center}
@@ -649,7 +649,7 @@ valor que sea menor que 25 y mayor que 18.
 
 \begin{figure}[!htb]
 \begin{center}
-\includegraphics[width=4in]{./img/indicesBuenos.jpg}
+\includegraphics[width=3in]{./img/indicesBuenos.jpg}
 \caption{Índices de anormalidad obtenidos de db2.pcap.}
 \label{fig:indicesBuenos}
 \end{center}
