@@ -281,11 +281,11 @@
 % Define encabezado en números arabicos  
 \pagenumbering{arabic}
 
-\fancyhf{} % Redefine el encabezado 
+\onehalfspacing % Redefine el encabezado 
 \lhead{}
 \chead{}
-\rhead{\fancyplain{}{\thepage}}
 \renewcommand{\headrulewidth}{0.0pt}
+\rhead{\fancyplain{}{\thepage}}
 \lfoot{}
 \cfoot{}
 \rfoot{}
@@ -309,7 +309,6 @@
 
 \label{Bibliography}
 \bibliography{bibliografia}
-\lhead{\emph{Bibliografía}}
 %\bibliographystyle{ieeetr}
 \addtocontents{toc}{\vspace{2em}}
 
