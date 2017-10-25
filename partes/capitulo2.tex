@@ -3,11 +3,11 @@
 \lhead{Capítulo 2. \emph{Marco teórico}}
 
 
-En el cap\'itulo se describir\'an algunos conceptos importantes para comprender la implementaci\'on del sistema  en el que se basa el presente trabajo. Dichos conceptos son: \textit{IDS, el protocolo HTTP, URI , autom\'atas de estados finitos, autom\'atas probabilísticos, modelo de Markov,SSM y Bro}.
+En el cap\'itulo se describir\'an algunos conceptos importantes para comprender la implementaci\'on del sistema  en el que se basa el presente trabajo. Dichos conceptos son: \textit{IDS, el protocolo HTTP, URI , modelo de Markov,SSM y Bro}.
 
-En l\'ineas generales, se tiene como prop\'osito explicar el funcionamiento de un \textit{IDS} basado en anomalías que haga uso del sistema \textit{SSM} y del lenguaje de scripting de la herramienta \textit{BRO}.
+En l\'ineas generales, se tiene como prop\'osito explicar el funcionamiento de un \textit{IDS} basado en anomalías que haga uso del sistema \textit{SSM} y del lenguaje de ``scripting'' de la herramienta \textit{BRO}.
 
-Este sistema analiza los \textit{URI} de las peticiones tipo GET o HEAD del protocolo \textit{HTTP}, haciendo uso de la t\'ecnica \textit{SSM}. Esta t\'ecnica, a su vez hace uso de \textit{autómatas de estados finitos probabilísticos} y del \textit{modelo de Markov} para determinar si las peticiones realizadas a un servidor \textit{HTTP} son posibles ataques o no.
+Este sistema analiza los \textit{URI} de las peticiones tipo GET o HEAD del protocolo \textit{HTTP}, haciendo uso de la t\'ecnica \textit{SSM}. Esta t\'ecnica, a su vez hace uso de \textit{modelo de Markov} para determinar si las peticiones realizadas a un servidor \textit{HTTP} son posibles ataques o no.
 % De qué va a tratar el capítulo
 % El capítulo 1 suele ser el marco teórico.
 
@@ -39,7 +39,7 @@ Por otra parte, los mensajes de petición y respuesta del protocolo HTTP poseen 
 \end{center}
 \end{figure}
 
-La linea de petición en los mensajes HTTP, presenta tres partes separadas por espacios:
+La línea de petición en los mensajes HTTP, presenta tres partes separadas por espacios:
 
 \begin{enumerate}
 \item El método.
@@ -100,10 +100,10 @@ En un URI, el ``fragment'' corresponde a la dirección de un segundo recurso den
 
 En un URI, tanto el esquema como la ruta son segmentos que deben existir de manera obligatoria. Si la ruta es un carácter vac\'io, se asumir\'a que la misma es ``/''. El resto de los segmentos son opcionales.
 
-\section{Detector de intrusiones (IDS)}
+\section{Detector de Intrusiones (IDS)}
 Un detector de intrusiones (IDS del inglés "Intrusion-detection system" ) es un sistema que se encarga de procesar la información entrante de un sistema a proteger con la intención de detectar actividades maliciosas y lanzar alertas para activar el proceso de auditoría por parte de los administradores de sistema \cite{IDS}
 
-Los IDS suelen clasificados en: IDS basados en firmas o 		IDS 	basados en anomalías. 
+Los IDS suelen clasificados en: IDS basados en firmas o IDS 	basados en anomalías. 
 
 Los IDS basados en firmas, utilizan una base de datos de ataques conocidos y vulnerabilidades del sistema los cuales son utilizados para realizar comparaciones con los patrones seguidos por las actividades detectadas. Si se detecta similitud con alguno de los patrones de la base de datos, se activará una alarma para indicar que un ataque esta siendo perpetuado.
 
@@ -184,7 +184,7 @@ El ejemplo presentado con anterioridad, por lo tanto se puede graficar de la man
 
 \section{SSM}\label{sec:modeloSSM}
 
-SSM o \textit{Structural Stochastic Modeling} en ingl\'es es una tecnica desarrollado por Estevez-Tapiador. A grandes rasgos, esta t\'ecnica se basa en la definición de un autómata de estados finitos estocástico capaz de evaluar la probabilidad de generación de una petición concreta. El autómata permitirá, por tanto, dada una petición, evaluar si dicha petición es legítima (corresponde al modelo) y su probabilidad. En función de la probabilidad y de un umbral se clasificaran las peticiones como normales o anormales.\cite{ssm}
+SSM o \textit{Structural Stochastic Modeling} en ingl\'es es una técnica desarrollado por Estevez-Tapiador. A grandes rasgos, esta t\'ecnica se basa en la definición de un autómata de estados finitos estocástico capaz de evaluar la probabilidad de generación de una petición concreta. El autómata permitirá, por tanto, dada una petición, evaluar si dicha petición es legítima (corresponde al modelo) y su probabilidad. En función de la probabilidad y de un umbral se clasificaran las peticiones como normales o anormales.\cite{ssm}
 
 Esta t\'ecnica, se basa en la teor\'ia de los modelos de Markov ya que se define un autómata de estados finitos que permite evaluar la probabilidad de generaci\'on de una petici\'on, dado un modelo previamente construido.
 

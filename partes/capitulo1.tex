@@ -3,37 +3,37 @@
 
 % De qué va a tratar el capítulo
 % El capítulo 1 suele ser el marco teórico.
-\section{Planteamiento del problema}
+\section{Planteamiento del Problema}
 
-Internet con el pasar de los años se ha estado integrando cada vez más en varios aspectos de nuestras vidas. A pesar de todos los beneficios que trae estar tan conectados a esta red de redes, es preciso recalcar igualmente los problemas que acarrea el hecho de estar conectado a esta sin la existencia de medidas de seguridad necesarias. 
+Internet con el pasar de los años se ha estado integrando cada vez más en varios aspectos de las vidas. A pesar de todos los beneficios que trae estar conectados a esta red de redes, es preciso recalcar igualmente los problemas que acarrea el hecho de estar enlazados a esta sin la existencia de medidas de seguridad necesarias. 
 
-Los dispositivos, las aplicaciones y los sistemas que utilizamos en nuestro día a día almacenan información valiosa a la que pueden acceder personas no deseadas si no existen las medidas necesarias en las redes para evitar los ciberataques. Cada día más y más información digital existe en el mundo, y mientras crece el volumen de dicha información , aumenta también la cantidad de ciberataques que se realizan \cite{pwc}. Es por esta razón, que el concepto de ciberseguridad es de vital importancia cuando hablamos del cibermundo.  La ciberseguridad, se encarga de proteger redes de comunicación, sistemas y datos de ataques cibernéticos. 
+Los dispositivos, las aplicaciones y los sistemas que utilizamos en el día a día almacenan información valiosa a la que pueden acceder personas no deseadas si no existen las medidas necesarias en las redes para evitar los ciberataques. Cada día más y más información digital existe en el mundo, y mientras crece el volumen de dicha información , aumenta también la cantidad de ciberataques que se realizan \cite{pwc}. Es por esta razón, que el concepto de ciberseguridad es de vital importancia cuando hablamos del cibermundo.  La ciberseguridad, se encarga de proteger redes de comunicación, sistemas y datos de ataques cibernéticos. 
 
-Uno de los métodos utilizados en la ciberseguridad son los detectores de intrusiones (IDS, por sus siglas en inglés Intrusion-detection system). Un IDS es detector que procesa información proveniente del sistema o redes de computadores que se desea proteger. Una vez que que detectada una intrusión este lanza alertas para activar el proceso de auditoría por parte de los administradores de sistema \cite{IDS}. 
+Uno de los métodos utilizados en la ciberseguridad son los detectores de intrusiones (IDS, por sus siglas en inglés ``Intrusion-detection system''). Un IDS es detector que procesa información proveniente del sistema o redes de computadores que se desea proteger. Una vez que que detectada una intrusión este lanza alertas para activar el proceso de auditoría por parte de los administradores de sistema \cite{IDS}. 
 
 Por otra parte, uno de los servicios más utilizados en el mundo del Internet y que más contienen información son los servicios web. Estas características hacen que este tipo de servicios sea uno de los más apetecibles para los ciberataques. Se hace evidente entonces, que se requieren medidas en el área de la ciberseguridad dirigidas a estos casos.
 
-Es por esta razón que grupos de investigación se han dedicado a tratar de solventar dicho problema. Tal es el caso del grupo de investigación de la Universidad de Granada que  ha desarrollado un IDS para detectar ataques a servidores web llamado SSM ("Segmented Stochastic Modelling") y así evitar problemas como: el reconocimiento, el escaneo de paquetes de red, la obtención y el mantenimiento de acceso al servidor y la modificacion de ``logs'' que evitan que se rastree el ataque en este tipo de servicios.
+Es por esta razón que grupos de investigación se han dedicado a tratar de solventar dicho problema. Tal es el caso del grupo de investigación de la Universidad de Granada que  ha desarrollado un IDS para detectar ataques a servidores web llamado SSM (``Segmented Stochastic Modelling'') y así evitar problemas como: el reconocimiento, el escaneo de paquetes de red, la obtención y el mantenimiento de acceso al servidor y la modificación de ``logs'' que evitan que se rastree el ataque en este tipo de servicios.
 
 Es por ello que resultaría interesante implementar un sistema de intrusiones que ha presentados resultados satisfactorios como es el caso de SSM haciendo uso de una herramienta tan potente y en auge como lo es Bro.
 
 \section{Objetivos}
-\subsection{Objetivos generales}
-El objetivo del presente trabajo es incorporar la técnica de detección de intrusiones SSM propuesta en \cite{ssm} en el sistema Bro. Para ello deben usarse las capacidades de scripting de Bro e incorporar las funcionalidades necesarias como un módulo que pueda activarse a demanda para monitorizar las peticiones a los servicios web.
-\subsection{Objetivos específicos}
+\subsection{Objetivos Generales}
+El objetivo del presente trabajo es incorporar la técnica de detección de intrusiones SSM propuesta en \cite{ssm} en el sistema Bro. Para ello deben usarse las capacidades de ``scripting'' de Bro e incorporar las funcionalidades necesarias como un módulo que pueda activarse a demanda para monitorizar las peticiones a los servicios web.
+\subsection{Objetivos Específicos}
 La consecución del objetivo general planteado puede abordarse a partir de los siguientes objetivos específicos:
 
 \begin{enumerate}
 \item Interceptar las URI para su análisis haciendo uso de Bro para capturar y filtrar la información de los paquetes del protocolo HTTP.
-\item Desarrollar un módulo que permita evaluar el índice de anomalía de los URI haciendo uso de las herramientas otorgadas por el lenguaje de scripting de Bro y siguiendo las especificaciones y expresiones pautadas por la técnica de detección de intrusiones SSM. 
-\item Desarrollar un módulo para la estimación de los modelos de normalidad haciendo uso de las herramientas otorgadas por el lenguaje de scripting de Bro que permita obtener un modelo de normalidad a partir de trafico libre de ataques.
+\item Desarrollar un módulo que permita evaluar el índice de anomalía de los URI haciendo uso de las herramientas otorgadas por el lenguaje de ``scripting'' de Bro y siguiendo las especificaciones y expresiones pautadas por la técnica de detección de intrusiones SSM. 
+\item Desarrollar un módulo para la estimación de los modelos de normalidad haciendo uso de las herramientas otorgadas por el lenguaje de ``scripting'' de Bro que permita obtener un modelo de normalidad a partir de trafico libre de ataques.
 \item Evaluar experimentalmente el funcionamiento del sistema realizando pruebas, tanto funcionales como operativas para verificar el correcto funcionamiento del mismo.
 \end{enumerate}
 
-\section{Justificación e importancia}
+\section{Justificación e Importancia}
 
 
-La intención del proyecto es implementar un detector de intrusiones para servicios web, basado en SSM haciendo uso de la herramiento Bro.
+La intención del proyecto es implementar un detector de intrusiones para servicios web, basado en SSM haciendo uso de la herramienta Bro.
 
 Un Detector de Intrusiones (IDS) es un sistema que monitoriza todas las actividades de un sistema en específico para detectar intrusiones\cite{IDSdef}. Si el mismo detecta una intrusión, se generará una alerta para que los administradores del sistema se encarguen de la misma.
 
@@ -43,9 +43,9 @@ Es por esto, que los IDS conforman un aspecto importante dentro de la seguridad,
 
 Por otra parte, SSM es un sistema basado en el uso de modelos realizados a partir de las peticiones hechas al servicio web. Los resultados experimentales en este sistema muestran la eficacia del mismo detectando anomalías en este tipo de servicios. Sin embargo, la implementación disponible de SSM es de laboratorio y funciona sobre trazas estáticas, por lo que la técnica no está disponible actualmente para su uso en redes en explotación.
 
-No obstante, para que realizar una implementación de sistema que funcione en redes en explotación, se requieren de herramientas aptas que permitan capturar y analizar el tráfico en la red. Por su parte, Bro, es un sistema de monitorización de red de código abierto muy utilizado hoy en día para el desarrollo de mecanismos de seguridad que posee: su propio lenguaje de scripting y una comunidad de asistencia que va creciendo cada vez más con el tiempo.
+No obstante, para realizar una implementación de sistema que funcione en redes en explotación, se requieren de herramientas aptas que permitan capturar y analizar el tráfico en la red. Por su parte, Bro, es un sistema de monitorización de red de código abierto muy utilizado hoy en día para el desarrollo de mecanismos de seguridad que posee: su propio lenguaje de ``scripting'' y una comunidad de asistencia que va creciendo cada vez más con el tiempo.
 
-Por lo tanto, implementar una técnica que ha tenido resultados satisfactorios como lo es SSM, haciendo uso de Bro, que es una herramienta en auge en el ámbito de la seguridad de redes hoy en día resulta de mucha utilidad ya que esta unión permitirá de manera satisfactoria detectar intrusiones en los servicios web en producción para de esta manera alertar en la manera de los posible sobre ataques de reconocimiento, escaneo, la obtención y el mantenimiento de acceso al servidor y la modificación de ``logs'' que evitan que se rastree el ataque.
+Por lo tanto, implementar una técnica que ha tenido resultados satisfactorios como lo es SSM, haciendo uso de Bro, que es una herramienta en auge en el ámbito de la seguridad de redes hoy en día resulta de mucha utilidad ya que esta unión permitirá de manera satisfactoria detectar intrusiones en los servicios web en producción para de esta manera alertar sobre ataques de reconocimiento, escaneo, la obtención y el mantenimiento de acceso al servidor y la modificación de ``logs'' que evitan que se rastree el ataque.
 
 
 \section{Planificación}
@@ -62,7 +62,7 @@ Durante esta etapa se realizará un estudio sobre los IDS, los tipos de IDS y el
 
 \item Análisis de Bro
 
-Durante esta etapa del proyecto se instalará, se estudiará la documentación y se aprenderá a hacer uso de la herramienta Bro y su lenguaje de scripting.
+Durante esta etapa del proyecto se instalará, se estudiará la documentación y se aprenderá a hacer uso de la herramienta Bro y su lenguaje de ``scripting''.
 
 \item Arquitectura modular del sistema 
 
@@ -77,7 +77,7 @@ En esta etapa se realizará el diseño de los módulos principales que conforman
 \end{legal}
 \item Implementación del sistema
 
-En esta etapa del proyecto se llevará a cabo la implementación del sistema haciendo uso del lenguaje de scripting de Bro.
+En esta etapa del proyecto se llevará a cabo la implementación del sistema haciendo uso del lenguaje de ``scripting'' de Bro.
 
 \begin{legal}
 \item Módulo de análisis sintáctico/segmentación de URIS 
@@ -94,7 +94,7 @@ En esta etapa se implementarán las estructuras de datos y módulo de entrenamie
 
 \item Módulo de gestión del tipo de sistema
 
-En esta etapa del proyecto se implementará el módulo de gestión del tipo de sistema haciendo uso de "bash scripting". 
+En esta etapa del proyecto se implementará el módulo de gestión del tipo de sistema haciendo uso de ``bash scripting''. 
 
 \item Módulo de reportes
 

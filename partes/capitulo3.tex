@@ -2,7 +2,7 @@
 \label{capitulo3}
 \lhead{Capítulo 3. \emph{Diseño del sistema}}
 
-\section{Estado del arte}
+\section{Estado del Arte}
 
 En esta etapa del proyecto se realizó una investigación sobre los conceptos fundamentales del sistema a implementar. Las definiciones estudiadas fueron: el protocolo HTTP, los URIs, detector de intrusiones (IDS), modelo de Markov y SSM.
 El resumen de esta investigación se encuentra en el capítulo \ref{capitulo2} del presente trabajo.
@@ -13,7 +13,7 @@ En esta etapa del proyecto se descargó, se instaló y se estudio la herramienta
 
 \section{Diseño de la arquitectura del sistema}
 
-Esta sección tiene la intención de mostrar la visión general del modelado del sistema que se realizó a partir de las bases teóricas. Aquí, se explicará la arquitectura, el diseño y el modo en el que el IDS basado en SSM interactuará con Bro. Ademas, se detallaran las salidas y los datos de configuración
+Esta sección tiene la intención de mostrar la visión general del modelado del sistema que se realizó a partir de las bases teóricas. Aquí, se explicará la arquitectura, el diseño y el modo en el que el IDS basado en SSM interactuará con Bro. Además, se detallaran las salidas y los datos de configuración
 que va a considerar el sistema para su correcto funcionamiento.
 
 \subsection{Arquitectura del sistema}
@@ -129,14 +129,14 @@ En la figura \ref{fig:arquiEntrenamiento} se puede apreciar el diagrama de bloqu
 \end{center}
 \end{figure}
 
-\section{Implementación del sistema}
+\section{Implementación del Sistema}
 
 Una vez descrita la arquitectura modular del sistema y las funcionalidades asociadas a los diferentes componentes del sistema, en este capítulo se detallarán las cuestiones más relevantes en cuanto a su implementación.
 Así, en primer lugar, se describirán como se implementó el filtro de paquetes HTTP/GET, para luego explicar las estructuras de datos utilizadas por cada uno de los módulos; los parámetros de entrada, salida y la implementación de las funciones que los componen.
 
-\subsection{Filtrado de paquetes HTTP/GET}
+\subsection{Filtrado de Paquetes HTTP/GET}
 
-El módulo de segmentación requiere como entrada los URIs extraidos de las peticiones de tipo HTTP/GET. Esta tarea se realizó haciendo uso de las herramientas brindadas por Bro. En concreto, esta funcionalidad fué implementada con un evento primitivo de Bro llamado ``http request''. Este evento se genera y almacena la información de paquetes HTTP cuando son percibidos por dicha herramienta en la red. Su formato es el siguiente:
+El módulo de segmentación requiere como entrada los URIs extraídos de las peticiones de tipo HTTP/GET. Esta tarea se realizó haciendo uso de las herramientas brindadas por Bro. En concreto, esta funcionalidad fué implementada con un evento primitivo de Bro llamado ``http request''. Este evento se genera y almacena la información de paquetes HTTP cuando son percibidos por dicha herramienta en la red. Su formato es el siguiente:
 
 \textbf{http request}(c: \textbf{connection}, method: \textbf{string}, original\_URI: \textbf{string},
 unescaped\_URI: \textbf{string}, version: \textbf{string})
@@ -149,11 +149,11 @@ donde:
 \item version: Número de la version HTTP (e.g. 1.1). Este estará especificado en la petición.
 \end{itemize}
 
-\subsection{Implementación del modulo de segmentación}
+\subsection{Implementación del Módulo de Segmentación}
 
 En esta sección, se explicará de manera detallada la implementación del módulo de segmentación. Este módulo forma parte de los tres que conforman el sistema de detección de intrusiones basado en SSM.
 
-\subsubsection{Función de segmentación}
+\subsubsection{Función de Segmentación}
 
 En la función de segmentación, el problema que se quiere resolver es el siguiente:construir un analizador sintáctico que haga uso de una gramática (libre de contexto) de atributos que genera el mismo lenguaje que reconoce el autómata presentado en la figura \ref{fig:ssm}. A nivel de implementación lo que se quiere construir es un analizador sintáctico que verifique que los URIs tengan una estructura sintáctica correcta según los estándares del RFC 3986, y que a la vez vaya almacenando los segmentos, delimitados por los delimitadores presentados en la sección \ref{sec:delimitadores}.
 
@@ -195,7 +195,7 @@ Q’ -> atributo “=” valor “\&” Q’ \\
 
 Donde, el elemento de inicio de esta gramática es el símbolo no terminal ``S''
 
-Para almacenar los segmentos en la estructura de datos compuesta de tipo ``UriSegmentado'' que se presenta en la ápendice ~\ref{ssec:estructuraSegmentacion}, a la gramática \ref{eq:gramatica} se le van a asociar atributos a algunas de las reglas de la misma. A este tipo de gramática se le llama gramática de atributos. Los atributos de dicha gramática serán escritos en el lenguaje de scripting de Bro.
+Para almacenar los segmentos en la estructura de datos compuesta de tipo ``UriSegmentado'' que se presenta en la ápendice ~\ref{ssec:estructuraSegmentacion}, a la gramática \ref{eq:gramatica} se le van a asociar atributos a algunas de las reglas de la misma. A este tipo de gramática se le llama gramática de atributos. Los atributos de dicha gramática serán escritos en el lenguaje de ``scripting'' de Bro.
 
 \begin{equation}\label{eq:gramaticaAtributos}
 \begin{aligned}
@@ -257,7 +257,7 @@ Los parámetros de dicha función son:
 \item url : Cadena de caracteres que será segmentada.
 \end{itemize}
 
-\subsubsection{Función de normalización}
+\subsubsection{Función de Normalización}
 
 La normalización de los URI debe realizarse de acuerdo a las especificaciones establecidas en la Sección 2.6, habiéndose implementado para ello una función denominada ``normalizar'', con el siguiente formato.
 
@@ -268,7 +268,7 @@ La normalización de los URI debe realizarse de acuerdo a las especificaciones e
 \end{itemize}
 
 Esta función tomará el parámetro de entrada y mediante un ``loop for''
-se itera por cada una tabla de hash cuyas claves serían elementos de tipo UTF-8 y los atributos de la misma correspondería a los caracteres sin alguna codificación. Si alguno de los elementos de la tabla está contenido en el ``string'' que la función recibe como entrada, entonces se procederá a reemplazar el elemento del párametro de entrada por el valor que posee dicha clave en la tabla de hash. Esta tarea de subsitución se realizará haciendo uso de la función ``subst string'' que proporciona Bro.
+se itera por cada una tabla de hash cuyas claves serían elementos de tipo UTF-8 y los atributos de la misma correspondería a los caracteres sin alguna codificación. Si alguno de los elementos de la tabla está contenido en el ``string'' que la función recibe como entrada, entonces se procederá a reemplazar el elemento del párametro de entrada por el valor que posee dicha clave en la tabla de hash. Esta tarea de sustitución se realizará haciendo uso de la función ``subst string'' que proporciona Bro.
 
 ``subst\_string'' es una función de la forma:
 
@@ -284,11 +284,11 @@ sustituida.
 \end{itemize}
 
 
-\subsection{Implementación del módulo de evaluación}
+\subsection{Implementación del Módulo de Evaluación}
 
 En esta sección se explicará de manera detallada la manera en la que se implementó el módulo de evaluación explicado en la sección \ref{sec:evaluacion}  haciendo uso del lenguaje de ``scripting'' de Bro.
     
-\subsubsection{Modelo de normalidad en Bro}
+\subsubsection{Modelo de Normalidad en Bro}
 \label{sec:lecturaModelo}
 
 En esta sección se explicará cual es el formato de almacenamiento del
@@ -298,7 +298,7 @@ se implementó la lectura del mismo.
 Los elementos que necesitan ser introducidos al módulo de evaluación para su correcto funcionamiento son: el conjunto de observaciones de cada estado (O), el conjunto de vectores de probabilidad de las palabras observadas en cada estado ( $B_{S}, B_{P}, B_{A}, B_{V}$ ), los
 valores de probabilidad de fuera de vocabulario ($P_{oovP}, P_{oovA}, P_{oovV}$), y el valor del parámetro $\theta$ (Ec. \ref{eq:ClaseU}).
 
-\subsubsection*{Formato de los archivos de entrada}
+\subsubsection*{Formato de los Archivos de Entrada}
 
     Los parámetros necesarios para el funcionamiento del módulo de evaluación, serán introducidos a tráves de dos archivos, un archivo llamado
 ``config'' que contendrá los valores de la probabilidad de fuera de vocabulario ($P_{oovP}, P_{oovA}, P_{oovV}$ ) y el valor del parámetro $\theta$ (ec. \ref{eq:ClaseU}) y otro llamado
@@ -332,13 +332,13 @@ Por otro lado, el formato del archivo ``modeloBro.log'' es el que se muestra en 
 
 La segunda columna de este archivo (``word'') corresponde al conjunto de observaciones ``O'' de cada uno de los estados, mientras que la tercera columna (``probability'') indica la probabilidad de aparición de cada palabra ($B_{S}, B_{P}, B_{A}, B_{V}$). Por otra parte, la primera columna (``state'') indica a que estado del autómata \ref{fig:ssm} pertenece cada palabra y su probabilidad de generación.
 
-Las filas del archivo ``modeloBro.log'' que tienen en la primera columna las palabras: ``numeroPalabraSs'', ``numeroPalabraSp'', ``numeroPalabraSa'', ``numeroPalabraSv'' contienen el número de palabras que han sido procesadas por estado. Esta informacion será utilizada en el entrenamiento en modo offline que será explicado en la sección.
+Las filas del archivo ``modeloBro.log'' que tienen en la primera columna las palabras: ``numeroPalabraSs'', ``numeroPalabraSp'', ``numeroPalabraSa'', ``numeroPalabraSv'' contienen el número de palabras que han sido procesadas por estado. Esta información será utilizada en el entrenamiento en modo ``Offline'' que será explicado en la sección.
 
-\subsubsection*{Lectura de los archivos}
+\subsubsection*{Lectura de los Archivos}
 
 Una vez explicado el formato de los archivos que contienen los elementos del modelo y los parámetros necesarios para realizar el cálculo y la evaluación del índice de normalidad de los URIs a evaluar se procederá a explicar el funcionamiento de las funciones encargadas de leer los archivos con la información de entrada.
 
-Para leer dicha informacion se hizo uso del  ``Input Framework'' que otorga Bro como herramienta para leer archivos de entrada. La función utilizada para leer los archivos se llama ``add\_table'' y pertenece al módulo llamado ``Input''.
+Para leer dicha información se hizo uso del  ``Input Framework'' que otorga Bro como herramienta para leer archivos de entrada. La función utilizada para leer los archivos se llama ``add\_table'' y pertenece al módulo llamado ``Input''.
 
 ``add\_table'' se encarga de leer archivos de entrada y almacenar sus datos en una tabla. El formato de esta funcion es el siguiente:\\
 %Extraido de : https://www.bro.org/sphinx/frameworks/input.html, https://www.bro.org/sphinx/scripts/base/frameworks/input/main.bro.html\#id-Input::add_table, https://www.bro.org/sphinx/scripts/base/frameworks/input/main.bro.html\#type-Input::TableDescription 
@@ -348,7 +348,7 @@ Para leer dicha informacion se hizo uso del  ``Input Framework'' que otorga Bro 
 Donde ``\textbf{TableDescription}'' es la estructura descrita graficamente en
 la figura ~\ref{fig:TableDescription} que se encuentra en el ápendice A.
 
-\subsubsection{Evaluación de las probabilidades de los URI}
+\subsubsection{Evaluación de las Probabilidades de los URI}
 
 La función ``evaluacion'' del módulo de evaluación, se encargará de hallar el  índice de anormalidad, dado un conjunto de segmentos de URI, e indicará si el mismo es anómalo o no comparándolo con el valor
 de $\theta$, para luego escribir los resultados de la evaluación en un archivo de reportes del sistema. La función implementada que se encargara de realizar las tareas anteriormente descritas tiene el siguiente formato:
@@ -579,13 +579,12 @@ seguir fueron los siguientes:
 \item Se instaló una aplicación de servicio web en el ordenador.
 \item Se corrió una aplicación web en la aplicación anteriormente instalada.
 \item Se empezaron a hacer solicitudes a la aplicación web a tráves de otro
-dispositivo. Mientras esto ocurria, ``Wireshark'' realizaba las capturas
+dispositivo. Mientras esto ocurría, ``Wireshark'' realizaba las capturas
 de los paquetes de la red.
 \end{enumerate}
 Se obtuvo cuatro bases de datos:
 \begin{itemize}
-\item db1.pcap: Capturas de paquetes provenientes de las solicitudes reali-
-zadas a una aplicación web, A.
+\item db1.pcap: Capturas de paquetes provenientes de las solicitudes realizadas a una aplicación web, A.
 \item db2.pcap: Capturas de paquetes provenientes de la misma aplicación
 web A.
 \item db3.pcap: Capturas de paquetes provenientes de una aplicación web,
