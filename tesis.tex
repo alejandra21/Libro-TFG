@@ -159,9 +159,6 @@
    backgroundcolor=\color{lightgrey}
 }
 
-% Crea el glosario
-\makeglossaries
-
 % Incluye el glosario
 %\input{apendices/glosario.tex}
 
@@ -187,13 +184,14 @@
 \marginsize{3cm}{2cm}{2cm}{2cm}
 
 % Glosario y lista de abreviaturas
-\usepackage{longtable}
-\usepackage[acronym]{glossaries}
 \makeglossaries 
-\loadglsentries{./partes/0_abreviaturas.tex}
+%\loadglsentries{0_abreviaturas.tex}
 
-\usepackage{hyperref}
-\usepackage{bookmark}
+\newacronym{gcd}{GCD}{Greatest Common Divisor}
+\newacronym{lcm}{LCM}{Least Common Multiple}
+
+%\usepackage{hyperref}
+%\usepackage{bookmark}
 
 % Centrar el titulo de los capítulos
 \usepackage{titlesec}
@@ -248,22 +246,23 @@
 
 % Cambios de titulos de indices
 \renewcommand{\listfigurename}{Índice de Figuras}
-%\renewcommand{\listtablename}{Índice de Tablas}
+\renewcommand{\listtablename}{Índice de Tablas}
 %\renewcommand{\tablename}{Tabla}
 \renewcommand{\contentsname}{Índice General}
 \renewcommand\bibname{Referencias}
 
 % Pagina de resumen
+\phantomsection
+\addcontentsline{toc}{chapter}{Resumen}
 \input{./partes/0_resumen.tex}
 
 % Pagina de agradecimientos (opcional)
-%\input{./partes/0_agradecimientos.tex}
 
 
 % Crea la tabla de contenidos
 \tableofcontents
 % Crea la lista de cuadros
-%\listoftables
+\listoftables
 
 % Crea la lista de figuras
 \listoffigures
@@ -276,9 +275,7 @@
 %\lstlistoflistings
 
 % Crea la lista de abreviaturas
-\printglossary[style=list,type=\acronymtype,title=Lista de abreviaturas]
-
-
+\input{./partes/0_abreviaturas.tex}
 \clearpage
 
 % Define encabezado en números arabicos  
@@ -298,7 +295,6 @@
 % Incluye los archivos deseados - El contenido de su proyecto de grado/pasantia larga.
 %\phantomsection
 %\addcontentsline{toc}{chapter}{Introducción}
-
 
 \input{./partes/introduccion}
 \input{./partes/capitulo1}
@@ -321,9 +317,6 @@
     \setstretch{1}
     \bibliography{referencias}
 \endgroup
-
-\glsaddall
-\printglossary
 
 % Apéndices
 \appendix

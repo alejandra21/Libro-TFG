@@ -1,6 +1,6 @@
-\chapter{Estructuras de datos del sistema}
+\chapter{Estructuras de Datos del Sistema}
 \label{apendiceA}
-\lhead{Apéndice A. \emph{Estructuras de datos del sistema}}
+\lhead{Apéndice A. \emph{Estructuras de Datos del Sistema}}
 
 % En los apéndices se incluye cualquier información que no sea esencial para la
 % comprensión básica del trabajo, pero provea ejemplos y casos de estudio
@@ -21,7 +21,7 @@ Se utilizó un hash table para implementar este diccionario debido a que es ampl
 
 Para implementar este tipo de estructura se utilizó el tipo de dato ``table'' otorgado por el lenguaje de scripting de Bro.
 
-\subsection*{Función de segmentación}
+\subsection*{Función de Segmentación}
 \label{ssec:estructuraSegmentacion}
 
 Por otra parte, la estructura de datos utilizada en la función de segmentación de este módulo es un registro en el cual se almacenan todos los segmentos que se originan a partir de la segmentación de un URI, el URI sin segmentar, un booleano que informa si el URI segmentado sigue con la sintaxis establecida en el RFC 3896, y el número de estados que fueron visitados en el autómata presentado en el modelo teórico.
@@ -83,7 +83,7 @@ La estructura ``URI'' se puede apreciar gráficamente en la figura \ref{fig:URI}
 
 El módulo de evaluación del sistema cuenta con varias estructura de datos compuestas de tipo ``register'' y de tipo ``table'' que serán explicados a continuación 
 
-\subsection*{Modelo de normalidad}
+\subsection*{Modelo de Normalidad}
 \label{sssec:estructuraModelo}
 
 Existen dos estructuras de tipo ``register'' en la función para leer el modelo de normalidad y dos de tipo ``table''.
@@ -155,7 +155,7 @@ La segunda tabla es una hash table que tendrá solo un elemento como clave de ti
 
 En dicha tabla se van a almacenar las probabilidades de fuera de vocabulario de cada uno de los estados del autómata y el parámetro $\theta$. La clave de la misma sería una cadena de caracteres que identifique cada una de las probabilidades  y el parámetro  $\theta$. Esas etiquetas serían las siguientes: Poov1, Poov2, Poov3, Poov4, Theta.  
 
-\subsection*{Evaluación de las probabilidades de los URI}
+\subsection*{Evaluación de las Probabilidades de los URI}
 \label{sssec:estructuraEvaluacion}
 
 La función  que se encarga de calcular el índice de anormalidad  y evaluar si el mismo es anómalo o no, solo contiene una estructura compuesta de tipo ``record'' y se utiliza junto a una herramienta de Bro que funciona para escribir ``logs''. Los ``logs'' que son escritos a través de esta herramienta son archivos de texto que contiene una lista de los URI que presentan anomalías.

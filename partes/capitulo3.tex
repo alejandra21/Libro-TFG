@@ -11,12 +11,12 @@ El resumen de esta investigación se encuentra en el capítulo \ref{capitulo2} d
 
 En esta etapa del proyecto se descargó, se instaló y se estudio la herramienta Bro y su lenguaje de ``scripting''. Bro, es la herramienta principal que se utilizó en la implementación del sistema. Un resumen de esta y de su lenguaje de programación se encuentra en la sección \ref{ssec:Bro}.
 
-\section{Diseño de la arquitectura del sistema}
+\section{Diseño de la Arquitectura del Sistema}
 
 Esta sección tiene la intención de mostrar la visión general del modelado del sistema que se realizó a partir de las bases teóricas. Aquí, se explicará la arquitectura, el diseño y el modo en el que el IDS basado en SSM interactuará con Bro. Además, se detallaran las salidas y los datos de configuración
 que va a considerar el sistema para su correcto funcionamiento.
 
-\subsection{Arquitectura del sistema}
+\subsection{Arquitectura del Sistema}
 
 La arquitectura del detector de intrusiones que se muestra en el presente trabajo se basa en una arquitectura modular la cual está conformada por tres modulo. Un modulo para realizar la segmentación de los URIs, otro  para realizar la evaluación y un tercero para realizar el entrenamiento.
 
@@ -58,7 +58,7 @@ detallado en la figura \ref{fig:modoSistema}.
 \end{figure}
 
 
-\subsection{Filtrado de paquetes HTTP/GET}
+\subsection{Filtrado de Paquetes HTTP/GET}
 
 Esta funcionalidad se encargará de observar los paquetes de la red y filtrar aquellos de tipo HTTP/GET. Una vez obtenido este tipo de paquetes, esta función extraerá el URI adjunto al mismo.
 
@@ -66,7 +66,7 @@ Esta funcionalidad se encargará de observar los paquetes de la red y filtrar aq
 
 En esta sección se describirán las tareas de cada uno de los módulos que conformar la arquitectura detallada en la figura \ref{fig:arquitectura}, el modo en el que se subdividieron dichas tareas, los datos de entrada y salida, y la interacción que existe entre los mismos.
 
-\subsubsection{Módulo de segmentación}
+\subsubsection{Módulo de Segmentación}
 
 El modulo de segmentación es un elemento clave dentro de la construcción del IDS basado en SSM, es por eso que su buen diseño e implementación es importante para el buen funcionamiento del sistema. Este se encarga, como se mencionó anteriormente,de tomar el URI que proviene de la solicitud de tipo HTTP/GET que se le hace al servidor HTTP capturado por Bro, normalizarlo y segmentarlo siguiendo las especificaciones que se explicaron en la sección \ref{sec:delimitadores}. 
 
@@ -84,7 +84,7 @@ En la figura \ref{fig:arquiSegmentacion} se puede apreciar el diagrama de bloque
 \end{center}
 \end{figure}
 
-\subsubsection{Módulo de evaluación}
+\subsubsection{Módulo de Evaluación}
 \label{sec:evaluacion}
 
 El módulo de evaluación, es el encargado de evaluar la probabilidad de generación de cada uno de los segmentos del URI otorgados por el modulo de segmentación, dado un modelo de normalidad. Una vez calculadas estas probabilidades, el modulo se encargará de calcular un índice de anormalidad del URI mediante el uso de las formulas descritas en la sección ~\ref{subsec:exprIndice} para luego compararlo con un parámetro $\theta$ (\ref{eq:ClaseU}) y de este modo saber si los segmentos de URI que ingresaron como entrada posee alguna anormalidad o no. Luego de realizar esta evaluación, el modulo se encargara de escribir los reportes del sistema en un ``log''.
@@ -107,7 +107,7 @@ El diagrama de bloques presente en la figura \ref{fig:arquiEvaluacion} represent
 \end{center}
 \end{figure}
 
-\subsubsection{Módulo de entrenamiento}\label{sec:entrenamiento}
+\subsubsection{Módulo de Entrenamiento}\label{sec:entrenamiento}
 
 El modelo de normalidad es uno de los aspecto importantes dentro del IDS basado en SSM ya que a partir de la información que este almacena se podrá decidir si un URI es anómalo o no dependiendo de la similitud que posea este con los datos que almacena el modelo. Por esta razón, realizar un modelo de normalidad apropiado es un aspecto  importante para que el módulo de evaluación haga detecciones de intrusiones más certeras.
 
@@ -459,7 +459,7 @@ El parámetro de salida de esta función sera ``verdadero'' si se puedo crear el
 archivo y ``falso'' si es posible.
 
 
-\subsection{Implementación del módulo de entrenamiento}
+\subsection{Implementación del Módulo de Entrenamiento}
 
 Como se pudo apreciar en la sección \ref{sec:entrenamiento} el modo de entrenamiento cuenta con dos modos: el modo ``Online'' y el modo ``Offline''. En esta se sección, se explicarán las funciones implementadas en cada uno de ellos.
 
@@ -563,13 +563,13 @@ miento.
 \end{itemize}
 
 
-\section{Evaluación y pruebas}
+\section{Evaluación y Pruebas}
 
 En el presente sección se explicará las pruebas operativas
 realizadas al sistema. Así como las bases de datos utilizadas para realizar
 las misma.
 
-\subsection{Base de datos}\label{ssec:DB}
+\subsection{Base de Datos}\label{ssec:DB}
 
 Las bases de datos utilizadas por las pruebas fueron trazas capturadas
 en servidores web. Para capturar estos paquetes de tipo HTTP los pasos a
@@ -592,12 +592,12 @@ B.
 \item db4.pcap: Capturas de paquetes descargadas de: \cite{wireshark}.
 \end{itemize}
 
-\subsection{Pruebas operativas}
+\subsection{Pruebas Operativas}
 
 A continuación, se explicaran las pruebas operativas que se les aplicaron
 a las tres modalidades del sistema implementado.
 
-\subsubsection{Modo entrenamiento ``Offline''}
+\subsubsection{Modo Entrenamiento ``Offline''}
 
 Para probar el modo ``Offline'' del sistema, se tomó la base de datos \textbf{db3.pcap} explicada en la sección \ref{ssec:DB}, y se le ingresó al sistema configurado en modo ``Offline''. Una vez realizado esto, se observó el modelo de
 normalidad arrojado por dicha modalidad.
@@ -612,7 +612,7 @@ por la misma.
 \end{center}
 \end{table}
 
-\subsubsection{Modo entrenamiento ``Online''}
+\subsubsection{Modo Entrenamiento ``Online''}
 
 El modo ``Online'' del sistema fue probado ingresando la base de datos \textbf{db4.pcap} explicada en la sección \ref{ssec:DB} al sistema junto con el modelo mostrado en la figura \ref{fig:modeloOffline}. Una vez realizado esto, se observo la salida y se pudo verificar que, en efecto el modelo antiguo fue modificado. En la figura \ref{fig:modeloOnline} se puede apreciar la salida de esta modalidad tras la prueba realizada.
 
@@ -624,7 +624,7 @@ El modo ``Online'' del sistema fue probado ingresando la base de datos \textbf{d
 \end{center}
 \end{table}
 
-\subsubsection{Modo evaluación}
+\subsubsection{Modo Evaluación}
 
 Para realizar la prueba del modo de evaluación se tomó la base de datos
 \textbf{db1.pcap} para realizar un modelo de normalidad haciendo uso del modo de entrenamiento ``Offline''. De esta manera, se evaluarán las trazas que se encuentran en la base de datos, \textbf{db2.pcap} y \textbf{db3.pcap} y se observaran los resultados obtenidos.
